@@ -25,6 +25,9 @@ exports.signup = (req, res, next) => {
           res.json({ message: "Number of records inserted: " + result.affectedRows });
           
         })});
+}
+else{
+  res.json({message: "votre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"})
 }};
 
         
@@ -61,4 +64,74 @@ exports.login = (req, res, next) => {
             });
     
 
+};
+
+exports.nomModify = (req,res,next) =>{
+  let sql = "UPDATE users SET nom =? WHERE id = ?";
+  let data = [req.body.nom, req.params.id];
+  con.query(sql,data,function(err, result){
+    if (err) throw err;
+    res.status(200).json({message:"user modifier!"})
+  })
+};
+
+exports.prenomModify = (req, res, next) =>{
+  let sql = "UPDATE users SET prenom =? WHERE id = ?";
+  let data = [req.body.prenom, req.params.id];
+  con.query(sql,data,function(err, result){
+    if (err) throw err;
+    res.status(200).json({message:"user modifier!"})
+  })
+};
+
+exports.mailModify = (req, res, next) =>{
+  const mycryptoKey = process.env.cryptoKey;//variable d'env//
+    const mycryptoIv = process.env.cryptoIv;//variable d'env//
+    var key = cryptoJs.enc.Hex.parse(mycryptoKey);
+    var iv = cryptoJs.enc.Hex.parse(mycryptoIv);
+    const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();
+    let sql = "UPDATE users SET mail =? WHERE id = ?";
+  let data = [ciphertext, req.params.id];
+  con.query(sql,data,function(err, result){
+    if (err) throw err;
+    res.status(200).json({message:"user modifier!"})
+  })
+};
+
+exports.passwordModify = (req, res, next) =>{
+  if (req.body.password.match( /[0-9]/g) && //password doit contenir un chiffre//
+  req.body.password.match( /[A-Z]/g) && //password doit contenir une majuscule//
+  req.body.password.match(/[a-z]/g) && //password doit contenir une minuscule//
+  req.body.password.match( /[^a-zA-Z\d]/g) &&//password doit contenir un caractère special//
+  req.body.password.length >= 10){
+  bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
+  .then(hash => {
+    let data = [ hash ,req.params.id];
+    let sql = "UPDATE users SET password =? WHERE id = ?";
+    con.query(sql,data, function (err, result) {
+      if (err) throw err;
+      res.json({ message: "user modifier!" });
+})})}
+else{
+  res.json({message: "votre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"})
+}};
+
+exports.photoModify = (req, res, next) =>{
+
+};
+
+exports.departementModify = (req, res, next) =>{
+  let sql = "UPDATE users SET departement =? WHERE id = ?";
+  let data = [req.body.departement, req.params.id];
+  con.query(sql,data,function(err, result){
+    if (err) throw err;
+    res.status(200).json({message:"user modifier!"})
+  })
+};
+
+exports.userDelete = (req, res, next) =>{
+con.query( "DELETE FROM users WHERE id = ?", req.params.id, function (err, result){
+  if (err) throw err;
+  res.status(200).json({message:"compte supprimer!!!!"})
+})
 };
