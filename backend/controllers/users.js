@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 var cryptoJs = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
 
 
@@ -38,7 +39,7 @@ exports.login = (req, res, next) => {
     var key = cryptoJs.enc.Hex.parse(mycryptoKey);
     var iv = cryptoJs.enc.Hex.parse(mycryptoIv);
     const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();
-    con.query("SELECT password FROM users WHERE mail = ?",ciphertext, function(err,result){
+    con.query("SELECT * FROM users WHERE mail = ?",ciphertext, function(err,result){
         if (err) throw err;
         if (result == 0){
                 return res.status(401).json({error:"Utilisateur non trouvé !"});
@@ -48,7 +49,14 @@ exports.login = (req, res, next) => {
                 if (!valid) {// mot de passe invalide//
                   return res.status(401).json({ error: 'Mot de passe incorrect !' });
                 }
-                res.status(200).json({message:"mot de passe valide"});
+                const mytokenKey = process.env.tokenKey;//variable env//
+                res.status(200).json({userId: result[0].id,
+                  token: jwt.sign(//creation du token avec l'user._id//
+                    { userId: result[0].id },
+                    mytokenKey,
+                    { expiresIn: '24h' }
+                  )
+                });
               })
             });
     
