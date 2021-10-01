@@ -1,11 +1,8 @@
 const express = require ('express');
 const router = express.Router();
+const controUsers = require ('../controllers/users');
 
-router.get('/users/signIn',(req, res, next) =>{
-    con.query("SELECT * FROM espece", function (err, result) {
-      if (err) throw err;
-      res.json({ message: result });
-    })
-  });
+router.post('/signup', controUsers.signup);
+router.post('/login', controUsers.login);
 
   module.exports = router;

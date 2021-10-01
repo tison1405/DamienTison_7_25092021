@@ -5,9 +5,10 @@ dotenv.config();
 const mysql = require('mysql');
 const myHost = process.env.LOCAL;
 const myUser = process.env.USER;
-const con = mysql.createConnection({host: myHost, user: myUser, database : "elevage"});
+const con = mysql.createConnection({host: myHost, user: myUser, database : "groupomania"});
 const usersRouter = require ('./routes/users');
-global.con=con;
+global.con=con;//methode pour ultiliser la const con en global//
+
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -15,21 +16,14 @@ global.con=con;
     next();
   });
 
-  app.use((req, res, next) => {
-    con.connect(function (err) {
-      if (err) throw err;
-      console.log("Connecté à la base de données MySQL!");
-    });
-    next();
-  });
+  app.use(express.json());//remplace body parser//
+
+  
 
   app.use('/api', usersRouter);
 
 
 
  
-const myMessage = process.env.MESSAGE;
-app.use((req, res) => {
-   res.json({ message: myMessage }); 
-});
+
 module.exports = app;
