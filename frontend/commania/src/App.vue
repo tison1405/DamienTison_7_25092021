@@ -1,46 +1,13 @@
 <script>
-import Herolink from './components/HeroLink.vue';
-import LoginImages from './components/logincard.vue';
-import signImage from './components/SignLink.vue'
-
 export default {
-	name: 'App',
-	components: {
-		Herolink,
-    LoginImages,
-    signImage
-	}
+	name: 'App'
 }
 </script>
 
 <template>
-	<div class="container" id="app">
-   <div class="row">
-      <div class="col">
-         <h1>Commania</h1>
-      </div>
-   </div>
-   <Herolink/>
-   <div class="row">
-     <div class="col-12 col-lg-6 card">
-        <LoginImages url="/" text="Inscrivez vous"/>
-        </div>
-      
-     <div class="col-12 col-lg-6 card">
-        <signImage url="/" text="Identifiez vous"/>
-     </div>
-   </div> 
-
-   <div class="row">
-
-   </div>
-</div>
+  <div id="app">
+  <router-link to="/"></router-link>
+  <router-view/>
+  </div>
 
 </template>
-
-<style>
-
-
-
-
-</style>

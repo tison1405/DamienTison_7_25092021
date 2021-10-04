@@ -7,7 +7,7 @@ export default {
 
 <template>
     <div class="card-body1">
-        <a :href="url">{{ text }}</a>
+        <a class="log" :href ="url">{{text}}</a> 
     </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
 	background-position-x: center;
     text-align: end;
 }
-  a{
+  .log{
     text-decoration: none;
     display: flex;
     width: 100%;
