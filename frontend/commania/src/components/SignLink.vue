@@ -7,22 +7,22 @@ export default {
 
 <template>
     <div class="card2">
-          <div class="card2--img"></div>
-          <a class="card2--log" :href="url">{{text}}</a>
+          <div class="card2__image"></div>
+          <a class="card2__log" :href="url">{{text}}</a>
         </div>
 </template>
 
 <style lang="scss">
 .card2{
   padding-top: 20px;
-    &--img{
-      background-image: url("../assets/images/identifier.jpg");
-	    height: 160px;
-	    background-repeat: no-repeat;
-	    background-position-x: center;
-      text-align: end;
+    &__image{
+      background-image:url("../assets/images/identifier.jpg");
+      height:160px;
+      text-align:end;
+      background-repeat:no-repeat;
+      background-position-x:center;
     } 
-    &--log{
+    &__log{
       text-decoration: none;
       display: flex;
       width: 100%;
