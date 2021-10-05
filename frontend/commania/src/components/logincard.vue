@@ -6,26 +6,28 @@ export default {
 </script>
 
 <template>
-    <div class="card-body1">
-        <a class="log" :href ="url">{{text}}</a> 
+    <div class="card1">
+        <div class="card1__img"></div>
+        <a class="card1__log" :href ="url">{{text}}</a> 
     </div>
 </template>
 
-<style>
-.card-body1{
+<style lang="scss">
+.card1{
+    height: 200px;
+    &__img{
     background-image: url("../assets/images/signing.jpg");
 	height: 160px;
 	background-repeat: no-repeat;
 	background-position-x: center;
     text-align: end;
-}
-  .log{
+    }
+
+  &__log{
     text-decoration: none;
-    display: flex;
+    
     width: 100%;
     height: 100%;
-    justify-content: center;
-    flex-direction: column;
-    text-align: end;
-}
+    
+}}
 </style>
