@@ -6,7 +6,7 @@ export default {
 </script>
 
 <template>
-<div class="imageHero">
+<div class="row" id="imageHero">
 	<div class="row">
      <p>Bienvenu sur votre réseau social</p>
    </div>
@@ -17,7 +17,7 @@ export default {
 </template>
 
 <style>
-	.imageHero{
+	#imageHero{
 	background-image: url("../assets/images/imageHero.jpg");
 	height: 160px;
 	background-repeat: no-repeat;
@@ -31,7 +31,7 @@ div{
 }
 
 @media screen and (min-width: 768px){
-.imageHero{
+#imageHero{
 	height: 280px;
 
 }

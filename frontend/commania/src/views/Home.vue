@@ -1,25 +1,23 @@
 <script>
 import Herolink from '../components/HeroLink.vue';
 import LoginImages from '../components/logincard.vue';
-import signImage from '../components/SignLink.vue'
+import signImage from '../components/SignLink.vue';
+import headTitle from '../components/headTitle.vue';
 
 export default {
 	name: 'App',
 	components: {
 		Herolink,
     LoginImages,
-    signImage
+    signImage,
+    headTitle
 	}
 }
 </script>
 
 <template>
 	<div class="container" id="app">
-   <div class="row">
-      <div class="col">
-         <h1>Commania</h1>
-      </div>
-   </div>
+   <headTitle/>
    <Herolink/>
    <div class="row">
      <div class="col-12 col-lg-6 card">
