@@ -14,20 +14,22 @@ export default {
 
 <style lang="scss">
 .card1{
-    height: 200px;
+    padding-top: 20px;
     &__img{
     background-image: url("../assets/images/signing.jpg");
 	height: 160px;
 	background-repeat: no-repeat;
 	background-position-x: center;
+    background-position-y: center;
     text-align: end;
     }
 
   &__log{
     text-decoration: none;
-    
-    width: 100%;
-    height: 100%;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    flex-direction: column;
     
 }}
 </style>
