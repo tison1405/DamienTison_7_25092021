@@ -6,17 +6,45 @@
    <form method="POST" >
           <fieldset>
             <legend class="titreCoordonnees">Inscrivez vous</legend>
+            <div class="row">
               <FormulaireUser
-              v-for="item in formulaires"
-              :validation="item.validation"
-              :name="item.name"
-              :pattern="item.pattern"
-              :type="item.type"
-              :placeholder="item.placeholder"
-              :validvalidation="item.validvalidation"
-              :invalidvalidation="item.invalidvalidation"
-              :key="item.validation"
+              validation= "validation01"
+              name= "Nom de famille"
+              pattern= "[^ 1-9]{1,}"
+              placeholder="Inscriver votre nom de famille"
+              validvalidation= "valid01"
+              invalidvalidation="invalid01"
               />
+
+              <FormulaireUser
+              validation= "validation02"
+              name= "Prénom"
+              pattern= "[^ 1-9]{1,}"
+              placeholder="Inscriver votre prénom"
+              validvalidation= "valid02"
+              invalidvalidation="invalid02"
+              />
+
+              <FormulaireUser
+              validation= "validation03"
+              name= "Adresse Email"
+              type= "email"
+              placeholder="Inscriver votre email"
+              validvalidation= "valid03"
+              invalidvalidation="invalid03"
+              />
+
+              <FormulaireUser
+              validation= "validation04"
+              name= "Mot de passe"
+              pattern= "^(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{10}$"
+              placeholder="Inscriver votre mot de passe"
+              validvalidation= "valid04"
+              invalidvalidation="invalid04"
+              />
+            </div>
+
+              
          </fieldset>
           <div class="formulaire">
             <button type="button" id="formulaire" @click="dataSaisie">Valider</button>
@@ -36,88 +64,56 @@ export default {
     HeadTitle,
     FormulaireUser
 	},
-
-  Data(){
+  data(){
     return{
-    nom:'',
-    prenon:'',
-    email:'',
-    password:'',
-    formulaires: [
-      {validation:"validationServer01",
-      name:"Nom de famille",
-      pattern: "[^ 1-9]{1,}",
-      type:"",
-      placeholder:"inscriver votre nom de famille",
-      validvalidation:"validvalidationServer01",
-      invalidvalidation:"invalidvalidationServer01"},
-
-      {validation:"validationServer02",
-      name:"Prénom",
-      pattern:"[^ 1-9]{1,}",
-      type:"",
-      placeholder:"inscriver votre prénom",
-      validvalidation:"validvalidationServer02",
-      invalidvalidation:"invalidvalidationServer02"},
-
-      {validation:"validationServer03",
-      name:"Adresse Email",
-      pattern:"",
-      type:"email",
-      placeholder:"inscriver votre email",
-      validvalidation:"validvalidationServer03",
-      invalidvalidation:"invalidvalidationServer03"},
-
-      {validation:"validationServer04",
-      name:"Mot de passe",
-      pattern:"",
-      type:"password",
-      placeholder:"insciver votre mot de passe",
-      validvalidation:"validvalidationServer04",
-      invalidvalidation:"invalidvalidationServer04"
-      }
-    ]
-
-    
-    }
-
-  },
-    
+      formulair:{
+    nom:"",
+    prenom:"",
+    email:"",
+    password:""}
+    }},  
 methods:{
   dataSaisie(){
-
-    
-    var valideNom = document.getElementById("validationServer01"); 
+    var valideNom = document.getElementById("validation01");
+    var validePrenom = document.getElementById("validation02");
+    var valideEmail = document.getElementById("validation03");
+    var validePassword = document.getElementById("validation04"); 
   //validation du nom//
-  if (valideNom.validity.patternMismatch === true){
-    valideNom.setAttribute("class", "form-control is-invalid");
-     document.getElementById("invalidvalidationServer01").innerHTML = "Veuillez ecrir des lettres pas des chiffres!";
-  }else if(valideNom.value ==0){
-    valideNom.setAttribute("class", "form-control is-invalid");
-     document.getElementById("invalidvalidationServer01").innerHTML = "Veuillez compléter le champ!";
+  if (valideNom.validity.patternMismatch === false && valideNom.validity.valueMissing === false){
+    valideNom.setAttribute("class", "form-control is-valid");
+    this.formulair.nom = valideNom.value
   }else{
-      valideNom.setAttribute("class", "form-control is-valid");
-       document.getElementById("validvalidationServer01").innerHTML = "vous avez complèté correctement le champ!";
-      this.nom = valideNom.value;   
+    valideNom.setAttribute("class", "form-control is-invalid");
+     document.getElementById("invalid01").innerHTML = "Veuillez inscrir un nom sans chiffre!"; 
   }
-  console.log(this.nom)
-
-  //validation du prénom//
-   if (document.getElementById("validationServer02").validity.patternMismatch === true){
-    document.getElementById("validationServer02").setAttribute("class", "form-control is-invalid");
-     document.getElementById("invalidvalidationServer02")
-                            .innerHTML = "Veuillez ecrir des lettres pas des chiffres!";
+  //validation prenom//
+  if (validePrenom.validity.patternMismatch === false && validePrenom.validity.valueMissing === false){
+    validePrenom.setAttribute("class", "form-control is-valid");
+    this.formulair.prenom = validePrenom.value;
   }else{
-      document.getElementById("validationServer02").setAttribute("class", "form-control is-valid");
-       document.getElementById("validvalidationServer02").innerHTML = "vous avez complèté correctement le champ!";
-      this.prenom = document.getElementById("validationServer02").value;   
+    validePrenom.setAttribute("class", "form-control is-invalid");
+     document.getElementById("invalid02").innerHTML = "Veuillez inscrir un prénom sans chiffre!"; 
   }
-  console.log(this.prenom)
+  //validation Email//
+  if (valideEmail.validity.typeMismatch === false && valideEmail.validity.valueMissing === false){
+    valideEmail.setAttribute("class", "form-control is-valid");
+    this.formulair.email = valideEmail.value;
+  }else{
+    valideEmail.setAttribute("class", "form-control is-invalid");
+     document.getElementById("invalid03").innerHTML = "Veuillez inscrir une adresse email"; 
   }
-
-
+  //validation password//
+  if (validePassword.validity.patternMismatch === false
+   &&validePassword .validity.valueMissing === false){
+    validePassword.setAttribute("class", "form-control is-valid");
+    this.formulair.password = validePassword.value;
+  }else{
+    validePassword.setAttribute("class", "form-control is-invalid");
+     document.getElementById("invalid04").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
+  }
+  console.log(this.formulair)
 }}
-
+}
 </script>
 
 
