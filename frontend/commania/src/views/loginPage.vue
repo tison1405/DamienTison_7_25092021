@@ -48,6 +48,7 @@
          </fieldset>
           <div class="formulaire">
             <button type="button" id="formulaire" @click="dataSaisie">Valider</button>
+            <p>{{this.data.message}}</p>
           </div>
         </form>
   </div>
@@ -57,6 +58,7 @@
 import LoginImages from '../components/logincard.vue'
 import HeadTitle from '../components/headTitle.vue'
 import FormulaireUser from '../components/formulaireUser.vue'
+const axios = require("axios");
 export default {
   name:'App',
   components: {
@@ -70,10 +72,12 @@ export default {
     nom:"",
     prenom:"",
     email:"",
-    password:""}
+    password:""},
+    data:{},
+    user:{}
     }},  
 methods:{
-  dataSaisie(){
+  async dataSaisie(){
     var valideNom = document.getElementById("validation01");
     var validePrenom = document.getElementById("validation02");
     var valideEmail = document.getElementById("validation03");
@@ -111,9 +115,27 @@ methods:{
     validePassword.setAttribute("class", "form-control is-invalid");
      document.getElementById("invalid04").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
   }
-  console.log(this.formulair)
-}}
+  const { data } = await axios.post("http://localhost:3000/api/signup", this.formulair);
+  this.data = data;
+  console.log(this.data.message);
+  if (this.data.message ==1){
+    const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
+    this.data = data;
+    console.log(this.data);
+  }
 }
+,mounted(){
+  console.log(this.formulair);
+  function afficherRes(data){
+  
+    return data 
+  } 
+  afficherRes(this.data);
+  }
+   
+}}
+
+
 </script>
 
 

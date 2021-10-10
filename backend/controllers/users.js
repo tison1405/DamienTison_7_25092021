@@ -17,12 +17,13 @@ exports.signup = (req, res, next) => {
   const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();//cryptage de l'adresse mail//
   bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
   .then(hash => {
-        const user = [[null, req.body.nom, req.body.prenom,ciphertext, hash ,req.body.departement, null]];
+        const user = [[req.body.nom, req.body.prenom,ciphertext ,hash ,null]];
         console.log(user);
-        var sql ="INSERT INTO users (id, nom, prenom, mail, password, departement, photo) VALUES ?";
+        var sql ="INSERT INTO users ( nom, prenom, mail, password, photo) VALUES ?";
         con.query(sql,[user], function (err, result) {
-          if (err) throw err;
-          res.json({ message: "Number of records inserted: " + result.affectedRows });
+          console.log(err)
+          if (err) {res.json({ message: "l'utilisateur existe déjà"})}
+          else {res.json({ message:  result.affectedRows })};
           
         })});
 }
@@ -57,9 +58,10 @@ exports.login = (req, res, next) => {
                   token: jwt.sign(//creation du token avec l'user._id//
                     { userId: result[0].id },
                     mytokenKey,
-                    { expiresIn: '24h' }
-                  )
+                    { expiresIn: '24h' } )
+                  
                 });
+                console.log(result)
               })
             });
     
