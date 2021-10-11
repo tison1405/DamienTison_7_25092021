@@ -28,8 +28,9 @@
               
          </fieldset>
           <div class="formulaire">
-            <button type="button" id="formulaire" @click="dataSaisie">Valider</button>
+            <button type="button" id="formulaire" @click="userSaisie">Valider</button>
           </div>
+          <p>{{this.dataLogin.message}}</p>
         </form>
   </div>
 </template>
@@ -38,6 +39,7 @@
 import SignImages from '../components/SignLink.vue'
 import HeadTitle from '../components/headTitle.vue'
 import FormulaireUser from '../components/formulaireUser.vue'
+const axios = require("axios");
 export default {
   name:'App',
   components: {
@@ -49,10 +51,11 @@ export default {
     return{
       formulair:{
     email:"",
-    password:""}
+    password:""},
+    dataLogin:""
     }},  
 methods:{
-  dataSaisie(){
+ async userSaisie(){
     var valideEmail = document.getElementById("validation03");
     var validePassword = document.getElementById("validation04"); 
   //validation Email//
@@ -72,7 +75,9 @@ methods:{
     validePassword.setAttribute("class", "form-control is-invalid");
      document.getElementById("invalid04").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
   }
-  console.log(this.formulair)
+  const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
+  this.dataLogin = data;
+  console.log(this.dataLogin)
 }}
 }
 </script>
