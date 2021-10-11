@@ -68,8 +68,9 @@ export default {
 	},
   data(){
     return{
+    afficherData:"",
       formulair:{
-    nom:"",
+      nom:"",
     prenom:"",
     email:"",
     password:""},
@@ -121,21 +122,12 @@ methods:{
   if (this.data.message ==1){
     const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
     this.data = data;
-    console.log(this.data);
+    document.location.href = "#/filactu"
+  }else{
+    return this.user = false;
   }
+  }}
 }
-,mounted(){
-  console.log(this.formulair);
-  function afficherRes(data){
-  
-    return data 
-  } 
-  afficherRes(this.data);
-  }
-   
-}}
-
-
 </script>
 
 

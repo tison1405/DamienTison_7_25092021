@@ -19,6 +19,11 @@ const routes = [
     path:'/signIn',
     name:'signIn',
     component: () => import('../views/signInPages')
+  },
+  {
+    path:'/filactu',
+    name:'fileactuPage',
+    component: () => import('../views/FileActu')
   }
 ]
 
