@@ -7,6 +7,7 @@ const myHost = process.env.LOCAL;
 const myUser = process.env.USER;
 const con = mysql.createConnection({host: myHost, user: myUser, database : "groupomania"});
 const usersRouter = require ('./routes/users');
+const postRouter = require ('./routes/forummulti');
 global.con=con;//methode pour ultiliser la const con en global//
 
   app.use((req, res, next) => {
@@ -21,6 +22,7 @@ global.con=con;//methode pour ultiliser la const con en global//
   
 
   app.use('/api', usersRouter);
+  app.use('/api', postRouter);
 
 
 

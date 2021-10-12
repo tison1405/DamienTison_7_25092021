@@ -54,7 +54,7 @@ exports.login = (req, res, next) => {
                   return res.status(401).json({ error: 'Mot de passe incorrect !' });
                 }
                 const mytokenKey = process.env.tokenKey;//variable env//
-                res.status(200).json({userId: result[0].id,
+                res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom,
                   token: jwt.sign(//creation du token avec l'user._id//
                     { userId: result[0].id },
                     mytokenKey,

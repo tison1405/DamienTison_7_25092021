@@ -78,7 +78,7 @@ export default {
     user:{}
     }},  
 methods:{
-  async dataSaisie(){
+    async dataSaisie(){
     var valideNom = document.getElementById("validation01");
     var validePrenom = document.getElementById("validation02");
     var valideEmail = document.getElementById("validation03");
@@ -122,6 +122,8 @@ methods:{
   if (this.data.message ==1){
     const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
     this.data = data;
+    this.$store.commit('INCREMENT_USER', this.data);
+    this.$store.commit('GET_ALL_POST');
     document.location.href = "#/filactu"
   }else{
     return this.user = false;
