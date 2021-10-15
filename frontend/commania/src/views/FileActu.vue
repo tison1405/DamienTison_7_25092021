@@ -1,5 +1,27 @@
 <template>
-<div>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <h1 class="navbar-brand">Commania</h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Déconnection</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<section class="post">
+    <h2></h2>
     <Postlist 
         v-for="item in post"
         :nom="item.nom"
@@ -8,7 +30,8 @@
         :photo="item.photo"
         :key="item.nom"
     />
-    </div>
+</section>
+</body>
 </template>
 <script>
 import Postlist from '../components/postliste.vue'

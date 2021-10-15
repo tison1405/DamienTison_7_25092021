@@ -17,9 +17,9 @@ exports.signup = (req, res, next) => {
   const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();//cryptage de l'adresse mail//
   bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
   .then(hash => {
-        const user = [[req.body.nom, req.body.prenom,ciphertext ,hash ,null]];
+        const user = [[req.body.nom, req.body.prenom,ciphertext ,hash ,null ,0]];
         console.log(user);
-        var sql ="INSERT INTO users ( nom, prenom, mail, password, photo) VALUES ?";
+        var sql ="INSERT INTO users ( nom, prenom, mail, password, photo, modérateur) VALUES ?";
         con.query(sql,[user], function (err, result) {
           console.log(err)
           if (err) {res.json({ message: "l'utilisateur existe déjà"})}
