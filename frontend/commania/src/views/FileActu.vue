@@ -13,7 +13,7 @@
           <a class="nav-link active" aria-current="page" href="#">Profil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Déconnection</a>
+          <a class="nav-link" href="/">Déconnection</a>
         </li>
       </ul>
     </div>
@@ -21,14 +21,14 @@
 </nav>
 </header>
 <section class="post">
-    <h2></h2>
+    <h2>{{user.nom}} {{user.prenom}}</h2>
     <Postlist 
         v-for="item in post"
         :nom="item.nom"
         :prenom="item.prenom"
         :message="item.message"
         :photo="item.photo"
-        :key="item.nom"
+        :key="item.message"
     />
 </section>
 </body>
@@ -45,8 +45,12 @@ export default {
 		
 		...mapState({
 			post: "post",
+      user: "user"
 		})
-	}
+	},
+  beforeMount(){
+    this.$store.commit('GET_ALL_POST');
+  }
 }
 </script>
 

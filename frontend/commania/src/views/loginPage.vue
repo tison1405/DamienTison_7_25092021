@@ -123,7 +123,6 @@ methods:{
     const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
     this.data = data;
     this.$store.commit('INCREMENT_USER', this.data);
-    this.$store.commit('GET_ALL_POST');
     document.location.href = "#/filactu"
   }else{
     return this.user = false;
