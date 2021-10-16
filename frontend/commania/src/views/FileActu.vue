@@ -21,7 +21,14 @@
 </nav>
 </header>
 <section class="post">
-    <h2>{{user.nom}} {{user.prenom}}</h2>
+  <div class="row">
+     <div class="col-6">
+       <img :src= user.photo alt="photo utilisateur"/>
+     </div>
+     <div class="col-6">
+        <h2>{{user.nom}} {{user.prenom}}</h2>
+      </div>
+  </div>
     <Postlist 
         v-for="item in post"
         :nom="item.nom"

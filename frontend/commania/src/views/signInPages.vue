@@ -77,7 +77,9 @@ methods:{
   }
   const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
   this.dataLogin = data;
-  console.log(this.dataLogin)
+  console.log(this.dataLogin);
+  this.$store.commit('INCREMENT_USER', this.dataLogin);
+  document.location.href = "#/filactu"
 }}
 }
 </script>
