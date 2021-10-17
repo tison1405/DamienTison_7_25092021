@@ -1,4 +1,5 @@
 <template>
+<body>
     <form method="post" enctype="multipart/form-data">
   <div id="photo">
     <label for="image_uploads">Ajouter une photo (PNG, JPG)</label>
@@ -15,6 +16,11 @@
     <button type="button" id="upload" @click="enregistrerPhoto">Valider</button>
   </div>
 </form>
+<img :src= user.photo alt="photo utilisateur"/>
+<p>{{user.nom}}</p>
+<p>{{user.prenom}}</p>
+<p>{{user.email}}</p>
+</body>
 </template>
 
 <script>
@@ -31,6 +37,9 @@ data(){
     }
 
 },
+beforeMount(){
+    this.$store.commit('GET_USER');
+  },
 computed: {
 		
 		...mapState({
@@ -82,7 +91,7 @@ const ENDPOINT = '/userPicture';
 const files = this.input.files[0] ;
            var form = new FormData();
     
-        form.append(files.name, files);
+        form.append('image', files);
   
     form.append('id', this.user.userId)
 console.log(form);

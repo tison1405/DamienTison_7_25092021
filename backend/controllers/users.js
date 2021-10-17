@@ -148,3 +148,11 @@ exports.userPicture = (req, res, next) => {
     res.status(200).json({message:"photo inserée!"})
   })
 }
+exports.userInfo = (req, res, next) =>{
+  console.log(req.body);
+  let sql="SELECT * FROM users WHERE id = ? ";
+  let data =req.body;
+  con.query(sql,data, function(err,result){
+    if (err) throw err;})
+  
+}

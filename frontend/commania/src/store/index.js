@@ -33,6 +33,28 @@ axios.create({
     });
   console.log(state.post[0].nom)
     },
+    async GET_USER(state){
+      const TOKEN = state.user.token;
+const BASEURL = 'http://localhost:3000/api';
+const ENDPOINT = '/user';
+const form = state.user.userId;
+    
+    
+
+axios.create({
+        baseURL: BASEURL,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+TOKEN
+        }
+    })
+    .get(ENDPOINT,form)
+    .then(res => {
+            state.user = res;
+            console.log(state.user)
+    });
+    },
+
 
   },
   actions: {

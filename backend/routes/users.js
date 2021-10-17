@@ -7,6 +7,8 @@ const multer = require('../middleware/multer-config');
 router.post('/signup', controUsers.signup);
 router.post('/login', controUsers.login);
 
+router.get('/user',auth ,controUsers.userInfo);
+
 router.put('/modifyNom',controUsers.nomModify);
 router.put('/modifyPrenom',controUsers.prenomModify);
 router.put('/modifyMail',controUsers.mailModify);
