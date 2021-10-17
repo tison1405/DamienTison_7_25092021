@@ -9,6 +9,7 @@ const con = mysql.createConnection({host: myHost, user: myUser, database : "grou
 const usersRouter = require ('./routes/users');
 const postRouter = require ('./routes/forummulti');
 global.con=con;//methode pour ultiliser la const con en global//
+const path = require('path');
 
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,7 +21,8 @@ global.con=con;//methode pour ultiliser la const con en global//
   app.use(express.json());//remplace body parser//
 
   
-
+  app.use('/images', express.static(path.join(__dirname, 'images')));
+  
   app.use('/api', usersRouter);
   app.use('/api', postRouter);
 

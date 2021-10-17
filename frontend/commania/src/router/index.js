@@ -24,6 +24,11 @@ const routes = [
     path:'/filactu',
     name:'fileactuPage',
     component: () => import('../views/FileActu')
+  },
+  {
+    path:'/profil',
+    name:'profilPage',
+    component: () => import('../views/profile')
   }
 ]
 
