@@ -137,3 +137,13 @@ con.query( "DELETE FROM users WHERE id = ?", req.params.id, function (err, resul
   res.status(200).json({message:"compte supprimer!!!!"})
 })
 };
+
+exports.userPicture = (req, res, next) => {
+  const imageUrl= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  let sql = "UPDATE users SET photo =? WHERE id = ?";
+  let data = [imageUrl, req.body.id];
+  con.query(sql,data,function(err, result){
+    if (err) throw err;
+    res.status(200).json({message:"photo inserée!"})
+  })
+}
