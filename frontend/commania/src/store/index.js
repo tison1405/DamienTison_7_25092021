@@ -6,7 +6,15 @@ Vue.use(Vuex)
 const axios = require("axios");
 export default new Vuex.Store({
   state: {
-    user:"",
+    user:{
+      nom:"",
+      prenom:"",
+      email:"",
+      password:"",
+      token:"",
+      photo: false,
+      userId:""
+    },
     post:[],
   },
   plugins: [createPersistedState()],
@@ -37,7 +45,7 @@ axios.create({
       const TOKEN = state.user.token;
 const BASEURL = 'http://localhost:3000/api';
 const ENDPOINT = '/user';
-const form = state.user.userId;
+const form = state.user;
     
     
 
@@ -48,9 +56,9 @@ axios.create({
             'Authorization': 'Bearer '+TOKEN
         }
     })
-    .get(ENDPOINT,form)
+    .post(ENDPOINT,form)
     .then(res => {
-            state.user = res;
+            state.user = res.data;
             console.log(state.user)
     });
     },

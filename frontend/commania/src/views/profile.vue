@@ -1,6 +1,6 @@
 <template>
 <body>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" v-if="user.photo === false">
   <div id="photo">
     <label for="image_uploads">Ajouter une photo (PNG, JPG)</label>
     <input type="file" id="image_uploads" name="imagUploads" accept=".jpg, .jpeg, .png" multiple @change="updateImageDisplay">
@@ -16,10 +16,10 @@
     <button type="button" id="upload" @click="enregistrerPhoto">Valider</button>
   </div>
 </form>
-<img :src= user.photo alt="photo utilisateur"/>
+<img :src= user.photo alt="photo utilisateur" id="utiPhoto"/>
 <p>{{user.nom}}</p>
 <p>{{user.prenom}}</p>
-<p>{{user.email}}</p>
+
 </body>
 </template>
 
@@ -125,7 +125,7 @@ axios.create({
     border-radius: 15px;
     width: 250px;
 }
-#form{
+form{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -141,5 +141,8 @@ axios.create({
     &__image{
         width: 100px;}
     
+}
+#utiPhoto{
+  width: 200px;
 }
 </style>

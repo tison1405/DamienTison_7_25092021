@@ -23,7 +23,7 @@
 <section class="post">
   <div class="row">
      <div class="col-6">
-       <img :src= user.photo alt="photo utilisateur"/>
+       <img :src= user.photo alt="photo utilisateur" id="photoUse"/>
      </div>
      <div class="col-6">
         <h2>{{user.nom}} {{user.prenom}}</h2>
@@ -60,4 +60,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#photoUse{
+  width: 100px;
+}
+</style>
 

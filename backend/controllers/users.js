@@ -54,7 +54,7 @@ exports.login = (req, res, next) => {
                   return res.status(401).json({ error: 'Mot de passe incorrect !' });
                 }
                 const mytokenKey = process.env.tokenKey;//variable env//
-                res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom,
+                res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom, photo: result[0].photo,
                   token: jwt.sign(//creation du token avec l'user._id//
                     { userId: result[0].id },
                     mytokenKey,
@@ -149,10 +149,12 @@ exports.userPicture = (req, res, next) => {
   })
 }
 exports.userInfo = (req, res, next) =>{
-  console.log(req.body);
+  console.log(req.body.userId);
   let sql="SELECT * FROM users WHERE id = ? ";
-  let data =req.body;
+  let data =req.body.userId;
   con.query(sql,data, function(err,result){
-    if (err) throw err;})
+    if (err) {throw err}
+    else{ res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom, photo: result[0].photo,})}
+  })
   
 }
