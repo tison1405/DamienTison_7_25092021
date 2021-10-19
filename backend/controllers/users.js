@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
-var cryptoJs = require('crypto-js');
+var CryptoJs = require('crypto-js');
 const jwt = require('jsonwebtoken');
+const mycryptoKey = process.env.cryptoKey;//variable d'env//
+const mycryptoIv = process.env.cryptoIv;//variable d'env//
+var key = CryptoJs.enc.Hex.parse(mycryptoKey);//clé de cryptage de l'adresse mail//
+var iv = CryptoJs.enc.Hex.parse(mycryptoIv);
 
 
 
@@ -10,14 +14,13 @@ exports.signup = (req, res, next) => {
   req.body.password.match(/[a-z]/g) && //password doit contenir une minuscule//
   req.body.password.match( /[^a-zA-Z\d]/g) &&//password doit contenir un caractère special//
   req.body.password.length >= 10) {//password doit contenir 10 ou plus caractères//
-  const mycryptoKey = process.env.cryptoKey;//variable d'env//
-  const mycryptoIv = process.env.cryptoIv;//variable d'env//
-  var key = cryptoJs.enc.Hex.parse(mycryptoKey);//clé de cryptage de l'adresse mail//
-  var iv = cryptoJs.enc.Hex.parse(mycryptoIv);
-  const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();//cryptage de l'adresse mail//
+  
+  const ciphertext = CryptoJs.AES.encrypt(req.body.email, key, {iv: iv});
+  const ciphertextString = ciphertext.toString();
+  console.log(ciphertextString);
   bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
   .then(hash => {
-        const user = [[req.body.nom, req.body.prenom,ciphertext ,hash ,null ,0]];
+        const user = [[req.body.nom, req.body.prenom,ciphertextString ,hash ,null ,0]];
         console.log(user);
         var sql ="INSERT INTO users ( nom, prenom, mail, password, photo, modérateur) VALUES ?";
         con.query(sql,[user], function (err, result) {
@@ -38,12 +41,11 @@ else{
 
 
 exports.login = (req, res, next) => {
-    const mycryptoKey = process.env.cryptoKey;//variable d'env//
-    const mycryptoIv = process.env.cryptoIv;//variable d'env//
-    var key = cryptoJs.enc.Hex.parse(mycryptoKey);
-    var iv = cryptoJs.enc.Hex.parse(mycryptoIv);
-    const ciphertext = cryptoJs.AES.encrypt(JSON.stringify(req.body.email), key, {iv: iv}).toString();
-    con.query("SELECT * FROM users WHERE mail = ?",ciphertext, function(err,result){
+    
+    const ciphertext = CryptoJs.AES.encrypt(req.body.email, key, {iv: iv});
+    const ciphertextString = ciphertext.toString();
+    console.log(ciphertextString);
+    con.query("SELECT * FROM users WHERE mail = ?",ciphertextString, function(err,result){
         if (err) throw err;
         if (result == 0){
                 return res.status(401).json({error:"Utilisateur non trouvé !"});
@@ -152,9 +154,22 @@ exports.userInfo = (req, res, next) =>{
   console.log(req.body.userId);
   let sql="SELECT * FROM users WHERE id = ? ";
   let data =req.body.userId;
+  const mycryptoKey = process.env.cryptoKey;//variable d'env//
+  const mycryptoIv = process.env.cryptoIv;//variable d'env//
+  var key = CryptoJs.enc.Hex.parse(mycryptoKey);//clé de cryptage de l'adresse mail//
+  var iv = CryptoJs.enc.Hex.parse(mycryptoIv);
   con.query(sql,data, function(err,result){
+    var mail = result[0].mail;
+    var cipherParams = CryptoJs.lib.CipherParams.create({
+      ciphertext: CryptoJs.enc.Base64.parse(mail)});
+    const bytes = CryptoJs.AES.decrypt(cipherParams, key, {iv: iv});
+    const bytesString = bytes.toString(CryptoJs.enc.Utf8);
+    console.log(bytesString);
+
     if (err) {throw err}
-    else{ res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom, photo: result[0].photo,})}
+    else{ res.status(200).json({userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom, photo: result[0].photo, email: bytesString
+    })}
+  
   })
   
 }

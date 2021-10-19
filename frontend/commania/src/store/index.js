@@ -2,19 +2,20 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
+
 Vue.use(Vuex)
 const axios = require("axios");
 export default new Vuex.Store({
   state: {
-    user:{
+    user1:{
       nom:"",
       prenom:"",
       email:"",
       password:"",
-      token:"",
-      photo: false,
-      userId:""
+      photo: "",
+      
     },
+    user:"",
     post:[],
   },
   plugins: [createPersistedState()],
@@ -43,9 +44,11 @@ axios.create({
     },
     async GET_USER(state){
       const TOKEN = state.user.token;
+      console.log(TOKEN);
 const BASEURL = 'http://localhost:3000/api';
 const ENDPOINT = '/user';
 const form = state.user;
+console.log(form);
     
     
 
@@ -58,8 +61,10 @@ axios.create({
     })
     .post(ENDPOINT,form)
     .then(res => {
-            state.user = res.data;
-            console.log(state.user)
+            state.user1 = res.data;
+            
+            
+            console.log(res.data);
     });
     },
 

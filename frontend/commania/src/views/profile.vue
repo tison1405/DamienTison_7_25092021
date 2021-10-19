@@ -1,6 +1,6 @@
 <template>
 <body>
-    <form method="post" enctype="multipart/form-data" v-if="user.photo === false">
+    <form method="post" enctype="multipart/form-data" v-if="!user1.photo">
   <div id="photo">
     <label for="image_uploads">Ajouter une photo (PNG, JPG)</label>
     <input type="file" id="image_uploads" name="imagUploads" accept=".jpg, .jpeg, .png" multiple @change="updateImageDisplay">
@@ -16,9 +16,11 @@
     <button type="button" id="upload" @click="enregistrerPhoto">Valider</button>
   </div>
 </form>
-<img :src= user.photo alt="photo utilisateur" id="utiPhoto"/>
-<p>{{user.nom}}</p>
-<p>{{user.prenom}}</p>
+<img :src= user1.photo alt="photo utilisateur" id="utiPhoto"/>
+<p>{{user1.nom}}</p>
+<p>{{user1.prenom}}</p>
+<p>{{user1.email}}</p>
+
 
 </body>
 </template>
@@ -26,30 +28,30 @@
 <script>
 const axios = require("axios");
 import { mapState } from "vuex";
-import FormData from 'form-data'
+import FormData from 'form-data';
 export default {
 data(){
     return{
         image:"",
         textContent:"",
         fichierValid:"",
-        input:false,
+        input:"",
     }
 
 },
 beforeMount(){
     this.$store.commit('GET_USER');
-  },
+},
 computed: {
 		
 		...mapState({
+      user1: "user1",
       user: "user"
 		}), },
 methods:{
      updateImageDisplay(){
          this.input = document.querySelector('input');
         var curFiles = this.input.files;
-        console.log(this.input.files[0]);
         var fileTypes = [
                 'image/jpeg',
                 'image/pjpeg',
@@ -79,8 +81,9 @@ function returnFileSize(number) {
 
       } else {
         this.textContent = 'File name ' + curFile.name + ': Not a valid file type. Update your selection.';
+        console.log(this.user.token);
       }
-      console.log(this.user);
+      
 
       
     }},
@@ -89,6 +92,7 @@ function returnFileSize(number) {
 const BASEURL = 'http://localhost:3000/api';
 const ENDPOINT = '/userPicture';
 const files = this.input.files[0] ;
+console.log(files);
            var form = new FormData();
     
         form.append('image', files);

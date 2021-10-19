@@ -23,7 +23,7 @@
 <section class="post">
   <div class="row">
      <div class="col-6">
-       <img :src= user.photo alt="photo utilisateur" id="photoUse"/>
+       <img :src= user1.photo alt="photo utilisateur" id="photoUse"/>
      </div>
      <div class="col-6">
         <h2>{{user.nom}} {{user.prenom}}</h2>
@@ -52,7 +52,8 @@ export default {
 		
 		...mapState({
 			post: "post",
-      user: "user"
+      user: "user",
+      user1: "user1"
 		})
 	},
   beforeMount(){
