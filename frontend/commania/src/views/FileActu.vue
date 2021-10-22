@@ -13,7 +13,7 @@
           <a class="nav-link active" aria-current="page" href="#/profil">Profil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Déconnection</a>
+          <a class="nav-link" href="/" @click="disconnect">Déconnection</a>
         </li>
       </ul>
     </div>
@@ -58,6 +58,11 @@ export default {
 	},
   beforeMount(){
     this.$store.commit('GET_ALL_POST');
+  },
+  methods:{
+    disconnect(){
+        this.$store.commit('DISCONNECT');
+    }
   }
 }
 </script>

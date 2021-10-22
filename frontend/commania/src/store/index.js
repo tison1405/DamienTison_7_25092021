@@ -13,13 +13,17 @@ export default new Vuex.Store({
       email:"",
       password:"",
       photo: "",
-      
+
     },
     user:"",
     post:[],
   },
   plugins: [createPersistedState()],
   mutations: {
+    DISCONNECT(state){
+      state.user1 = {};
+      state.user = {};
+    },
     INCREMENT_USER(state, payload){
       state.user = payload;
       console.log(state.user.nom)
