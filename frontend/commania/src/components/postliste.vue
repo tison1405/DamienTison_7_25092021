@@ -1,4 +1,5 @@
 <script>
+const axios = require("axios");
 export default {
 	name: 'Postlist',
     props:{
@@ -28,11 +29,31 @@ export default {
         },
         idUser: {
             type: Number,
+        },
+        token: {
+            type: String
         }
     },
     methods:{
-        ajouterLike(idPost, idUser){
-            
+        async ajouterLike(idPost, idUser, like, token){
+            const likes = like;
+            likes +=1;
+           const TOKEN = token;
+            const BASEURL = 'http://localhost:3000/api';
+            const ENDPOINT = '/likes';
+            const data = {idPost, idUser, likes}
+
+        axios.create({
+        baseURL: BASEURL,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+TOKEN
+        }
+    })
+            .post(ENDPOINT, data)
+            .then(res => {
+            console.log(res);
+    }); 
 
         }
     }

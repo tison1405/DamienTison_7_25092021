@@ -1,14 +1,17 @@
-const jwt = require('jsonwebtoken');
 
-exports.like = (req, res, next) => {
-    con.query("SELECT user_like AS users likes FROM userlike WHERE post_id =?;",body.user.postId, function(err,result){
+
+exports.likePost = (req, res, next) => {
+    let val = req.body.data;
+    let code= `${val.idUser}${val.idPost}`;
+    let data = [[val.idUser, val.idPost, code]];
+    console.log(data);
+    con.query("INSERT INTO userlike  (user_like, id_post, codeIdUser) VALUES ?;",[data], function(err,result){
         if (err) throw err;
-        const users = result.user_like
-        for(let user in users){
-            if (user === body.user.userId ){
-                return res.status(401).json({ alert: 'vous ne pouvez pas liker plusieur foix le même poste!' });  
-            }else{
-                con.query("INSERT INTO forummulti (like) VALUES ? WHERE id=?"
-            }
+        else{
+            data = [val.likes, val.idPost]
+            con.query("UPDATE forummulti SET postLike=? WHERE id=?",data, function (err,result){
+                if (err) throw err;
+                res.status(201).json({message:"ok"});
+            })}
+            })
         }
-})}

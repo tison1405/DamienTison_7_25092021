@@ -1,6 +1,6 @@
 exports.createPost = (req, res, next) => {
-    const post = [[req.body.users_id, req.body.fichier, req.body.commentaire,0]];
-    var sql = "INSERT INTO forummulti ( users_id, fichier, commentaire, publication) VALUES ?";
+    const post = [[req.body.users_id, req.body.fichier, req.body.commentaire,0 ,0]];
+    var sql = "INSERT INTO forummulti ( users_id, fichier, commentaire, publication, like) VALUES ?";
     con.query(sql,[post], function (err, result) {
         console.log(err);
         if (err) {res.json({ message: "le post n'a pas été enregistré"})}
