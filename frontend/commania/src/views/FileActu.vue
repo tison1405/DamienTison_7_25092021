@@ -36,6 +36,8 @@
         :message="item.message"
         :photo="item.photo"
         :key="item.message"
+        :token="user1.token"
+        :idUser="user1.id"
     />
 </section>
 </body>
