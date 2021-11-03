@@ -26,7 +26,7 @@ export default new Vuex.Store({
     },
     INCREMENT_USER(state, payload){
       state.user = payload;
-      console.log(state.user.nom)
+      console.log(state.user)
     },
     async GET_ALL_POST(state){
       const TOKEN = state.user.token;
@@ -41,10 +41,12 @@ axios.create({
         }
     })
     .get(ENDPOINT)
-    .then(res => {
-            console.log(res);
+    .then(result => {
+            
+            state.post= result.data.result;
+            console.log(state.post);
     });
-  console.log(state.post[0].nom)
+  console.log(state.user)
     },
     async GET_USER(state){
       const TOKEN = state.user.token;

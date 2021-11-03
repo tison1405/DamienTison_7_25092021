@@ -35,13 +35,17 @@ export default {
         }
     },
     methods:{
-        async ajouterLike(idPost, idUser, like, token){
-            const likes = like;
-            likes +=1;
-           const TOKEN = token;
+        async ajouterLike(){
+            var likes = this.like;
+            var idPost = this.idPost;
+            var idUser = this.idUser;
+            console.log(idPost);
+            likes ++;
+           const TOKEN = this.token;
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/likes';
-            const data = {idPost, idUser, likes}
+            const data = {idPost, idUser, likes};
+            console.log(data);
 
         axios.create({
         baseURL: BASEURL,

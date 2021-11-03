@@ -35,9 +35,11 @@
         :prenom="item.prenom"
         :message="item.message"
         :photo="item.photo"
+        :like="item.likePost"
+        :idPost="item.idPost"
         :key="item.message"
-        :token="user1.token"
-        :idUser="user1.id"
+        :token="user.token"
+        :idUser="user.userId"
     />
 </section>
 </body>
