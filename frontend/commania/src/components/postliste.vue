@@ -32,20 +32,27 @@ export default {
         },
         token: {
             type: String
-        }
+        },
+        
+    },
+    data(){
+    return{
+        erreur:"",
+        
+    }
+
     },
     methods:{
         async ajouterLike(){
             var likes = this.like;
             var idPost = this.idPost;
             var idUser = this.idUser;
-            console.log(idPost);
             likes ++;
            const TOKEN = this.token;
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/likes';
             const data = {idPost, idUser, likes};
-            console.log(data);
+            
 
         axios.create({
         baseURL: BASEURL,
@@ -55,8 +62,10 @@ export default {
         }
     })
             .post(ENDPOINT, data)
-            .then(res => {
-            console.log(res);
+            .then(res => {if(res.data.message ==1){
+                this.erreur= "like ajouté"
+            }else{
+            this.erreur = res.data.message;}
     }); 
 
         }
@@ -74,6 +83,7 @@ export default {
         <button @click="ajouterLike"><i class="far fa-thumbs-up"></i></button>
         <span>{{like}}</span>
         </div>
+        <div>{{this.erreur}}</div>
 
     </div>
         
