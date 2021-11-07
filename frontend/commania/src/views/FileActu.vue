@@ -28,6 +28,9 @@
      <div class="col-6">
         <h2>{{user.nom}} {{user.prenom}}</h2>
       </div>
+      <div class="col-12">
+        <textarea  id="textarea" cols="30" rows="10"></textarea>
+      </div>
   </div>
     <Postlist 
         v-for="item in post"
