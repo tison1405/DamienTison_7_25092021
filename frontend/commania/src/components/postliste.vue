@@ -15,7 +15,7 @@ export default {
 			type: String,
 			required: true
 		},
-        image: {
+        photo: {
 			type: Object,
 			required: false
 		},
@@ -75,7 +75,7 @@ export default {
 <template>
     <div>
         <a href="#/post">
-        <img :src="image"/>
+        <img :src="photo" class="postImg"/>
         <h3>{{nom}} {{prenom}}</h3>
         <p>{{message}}</p>
         </a>
@@ -88,3 +88,9 @@ export default {
     </div>
         
 </template>
+<style lang="scss">
+.postImg{
+    width: 50px;
+    height: 50px;
+}
+</style>

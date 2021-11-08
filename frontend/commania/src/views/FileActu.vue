@@ -29,8 +29,8 @@
         <h2>{{user.nom}} {{user.prenom}}</h2>
       </div>
       <div class="col-12">
-        <textarea  id="textarea" cols="30" rows="10"></textarea>
-      </div>
+       <TextArea></TextArea>
+  </div>
   </div>
     <Postlist 
         v-for="item in post"
@@ -48,12 +48,15 @@
 </body>
 </template>
 <script>
+import TextArea from '../components/textArea.vue'
 import Postlist from '../components/postliste.vue'
 import { mapState } from "vuex"
 export default {
 	name: "fileactu",
+   
 	components: {
-		Postlist
+		Postlist,
+    TextArea
 	},
 	computed: {
 		
@@ -69,14 +72,16 @@ export default {
   methods:{
     disconnect(){
         this.$store.commit('DISCONNECT');
-    }
-  }
+    },
+  },
 }
 </script>
+
 
 <style lang="scss">
 #photoUse{
   width: 100px;
 }
+
 </style>
 
