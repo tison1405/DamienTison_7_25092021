@@ -38,11 +38,18 @@ export default {
     data(){
     return{
         erreur:"",
+        commentaire:0,
         
     }
 
     },
     methods:{
+        voirCommentaire(){
+            if (this.commentaire==0){
+            this.commentaire = 1}else{
+                this.commentaire=0
+            }
+        },
         async ajouterLike(){
             var likes = this.like;
             var idPost = this.idPost;
@@ -73,24 +80,77 @@ export default {
 }
 </script>
 <template>
-    <div>
-        <a href="#/post">
-        <img :src="photo" class="postImg"/>
-        <h3>{{nom}} {{prenom}}</h3>
-        <p>{{message}}</p>
+    <div class="post1">
+        <a href="#/post" class="post1__link">
+            <div class="post1__head">
+                <img :src="photo" class="post1__head--img"/>
+                <h3 class="post1__head--titre">{{nom}} {{prenom}}</h3>
+            </div>
+            <div class="post1__message">
+                <p>{{message}}</p>
+            </div>
         </a>
-        <div>
-        <button @click="ajouterLike"><i class="far fa-thumbs-up"></i></button>
-        <span>{{like}}</span>
+        <div class="post1__option">
+            <button @click="voirCommentaire">Commentaire</button>
+            <button @click="ajouterLike">
+                <i class="far fa-thumbs-up"></i>
+                <span>{{like}}</span>
+            </button>
+            
         </div>
-        <div>{{this.erreur}}</div>
+        <div class="post1__erreur">{{this.erreur}}</div>
+        <div class="post1__commentaire" v-if="this.commentaire==1">
+            <textarea  class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
+        </div>
 
     </div>
         
 </template>
 <style lang="scss">
-.postImg{
-    width: 50px;
-    height: 50px;
+.post1{
+    background-color: burlywood;
+    border-radius: 33px;
+    padding: 15px;
+    margin: 15px;
+    &__link{
+        text-decoration: none;
+    }
+    &__head{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        &--img{
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+        &--titre{
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 10px;
+            font-size: 15px;
+            color: black;
+        }
+    }
+    &__message{
+        background-color: white;
+        margin-top: 10px;
+        padding: 13px;
+        text-align: start;
+        color: black;
+    }
+    &__option{
+        display: flex;
+        justify-content: space-between;
+    }
+    &__commentaire{
+        &--saisie{
+            width: 90%;
+        }
+    }
+    
 }
+
+
 </style>
