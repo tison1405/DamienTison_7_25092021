@@ -1,16 +1,4 @@
-Backend
-Compiles and hot-reloads for dev:
-````
-nodemon server
-``````
-creer un fichier .env
-avec
-MESSAGE = strings
-LOCAL = strings
-USER = strings
-cryptoKey = strings 32bits
-cryptoIv = strings 16bits
-tokenkey = strings
+
 
 Frontend
 # commania
