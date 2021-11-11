@@ -1,4 +1,8 @@
 Backend
+vous devez installer
+nodeJS
+angular CLI
+npm
 Compiles and hot-reloads for dev:
 ````
 nodemon server
