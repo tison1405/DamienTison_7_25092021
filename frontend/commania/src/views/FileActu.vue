@@ -40,7 +40,7 @@
         :photo="item.photo"
         :like="item.likePost"
         :idPost="item.idPost"
-        :key="item.message"
+        :key="item.idPost"
         :token="user.token"
         :idUser="user.userId"
     />

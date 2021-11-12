@@ -16,7 +16,7 @@ export default {
 			required: true
 		},
         photo: {
-			type: Object,
+			type: String,
 			required: false
 		},
         like: {
@@ -50,6 +50,27 @@ export default {
                 this.commentaire=0
             }
         },
+        async signaler(){
+            var idPost = this.idPost;
+            const TOKEN = this.token;
+            const BASEURL = 'http://localhost:3000/api';
+            const ENDPOINT = '/';
+            const data= {idPost}
+            axios.create({
+                baseURL: BASEURL,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+TOKEN
+                }
+            })
+            .put(ENDPOINT, data)
+            .then(res => {
+                this.erreur= res.data.message
+            });
+            
+
+
+        },
         async ajouterLike(){
             var likes = this.like;
             var idPost = this.idPost;
@@ -72,7 +93,7 @@ export default {
             .then(res => {if(res.data.message ==1){
                 this.erreur= "like ajouté"
             }else{
-            this.erreur = res.data.message;}
+            this.erreur = res.data.message }
     }); 
 
         }
@@ -92,6 +113,7 @@ export default {
         </a>
         <div class="post1__option">
             <button @click="voirCommentaire">Commentaire</button>
+            <button @click="signaler">Signaler le post</button>
             <button @click="ajouterLike">
                 <i class="far fa-thumbs-up"></i>
                 <span>{{like}}</span>

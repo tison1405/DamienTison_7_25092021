@@ -7,7 +7,8 @@ export default {
     computed: {
 		
 		...mapState({
-            user: "user"  
+            user: "user",
+            post: "post"  
 		})
 	},
     data() {
@@ -44,10 +45,13 @@ export default {
         }
     })
             .post(ENDPOINT, data)
-            .then(res => {if(res.data.message ==1){
+            .then(res => {
+              if(res.data.message ==1){
                 this.posting= "post enregistré"
-            }else{
-            this.posting = res.data.message;}
+                this.$store.commit('GET_ALL_POST');
+              } else {
+                this.posting = res.data.message;
+              }
             })
     }
   },
