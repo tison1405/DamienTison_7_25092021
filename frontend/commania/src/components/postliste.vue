@@ -101,10 +101,12 @@ export default {
 }
 </script>
 <template>
-    <div class="post1">
+    <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
         <a href="#/post" class="post1__link">
             <div class="post1__head">
-                <img :src="photo" class="post1__head--img"/>
+                <v-avatar>
+                    <img :src="photo" alt="Photo de l'auteur du post">
+                </v-avatar>
                 <h3 class="post1__head--titre">{{nom}} {{prenom}}</h3>
             </div>
             <div class="post1__message">
@@ -112,12 +114,17 @@ export default {
             </div>
         </a>
         <div class="post1__option">
-            <button @click="voirCommentaire">Commentaire</button>
-            <button @click="signaler">Signaler le post</button>
-            <button @click="ajouterLike">
-                <i class="far fa-thumbs-up"></i>
+            <v-btn text color="primary" @click="voirCommentaire">
+                Commentaire
+            </v-btn>
+            
+            <v-btn text color="primary" @click="signaler">
+                Signaler
+            </v-btn>
+            <v-btn icon  @click="ajouterLike">
+                <v-icon>mdi-thumb-up</v-icon>
                 <span>{{like}}</span>
-            </button>
+            </v-btn>
             
         </div>
         <div class="post1__erreur">{{this.erreur}}</div>
@@ -125,15 +132,15 @@ export default {
             <textarea  class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
         </div>
 
-    </div>
+    </v-card>
         
 </template>
 <style lang="scss">
 .post1{
-    background-color: burlywood;
-    border-radius: 33px;
+    width: 90%;
     padding: 15px;
     margin: 15px;
+    max-width: 950px;
     &__link{
         text-decoration: none;
     }
@@ -145,7 +152,7 @@ export default {
         &--img{
             width: 50px;
             height: 50px;
-            border-radius: 10px;
+            border-radius: 50px;
         }
         &--titre{
             margin-top: auto;

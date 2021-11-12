@@ -66,6 +66,7 @@ export default {
 </script>
 
 <template>
+<v-card class="mx-auto" id="zoneText">
     <div class="wrapper">
     <textarea class="regular-input" id="textPost" v-model="input" placeholder="écrivez votre post ici"></textarea>
 
@@ -102,17 +103,25 @@ export default {
         </div>
       </div>
     </EmojiPicker>
-    <button @click="textPost">Poster</button>
+    <v-btn elevation="2" outlined @click="textPost">Poster</v-btn>
   </div>
+</v-card>
 </template>
 
 <style lang="scss">
+#zoneText{
+  width: 90%;
+  background-color: powderblue;
+ 
+}
 .wrapper {
   position: relative;
   width: 90%;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .regular-input {
@@ -122,6 +131,7 @@ export default {
   width: 100%;
   height: 8rem;
   outline: none;
+  background-color: white;
 }
 
 .regular-input:focus {
@@ -130,7 +140,7 @@ export default {
 
 .emoji-invoker {
   position: absolute;
-  top: 0.5rem;
+  top: 1.5rem;
   right: 0.5rem;
   width: 1.5rem;
   height: 1.5rem;

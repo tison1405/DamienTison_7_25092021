@@ -23,7 +23,7 @@
 <section class="post">
   <div class="row">
      <div class="col-6">
-       <img :src= user1.photo alt="photo utilisateur" id="photoUse"/>
+       <img :src= user.photo alt="photo utilisateur" id="photoUse"/>
      </div>
      <div class="col-6">
         <h2>{{user.nom}} {{user.prenom}}</h2>
@@ -32,6 +32,7 @@
        <TextArea></TextArea>
   </div>
   </div>
+  <div class="postlist">
     <Postlist 
         v-for="item in post"
         :nom="item.nom"
@@ -44,6 +45,7 @@
         :token="user.token"
         :idUser="user.userId"
     />
+  </div>
 </section>
 </body>
 </template>
@@ -81,6 +83,11 @@ export default {
 <style lang="scss">
 #photoUse{
   width: 100px;
+}
+.postlist{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 </style>
