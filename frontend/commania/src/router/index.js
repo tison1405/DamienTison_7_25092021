@@ -18,7 +18,7 @@ const routes = [
   {
     path:'/signIn',
     name:'signIn',
-    component: () => import('../views/signInPages')
+    component: () => import('../views/signInPage')
   },
   {
     path:'/filactu',
