@@ -49,6 +49,8 @@ export default {
               if(res.data.message ==1){
                 this.posting= "post enregistré"
                 this.$store.commit('GET_ALL_POST');
+                var textArea= document.getElementById("textPost");
+                textArea.value = textArea.defaultValue;
               } else {
                 this.posting = res.data.message;
               }
@@ -68,7 +70,7 @@ export default {
 <template>
 <v-card class="mx-auto" id="zoneText">
     <div class="wrapper">
-    <textarea class="regular-input" id="textPost" v-model="input" placeholder="écrivez votre post ici"></textarea>
+    <textarea type="text" class="regular-input" id="textPost" v-model="input" placeholder="écrivez votre post ici"></textarea>
 
     <EmojiPicker @emoji="append" :search="search">
       <div

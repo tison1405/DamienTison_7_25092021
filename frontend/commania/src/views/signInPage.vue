@@ -34,6 +34,7 @@
           <FormulaireUser
             validation= "validation04"
             name= "Mot de passe"
+            type= "password"
             pattern= "^(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{10}$"
             placeholder="Inscriver votre mot de passe"
             validvalidation= "valid04"
@@ -123,7 +124,8 @@ export default {
         //liens vers la page filactu//
         document.location.href = "#/filactu"
       } else {
-        return this.user = false;
+       this.user = false;
+       valideEmail.setAttribute("class", "form-control is-invalid"); 
       }
     }
   }

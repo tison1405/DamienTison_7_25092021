@@ -1,39 +1,15 @@
 <template>
-<body>
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <h1 class="navbar-brand">Commania</h1>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#/profil">Profil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/" @click="disconnect">Déconnection</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
-<section class="post">
-  <div class="row">
-     <div class="col-6">
-       <img :src= user.photo alt="photo utilisateur" id="photoUse"/>
-     </div>
-     <div class="col-6">
+  <body>
+    <Header url1=#/profil name1="profil"/>
+    <div class= "userArea">
+      <div class= "userArea__userPhoto">
+        <img :src= user1.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
         <h2>{{user.nom}} {{user.prenom}}</h2>
       </div>
-      <div class="col-12">
-       <TextArea></TextArea>
-  </div>
-  </div>
-  <div class="postlist">
-    <Postlist 
+      <TextArea></TextArea>
+    </div>
+    <div class="postlist">
+      <Postlist 
         v-for="item in post"
         :nom="item.nom"
         :prenom="item.prenom"
@@ -44,12 +20,14 @@
         :key="item.idPost"
         :token="user.token"
         :idUser="user.userId"
-    />
-  </div>
-</section>
+      />
+    </div>
+  <Footer/>
 </body>
 </template>
 <script>
+import Footer from '../components/footer.vue'
+import Header from '../components/header.vue'
 import TextArea from '../components/textArea.vue'
 import Postlist from '../components/postliste.vue'
 import { mapState } from "vuex"
@@ -58,7 +36,9 @@ export default {
    
 	components: {
 		Postlist,
-    TextArea
+    TextArea,
+    Header,
+    Footer
 	},
 	computed: {
 		
@@ -70,6 +50,8 @@ export default {
 	},
   beforeMount(){
     this.$store.commit('GET_ALL_POST');
+    this.$store.commit('GET_USER');
+    console.log(this.user.photo);
   },
   methods:{
     disconnect(){
@@ -81,14 +63,39 @@ export default {
 
 
 <style lang="scss">
-#photoUse{
-  width: 100px;
+.userArea{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  display: flex;
+  margin-top: 5px;
+  &__userPhoto{
+    align-self: center;
+    background-color: powderblue;
+    margin: 3px;
+    padding: 22px;
+    border-radius: 100px;
+    &--photoUse{
+      width: 100px;
+      border-radius: 10px;
+    }
+  }
+}
+#zonePost{
+  margin-top:20px;
+  overflow: hidden;
+  
 }
 .postlist{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 450px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 </style>
 

@@ -26,58 +26,45 @@ export default new Vuex.Store({
     },
     INCREMENT_USER(state, payload){
       state.user = payload;
-      console.log(state.user)
     },
     async GET_ALL_POST(state){
       const TOKEN = state.user.token;
-const BASEURL = 'http://localhost:3000/api';
-const ENDPOINT = '/';
+      const BASEURL = 'http://localhost:3000/api';
+      const ENDPOINT = '/';
 
-axios.create({
+      axios.create({
         baseURL: BASEURL,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+TOKEN
         }
-    })
-    .get(ENDPOINT)
-    .then(result => {
-            
-            state.post= result.data.result;
-            console.log(state.post);
-    });
-  console.log(state.user)
+      })
+      .get(ENDPOINT)
+      .then(result => { 
+        state.post= result.data.result;
+        console.log(state.post);
+      });
     },
     async GET_USER(state){
       const TOKEN = state.user.token;
       console.log(TOKEN);
-const BASEURL = 'http://localhost:3000/api';
-const ENDPOINT = '/user';
-const form = state.user;
-console.log(form);
-    
-    
-
-axios.create({
+      const BASEURL = 'http://localhost:3000/api';
+      const ENDPOINT = '/user';
+      const form = state.user;
+      axios.create({
         baseURL: BASEURL,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+TOKEN
         }
-    })
-    .post(ENDPOINT,form)
-    .then(res => {
-            state.user1 = res.data;
-            
-            
-            console.log(res.data);
-    });
+      })
+      .post(ENDPOINT,form)
+      .then(res => {
+            state.user1= res.data;
+      });
     },
-
-
   },
-  actions: {
-    
+  actions: {  
   },
   modules: {
   }

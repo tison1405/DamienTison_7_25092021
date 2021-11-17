@@ -80,8 +80,6 @@ export default {
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/likes';
             const data = {idPost, idUser, likes};
-            
-
         axios.create({
         baseURL: BASEURL,
         headers: {
@@ -90,12 +88,13 @@ export default {
         }
     })
             .post(ENDPOINT, data)
-            .then(res => {if(res.data.message ==1){
-                this.erreur= "like ajouté"
-            }else{
-            this.erreur = res.data.message }
-    }); 
-
+            .then(res => {
+                if(res.data.message ==1){
+                    this.like= likes++;
+                } else {
+                    this.erreur = res.data.message
+                }
+            }); 
         }
     }
 }

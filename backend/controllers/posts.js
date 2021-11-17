@@ -1,6 +1,7 @@
+//inserer dans la BD un post//
 exports.createPost = (req, res, next) => {
     const post = [[req.body.users_id, req.body.commentaire,0 ,0]];
-    var sql = "INSERT INTO forummulti ( users_id, commentaire, publication, postLike) VALUES ?";
+    var sql = "INSERT INTO all_post ( users_id, post, report, number_like) VALUES ?";
     //envoye du post à la table post//
     con.query(sql,[post], function (err, result) {
         //si erreur message//
@@ -14,17 +15,31 @@ exports.createPost = (req, res, next) => {
         }
     })       
 }
-
+//recuper tout les posts//
 exports.getAllPost = (req, res, next) => {
-    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, forummulti.commentaire AS message, forummulti.postLike AS likePost, forummulti.id AS idPost FROM users INNER JOIN forummulti ON users.id = forummulti.users_id ORDER BY forummulti.Date DESC;", function(err,result){
-        if (err) {res.json({ message: "aucun post trouver"})}
-          else {res.json({  result });
-        console.log(result)};})
+    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, all_post.post AS message, all_post.number_like AS likePost, all_post.id AS idPost FROM users INNER JOIN all_post ON users.id = all_post.users_id ORDER BY all_post.Date DESC;", function(err,result){
+        if (err) {
+            res.json({ 
+                message: "aucun post trouver"
+            })
+        } else {
+            res.json({
+                  result 
+                });
+        };
+    })
 }
-
+// signaler au moderateur un post//
 exports.modifyPost = (req, res, next) =>{
-    con.query("UPDATE forummulti SET publication = 1 WHERE id=?;",req.body.idPost ,function(err, result){
-        if (err) throw err;
-        else {res.json({ message: "le post a été envoyé au modérateur" })}
+    con.query("UPDATE all_post SET report = 1 WHERE id=?;",req.body.idPost ,function(err, result){
+        if (err){
+            res.json({ 
+                err: "probleme avec la base de donnée"
+            });
+        } else {
+            res.json({ 
+                message: "le post a été signalé au modérateur" 
+            })
+        }
     })
 }

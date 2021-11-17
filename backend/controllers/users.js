@@ -22,7 +22,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
         //envoi de l'objet user à la BD//
     .then(hash => {
-      const user = [[req.body.nom, req.body.prenom,ciphertextString ,hash ,null ,0]];
+      const user = [[req.body.nom, req.body.prenom,ciphertextString ,hash ,"http://localhost:8080/img/inconnu.e88a85b6.png" ,0]];
       var sql ="INSERT INTO users ( nom, prenom, mail, password, photo, modérateur) VALUES ?";
       con.query(sql,[user], function (err, result) {
             //Utilisateut existe déjà//
@@ -165,8 +165,15 @@ exports.userPicture = (req, res, next) => {
   let sql = "UPDATE users SET photo =? WHERE id = ?";
   let data = [imageUrl, req.body.id];
   con.query(sql,data,function(err, result){
-    if (err) throw err;
-    res.status(200).json({message:"photo inserée!"})
+    if (err){
+      res.status(401).json({
+        err: "probleme"
+      })
+    } else {
+      res.status(200).json({
+        message: result.affectedRows
+      })
+    }
   })
 }
 exports.userInfo = (req, res, next) =>{
