@@ -2,7 +2,7 @@
   <div class="container">
     <HeadTitle/>
     <div class="card2__img"></div>
-    <form method="POST" >
+    <form>
       <fieldset>
         <legend class="titreCoordonnees">Identifiez vous</legend>
         <div class="row">
@@ -25,7 +25,7 @@
         </div>    
       </fieldset>
       <div class="formulaire">
-        <button type="button" id="formulaire" @click="userSaisie">Valider</button>
+        <button type="button" id="formulaire" @click="userSaisie($event)">Valider</button>
       </div>
       <p v-if="this.dataLogin.errMail == true">Vous n'êtes pas inscrit. <a href="#/signIn">Inscrivez-vous</a></p>
       <p v-if="this.dataLogin.errMotdepasse == true"> Si vous avez oublié votre mot de passe. Veuillez contacter votre <a href="mailto:webmaster@example.com">administrateur</a></p>
@@ -53,9 +53,10 @@ export default {
     }
   },  
   methods:{
-    async userSaisie(){
+    async userSaisie(event){
+      event.preventDefault();
       var valideEmail = document.getElementById("validation03");
-      var validePassword = document.getElementById("validation04"); 
+      var validePassword = document.getElementById("validation04");
 
       //validation Email//
         this.formulaire.email = valideEmail.value;
@@ -68,10 +69,11 @@ export default {
 
       //reponse de la BD avec info Utilisateur ou message d'erreur//
       this.dataLogin = data;
+      console.log(data,"data");
       if (this.dataLogin.errMail == true){
         valideEmail.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalid03").innerHTML = "veuillez saisir votre adresse mail.";
-      } if (this.dataLogin.errMotdepasse == true){
+      } else if (this.dataLogin.errMotdepasse == true){
         validePassword.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalid04").innerHTML = "Mot de passe erroné!";
       } else {

@@ -52,12 +52,7 @@ export default {
     this.$store.commit('GET_ALL_POST');
     this.$store.commit('GET_USER');
     console.log(this.user.photo);
-  },
-  methods:{
-    disconnect(){
-        this.$store.commit('DISCONNECT');
-    },
-  },
+  }
 }
 </script>
 

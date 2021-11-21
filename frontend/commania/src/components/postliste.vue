@@ -1,7 +1,12 @@
 <script>
 const axios = require("axios");
+import { mdiSend } from '@mdi/js';
+import SvgIcon from '@jamescoyle/vue-icon'
 export default {
 	name: 'Postlist',
+    components:{
+        SvgIcon
+    },
     props:{
         nom: {
             type: String,
@@ -39,15 +44,19 @@ export default {
     return{
         erreur:"",
         commentaire:0,
-        
+        other:0,
+        path: mdiSend,
+        messages:"",
     }
-
     },
     methods:{
         voirCommentaire(){
             if (this.commentaire==0){
-            this.commentaire = 1}else{
-                this.commentaire=0
+                this.commentaire = 1;
+                this.other = 1;
+            } else {
+                this.commentaire = 0;
+                this.oser = 0;
             }
         },
         async signaler(){
@@ -66,10 +75,7 @@ export default {
             .put(ENDPOINT, data)
             .then(res => {
                 this.erreur= res.data.message
-            });
-            
-
-
+            })
         },
         async ajouterLike(){
             var likes = this.like;
@@ -80,13 +86,13 @@ export default {
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/likes';
             const data = {idPost, idUser, likes};
-        axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
-        }
-    })
+            axios.create({
+                baseURL: BASEURL,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+TOKEN
+                }
+            })
             .post(ENDPOINT, data)
             .then(res => {
                 if(res.data.message ==1){
@@ -94,8 +100,33 @@ export default {
                 } else {
                     this.erreur = res.data.message
                 }
-            }); 
-        }
+            }) 
+        },
+        async ajouterCommentaire(){
+            var commentaire = document.getElementById("comments").value;
+            console.log(commentaire);
+            var idPost = this.idPost;
+            var idUser = this.idUser;
+            const data = {commentaire, idPost, idUser}
+            const TOKEN = this.token;
+            const BASEURL = 'http://localhost:3000/api';
+            const ENDPOINT = '/commentaires';
+            axios.create({
+                baseURL: BASEURL,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+TOKEN
+                }
+            })
+            .post(ENDPOINT, data)
+            .then(res =>{
+                if (res.data.message == 1){
+                    this.messages= "commentaire enregistré"
+                } else {
+                    this.messages= res.data.message;
+                }   
+            })
+        }    
     }
 }
 </script>
@@ -128,7 +159,10 @@ export default {
         </div>
         <div class="post1__erreur">{{this.erreur}}</div>
         <div class="post1__commentaire" v-if="this.commentaire==1">
-            <textarea  class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
+            <textarea type="text" id="comments" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
+            <v-btn @click="ajouterCommentaire">
+                <svg-icon type="mdi" :path="path" ></svg-icon>
+            </v-btn>
         </div>
 
     </v-card>
@@ -176,6 +210,9 @@ export default {
         &--saisie{
             width: 90%;
         }
+        background-color: white;
+        display: flex;
+        height: 30px;
     }
     
 }

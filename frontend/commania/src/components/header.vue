@@ -27,7 +27,12 @@ export default {
     props: [
         'url1',
         'name1'
-    ]
+    ],
+     methods:{
+        disconnect(){
+            this.$store.commit('DISCONNECT');
+        }
+    }
 }
 </script>
 

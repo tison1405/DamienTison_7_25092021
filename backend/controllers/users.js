@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
     //probleme de saisi du mot de passe//
   } else {
     res.json({
-      message: "votre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"
+      message: "otre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"
     })
   }
 };
@@ -82,7 +82,7 @@ exports.login = (req, res, next) => {
       })
     } else {
       res.json({
-        message: "Vous n'est pas inscrit! Inscrivez vous!",
+        message: "Vous n'est pas inscrit ! Inscrivez vous !",
         errMail: true
       });
     }
