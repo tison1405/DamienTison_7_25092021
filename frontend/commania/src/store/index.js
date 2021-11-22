@@ -17,9 +17,7 @@ export default new Vuex.Store({
     },
     user:"",
     post:[],
-    messages: {
-      commentaire:""
-    }
+    message:""
   },
   plugins: [createPersistedState()],
   mutations: {
@@ -50,12 +48,10 @@ export default new Vuex.Store({
       .get(ENDPOINT)
       .then(result => { 
         state.post= result.data.result;
-        console.log(state.post);
       });
     },
     async GET_USER(state){
       const TOKEN = state.user.token;
-      console.log(TOKEN);
       const BASEURL = 'http://localhost:3000/api';
       const ENDPOINT = '/user';
       const form = state.user;
@@ -71,13 +67,16 @@ export default new Vuex.Store({
             state.user1= res.data;
       });
     },
-
-              //fonction pour poster les commentaires//
-    async POST_COMMENTAIRE(state){
+    async PUT_LAST_COMMENT(state, payload){
       const TOKEN = state.user.token;
       const BASEURL = 'http://localhost:3000/api';
-      const ENDPOINT = '/commentaires';
-
+      const ENDPOINT = '/lastCommentaires';
+      var commentaire = payload.commentaire;
+      var nom = state.user1.nom;
+      var prenom = state.user1.prenom;
+      var photo = state.user1.photo;
+      var idPost = payload.idPost
+      const form = {commentaire, nom, prenom, photo, idPost};
       axios.create({
         baseURL: BASEURL,
         headers: {
@@ -85,12 +84,11 @@ export default new Vuex.Store({
             'Authorization': 'Bearer '+TOKEN
         }
       })
-      .post(ENDPOINT)
-      .then(res =>{
-        state.messages.commentaire = res.data.message
-        console.log(state.messages.commentaire)
-      })
-
+      .post(ENDPOINT,form)
+      .then(res => {
+            state.message= res.data.message;
+      });
+      console.log(state.message);
     }
   },
   actions: {  

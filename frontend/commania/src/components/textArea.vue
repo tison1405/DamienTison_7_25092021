@@ -31,7 +31,6 @@ export default {
         var commentaire = textRited.value
         var TOKEN = this.user.token
         const data = {users_id, commentaire}
-        console.log(data);
         const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/';
             

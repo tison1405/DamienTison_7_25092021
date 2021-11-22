@@ -5,7 +5,8 @@ const commentCtrl = require('../controllers/commentaire');
 const auth = require('../middleware/Auth');
 
 
-router.post('/commentaires',auth, commentCtrl.createdCommentaire);
+router.post('/commentaires',auth , commentCtrl.createdCommentaire);
+router.post('/lastCommentaires', auth, commentCtrl.putLastCommentaire);
 
 
 

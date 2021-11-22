@@ -1,11 +1,17 @@
 <script>
 const axios = require("axios");
 import { mdiSend } from '@mdi/js';
-import SvgIcon from '@jamescoyle/vue-icon'
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mapState } from "vuex"
 export default {
 	name: 'Postlist',
     components:{
         SvgIcon
+    },
+    computed: {
+		...mapState({
+            user1: "user1",  
+        })
     },
     props:{
         nom: {
@@ -47,16 +53,15 @@ export default {
         other:0,
         path: mdiSend,
         messages:"",
+        lastCommentaire:""
     }
     },
     methods:{
         voirCommentaire(){
             if (this.commentaire==0){
                 this.commentaire = 1;
-                this.other = 1;
             } else {
-                this.commentaire = 0;
-                this.oser = 0;
+                this.commentaire = 0
             }
         },
         async signaler(){
@@ -78,14 +83,12 @@ export default {
             })
         },
         async ajouterLike(){
-            var likes = this.like;
             var idPost = this.idPost;
             var idUser = this.idUser;
-            likes ++;
-           const TOKEN = this.token;
+            const TOKEN = this.token;
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/likes';
-            const data = {idPost, idUser, likes};
+            const data = {idPost, idUser};
             axios.create({
                 baseURL: BASEURL,
                 headers: {
@@ -96,18 +99,21 @@ export default {
             .post(ENDPOINT, data)
             .then(res => {
                 if(res.data.message ==1){
-                    this.like= likes++;
+                    this.$store.commit('GET_ALL_POST');
                 } else {
                     this.erreur = res.data.message
                 }
             }) 
         },
         async ajouterCommentaire(){
-            var commentaire = document.getElementById("comments").value;
+            var commentaire = document.getElementById(this.idPost).value;
             console.log(commentaire);
             var idPost = this.idPost;
             var idUser = this.idUser;
-            const data = {commentaire, idPost, idUser}
+            var nom = this.user1.nom;
+            var prenom  = this.user1.prenom;
+            var photo = this.user1.photo;
+            const data = {commentaire, idPost, idUser, nom, prenom, photo};
             const TOKEN = this.token;
             const BASEURL = 'http://localhost:3000/api';
             const ENDPOINT = '/commentaires';
@@ -122,11 +128,19 @@ export default {
             .then(res =>{
                 if (res.data.message == 1){
                     this.messages= "commentaire enregistré"
+                    var textArea= document.getElementById(this.idPost);
+                    textArea.value = textArea.defaultValue;
+                    var payload = {idPost, commentaire}
+                    this.$store.commit('PUT_LAST_COMMENT',payload );
+
                 } else {
                     this.messages= res.data.message;
                 }   
             })
         }    
+    },
+    beforeMount(){
+
     }
 }
 </script>
@@ -159,7 +173,7 @@ export default {
         </div>
         <div class="post1__erreur">{{this.erreur}}</div>
         <div class="post1__commentaire" v-if="this.commentaire==1">
-            <textarea type="text" id="comments" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
+            <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
             <v-btn @click="ajouterCommentaire">
                 <svg-icon type="mdi" :path="path" ></svg-icon>
             </v-btn>

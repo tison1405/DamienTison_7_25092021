@@ -8,10 +8,24 @@ exports.createdCommentaire = (req, res, next) => {
                 message: "Commentaire non ajouté "
             })
         } else {
-            res.status(200).json({
-                message: result.affectedRows
+            var message = result.affectedRows;
+            res.json({
+                message,   
             })
         }
 
+    })
+}
+exports.putLastCommentaire = (req, res, next) => {
+    const data = [req.body.commentaire, req.body.nom, req.body.prenom, req.body.photo, req.body.idPost];
+    var sql = "UPDATE all_post SET last_commentaire = ?, last_commentaire_nom = ?, last_commentaire_prenom = ?, last_commentaire_photo = ? WHERE id =?";
+    con.query(sql,data, function (err, result){
+        if (err) {
+            throw err;
+        } else {
+            res.json({
+                message: result.affectedRows
+            })
+        }
     })
 }
