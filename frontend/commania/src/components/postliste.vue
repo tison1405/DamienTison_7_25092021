@@ -44,7 +44,18 @@ export default {
         token: {
             type: String
         },
-        
+        lastCommentaire:{
+            type: String
+        },
+        lastCommentaireNom:{
+            type: String
+        },
+        lastCommentairePrenom:{
+            type: String
+        },
+        lastCommentairePhoto:{
+            type: String
+        }
     },
     data(){
     return{
@@ -53,10 +64,23 @@ export default {
         other:0,
         path: mdiSend,
         messages:"",
-        lastCommentaire:""
     }
     },
     methods:{
+        infoPost(){
+            var infoPost = {
+                nom:this.nom,
+                prenom:this.prenom,
+                photo:this.photo,
+                idPost:this.idPost,
+                Like:this.like,
+                message:this.message,
+                token:this.token,
+                idUser:this.idUser
+            }
+            this.$store.commit('INCREMENT_INFOPOST',infoPost);
+        
+        },
         voirCommentaire(){
             if (this.commentaire==0){
                 this.commentaire = 1;
@@ -127,26 +151,23 @@ export default {
             .post(ENDPOINT, data)
             .then(res =>{
                 if (res.data.message == 1){
-                    this.messages= "commentaire enregistré"
+                    this.messages= 1
                     var textArea= document.getElementById(this.idPost);
                     textArea.value = textArea.defaultValue;
                     var payload = {idPost, commentaire}
                     this.$store.commit('PUT_LAST_COMMENT',payload );
-
+                     this.$store.commit('GET_ALL_POST');
                 } else {
                     this.messages= res.data.message;
                 }   
             })
         }    
     },
-    beforeMount(){
-
-    }
 }
 </script>
 <template>
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
-        <a href="#/post" class="post1__link">
+        <a href="#/post" class="post1__link" @click="infoPost">
             <div class="post1__head">
                 <v-avatar>
                     <img :src="photo" alt="Photo de l'auteur du post">
@@ -172,17 +193,38 @@ export default {
             
         </div>
         <div class="post1__erreur">{{this.erreur}}</div>
-        <div class="post1__commentaire" v-if="this.commentaire==1">
-            <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
-            <v-btn @click="ajouterCommentaire">
-                <svg-icon type="mdi" :path="path" ></svg-icon>
-            </v-btn>
+        <div v-if="this.commentaire==1">
+            <div class="post1__commentaire" >
+                <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
+                <v-btn @click="ajouterCommentaire" class="post1__commentaire--btn">
+                    <svg-icon type="mdi" :path="path" ></svg-icon>
+                </v-btn>
+            </div>
+            <div v-if="!this.lastCommentaire">
+                <p>pas de commentaire</p>
+            </div>
+            <div v-else>
+                <p class="commentaireTitre">Dernier commentaire</p>
+                <div class="lastCommentaire">
+                    <div class="lastCommentaire__user">
+                        <img class="lastCommentaire__user--photo" :src="lastCommentairePhoto" alt="photo de l'auteur du dernier commentaire">
+                        <span class="lastCommentaire__user--nom">{{lastCommentaireNom}}</span>
+                        <span class="lastCommentaire__user--prenom">{{lastCommentairePrenom}}</span>
+                    </div>
+                    <div class="lastCommentaire__text">
+                        {{lastCommentaire}}
+                    </div>
+                </div>
+            </div>
         </div>
 
     </v-card>
         
 </template>
 <style lang="scss">
+.theme--light.v-btn.v-btn--has-bg {
+    background-color:powderblue;
+}
 .post1{
     width: 90%;
     padding: 15px;
@@ -227,9 +269,45 @@ export default {
         background-color: white;
         display: flex;
         height: 30px;
+        margin-bottom: 5px;
+        height: auto;
+        padding: 4px;
     }
-    
 }
+.commentaireTitre{
+        text-align: center;
+}
+.lastCommentaire{
+    padding: 5px;
+    border-radius: 10px;
+    &__user{
+        display: flex;
+        background-color: powderblue;
+        border-radius: 20px;
+        width: fit-content;
+        padding: 3px;
+        margin-bottom: 4px;
+        &--photo{
+            width: 32px;
+            border-radius: 20px;
+        }
+        &--nom{
+            margin: 5px;
+        }
+        &--prenom{
+            margin: 5px;
+        }
+    }
+    &__text{
+        background-color: white;
+        display: flex;
+        padding: 5px;
+        width: fit-content;
+        border-radius: 20px;
+    }
+}
+    
+
 
 
 </style>

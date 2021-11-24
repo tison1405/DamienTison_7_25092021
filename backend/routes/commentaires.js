@@ -7,6 +7,7 @@ const auth = require('../middleware/Auth');
 
 router.post('/commentaires',auth , commentCtrl.createdCommentaire);
 router.post('/lastCommentaires', auth, commentCtrl.putLastCommentaire);
+router.post('/onePostAllComents', auth, commentCtrl.getPostAllComent);
 
 
 

@@ -20,6 +20,10 @@
         :key="item.idPost"
         :token="user.token"
         :idUser="user.userId"
+        :lastCommentaire="item.lastCommentaire"
+        :lastCommentaireNom="item.lastCommentaireNom"
+        :lastCommentairePrenom="item.lastCommentairePrenom"
+        :lastCommentairePhoto="item.lastCommentairePhoto"
       />
     </div>
   <Footer/>
@@ -51,7 +55,6 @@ export default {
   beforeMount(){
     this.$store.commit('GET_ALL_POST');
     this.$store.commit('GET_USER');
-    console.log(this.user.photo);
   }
 }
 </script>

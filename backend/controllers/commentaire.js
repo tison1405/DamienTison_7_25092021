@@ -13,9 +13,9 @@ exports.createdCommentaire = (req, res, next) => {
                 message,   
             })
         }
-
     })
 }
+//ajouter à la table post le dernier commentaire//
 exports.putLastCommentaire = (req, res, next) => {
     const data = [req.body.commentaire, req.body.nom, req.body.prenom, req.body.photo, req.body.idPost];
     var sql = "UPDATE all_post SET last_commentaire = ?, last_commentaire_nom = ?, last_commentaire_prenom = ?, last_commentaire_photo = ? WHERE id =?";
@@ -25,6 +25,19 @@ exports.putLastCommentaire = (req, res, next) => {
         } else {
             res.json({
                 message: result.affectedRows
+            })
+        }
+    })
+}
+exports.getPostAllComent = (req, res, next) => {
+    const data = [req.body.idPost];
+    var sql = ("SELECT users.nom AS commentaire_nom, users.prenom AS commentaire_prenom, users.photo AS commentaire_photo, commentaire.post_commentaire AS commentaire, all_post.number_like AS likes FROM commentaire INNER JOIN users ON commentaire.user_id = users.id INNER JOIN all_post ON commentaire.post_id = all_post.id WHERE commentaire.post_id = ?");
+    con.query(sql,[data], function (err, result){
+        if (err) {
+            throw err;
+        } else {
+            res.json({
+                result
             })
         }
     })

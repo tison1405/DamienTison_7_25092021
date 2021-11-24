@@ -17,7 +17,9 @@ export default new Vuex.Store({
     },
     user:"",
     post:[],
-    message:""
+    message:"",
+    infoPost:"",
+    commentairePost:[]
   },
   plugins: [createPersistedState()],
   mutations: {
@@ -31,6 +33,10 @@ export default new Vuex.Store({
     INCREMENT_USER(state, payload){
       state.user = payload;
     },
+     // fonction pour recuperer les infos du post//
+     INCREMENT_INFOPOST(state, payload){
+       state.infoPost = payload;
+     },
 
                 //fonction pour recuperer les posts//
     async GET_ALL_POST(state){
@@ -67,6 +73,7 @@ export default new Vuex.Store({
             state.user1= res.data;
       });
     },
+    //envoie à la table posts du dernier commentaire//
     async PUT_LAST_COMMENT(state, payload){
       const TOKEN = state.user.token;
       const BASEURL = 'http://localhost:3000/api';
@@ -88,7 +95,26 @@ export default new Vuex.Store({
       .then(res => {
             state.message= res.data.message;
       });
-      console.log(state.message);
+    },
+    //recupère les commentaires et les likes d'un post//
+    async GET_ONE_POST(state, payload){
+      const data = payload.idPost;
+      const TOKEN = payload.token;
+      console.log(TOKEN);
+      const BASEURL = 'http://localhost:3000/api';
+      const ENDPOINT = '/onePostAllComents';
+      axios.create({
+        baseURL: BASEURL,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+TOKEN
+        }
+      })
+      .post(ENDPOINT,data)
+      .then(res => {
+            state.commentairePost= res.data.result;
+      });
+
     }
   },
   actions: {  
