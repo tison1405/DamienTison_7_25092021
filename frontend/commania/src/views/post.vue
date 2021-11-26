@@ -1,27 +1,26 @@
 <script>
 const axios = require("axios");
-import Header from '../components/header.vue'
-import Footer from '../components/footer.vue'
+import Head from '../components/head.vue'
+import Foot from '../components/foot.vue'
 import { mapState } from "vuex"
 export default {
     name: "post",
     components:{
-        Header,
-        Footer,
+        Head,
+        Foot,
     },
     computed: {
 		...mapState({
 			infoPost: "infoPost",
-            commentairePost: "commentairePost"
 		})
 	},
     data(){
         return{
             erreur:"",
             commentaire:0,
+            commentairePost:[]
         }
     },
-  
     methods:{
         voirCommentaire(){
             if (this.commentaire==0){
@@ -51,10 +50,11 @@ export default {
         async ajouterLike(){
             var idPost = this.infoPost.idPost;
             var idUser = this.infoPost.idUser;
-            const TOKEN = this.infoPost.token;
-            const BASEURL = 'http://localhost:3000/api';
-            const ENDPOINT = '/likes';
-            const data = {idPost, idUser};
+            var TOKEN = this.infoPost.token;
+            var BASEURL = 'http://localhost:3000/api';
+            var ENDPOINT = '/likes';
+            var data = {idPost, idUser};
+            var payload = {data,TOKEN,BASEURL}
             axios.create({
                 baseURL: BASEURL,
                 headers: {
@@ -65,11 +65,7 @@ export default {
             .post(ENDPOINT, data)
             .then(res => {
                 if(res.data.message ==1){
-                    var payload = {
-                        idpost: this.infoPost.idPost,
-                        token: this.infoPost.token
-                    }
-                    this.$store.commit('GET_ONE_POST',payload);
+                    this.$store.commit('GET_ONE_POST', payload);
                 } else {
                     this.erreur = res.data.message
                 }
@@ -81,7 +77,7 @@ export default {
 
 <template>
 <body>
-    <Header url1=#/profil name1="profil"/>
+    <Head url1=#/profil name1="profil"/>
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
             <div class="post1__head">
                 <v-avatar>
@@ -115,7 +111,7 @@ export default {
             </div>
         </div>
     </v-card>
-    <Footer></Footer> 
+    <Foot></Foot> 
 </body>
 </template>
 
@@ -124,6 +120,7 @@ export default {
     background-color:powderblue;
 }
 .post1{
+    display: inline-block;
     width: 90%;
     padding: 15px;
     margin: 15px;

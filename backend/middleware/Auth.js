@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
   try {
+    console.log("oui oui");
     const token = req.headers.authorization.split(' ')[1];
     const mytokenKey = process.env.tokenKey;
     const decodedToken = jwt.verify(token, mytokenKey);
@@ -13,7 +14,7 @@ module.exports = (req, res, next) => {
     }
   } catch {
     res.status(401).json({
-      error: new Error('Invalid request!')
+      error: 'Invalid request!'
     });
   }
 };

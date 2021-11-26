@@ -98,23 +98,19 @@ export default new Vuex.Store({
     },
     //recupère les commentaires et les likes d'un post//
     async GET_ONE_POST(state, payload){
-      const data = payload.idPost;
-      const TOKEN = payload.token;
-      console.log(TOKEN);
-      const BASEURL = 'http://localhost:3000/api';
-      const ENDPOINT = '/onePostAllComents';
+      var ENDPOINT = "/onePostAllComents";
       axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
+        "baseURL": payload.BASEURL,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+payload.TOKEN
         }
       })
-      .post(ENDPOINT,data)
+      .post(ENDPOINT,payload.data)
       .then(res => {
             state.commentairePost= res.data.result;
       });
-
+      console.log(state.commentairePost)
     }
   },
   actions: {  

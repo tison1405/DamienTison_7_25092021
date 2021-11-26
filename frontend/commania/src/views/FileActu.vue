@@ -1,6 +1,6 @@
 <template>
   <body>
-    <Header url1=#/profil name1="profil"/>
+    <Head url1=#/profil name1="profil"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
         <img :src= user1.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
@@ -26,12 +26,12 @@
         :lastCommentairePhoto="item.lastCommentairePhoto"
       />
     </div>
-  <Footer/>
+  <Foot/>
 </body>
 </template>
 <script>
-import Footer from '../components/footer.vue'
-import Header from '../components/header.vue'
+import Foot from '../components/foot.vue'
+import Head from '../components/head.vue'
 import TextArea from '../components/textArea.vue'
 import Postlist from '../components/postliste.vue'
 import { mapState } from "vuex"
@@ -41,8 +41,8 @@ export default {
 	components: {
 		Postlist,
     TextArea,
-    Header,
-    Footer
+    Head,
+    Foot
 	},
 	computed: {
 		

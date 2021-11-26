@@ -1,6 +1,6 @@
 <template>
 <body>
-  <Header url1=#/filactu name1="Fil d'actu"/>
+  <Head url1=#/filactu name1="Fil d'actu"/>
   <div class="userImg">
     <img :src= user1.photo alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
@@ -31,21 +31,21 @@
   <p>{{user1.nom}}</p>
   <p>{{user1.prenom}}</p>
   <p>{{user1.email}}</p>
-  <Footer/>
+  <Foot/>
 </body>
 </template>
 
 <script>
 const axios = require("axios");
-import Footer from '../components/footer.vue'
+import Foot from '../components/foot.vue'
 import { mapState } from "vuex";
 import FormData from 'form-data';
-import Header from '../components/header.vue'
+import Head from '../components/head.vue'
 export default {
 name : "profile",
 components:{
-  Header,
-  Footer
+  Head,
+  Foot
 },
 data(){
     return{

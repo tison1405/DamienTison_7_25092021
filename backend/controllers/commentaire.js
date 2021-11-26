@@ -31,14 +31,16 @@ exports.putLastCommentaire = (req, res, next) => {
 }
 exports.getPostAllComent = (req, res, next) => {
     const data = [req.body.idPost];
+    console.log(data);
     var sql = ("SELECT users.nom AS commentaire_nom, users.prenom AS commentaire_prenom, users.photo AS commentaire_photo, commentaire.post_commentaire AS commentaire, all_post.number_like AS likes FROM commentaire INNER JOIN users ON commentaire.user_id = users.id INNER JOIN all_post ON commentaire.post_id = all_post.id WHERE commentaire.post_id = ?");
     con.query(sql,[data], function (err, result){
         if (err) {
             throw err;
         } else {
             res.json({
-                result
-            })
+                result 
+            });
+            console.log(result);
         }
     })
 }
