@@ -2,18 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
-
 Vue.use(Vuex)
 const axios = require("axios");
+
 export default new Vuex.Store({
   state: {
-    user1:{
-      nom:"",
-      prenom:"",
-      email:"",
-      password:"",
-      photo: "",
-
+    userId:"",
+    base:{
+      baseURL: 'http://localhost:3000/api',
+      headers: ""
     },
     user:"",
     post:[],
@@ -32,11 +29,27 @@ export default new Vuex.Store({
        // fonction pour recuperer les infos de l'utilisateur//
     INCREMENT_USER(state, payload){
       state.user = payload;
+      state.userId= payload.userId;
+      state.base.headers= {
+          'Content-Type' : 'application/json',
+          'Authorization': 'Bearer '+payload.token
+      }
     },
      // fonction pour recuperer les infos du post//
      INCREMENT_INFOPOST(state, payload){
        state.infoPost = payload;
      },
+
+            //fonction pour recuperer les infos User//
+    async GET_ONE_USER(state){
+      console.log(state.base);
+      const ENDPOINT = '/'+state.userId;
+      axios.create(state.base)
+      .get(ENDPOINT)
+      .then(res => {
+          state.user = res.data.result;
+      });
+    },
 
                 //fonction pour recuperer les posts//
     async GET_ALL_POST(state){
@@ -109,8 +122,9 @@ export default new Vuex.Store({
       .post(ENDPOINT,payload.data)
       .then(res => {
             state.commentairePost= res.data.result;
+            console.log(state.commentairePost)
       });
-      console.log(state.commentairePost)
+      
     }
   },
   actions: {  

@@ -3,7 +3,7 @@
     <Head url1=#/profil name1="profil"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
-        <img :src= user1.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+        <img :src= user.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
         <h2>{{user.nom}} {{user.prenom}}</h2>
       </div>
       <TextArea></TextArea>
@@ -49,12 +49,11 @@ export default {
 		...mapState({
 			post: "post",
       user: "user",
-      user1: "user1"
 		})
 	},
   beforeMount(){
     this.$store.commit('GET_ALL_POST');
-    this.$store.commit('GET_USER');
+    this.$store.commit('GET_ONE_USER');
   }
 }
 </script>

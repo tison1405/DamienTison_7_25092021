@@ -2,7 +2,7 @@
 <body>
   <Head url1=#/filactu name1="Fil d'actu"/>
   <div class="userImg">
-    <img :src= user1.photo alt="photo utilisateur" id="utiPhoto"/>
+    <img :src= user.photo alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
       <form method="post" enctype="multipart/form-data">
         <div id="photo">
@@ -28,9 +28,9 @@
   <v-btn text color="primary" @click="voirUpLoadPicture" v-if="this.upLoadPicture==0">
       Ajoutez ou modifiez votre photo
   </v-btn>
-  <p>{{user1.nom}}</p>
-  <p>{{user1.prenom}}</p>
-  <p>{{user1.email}}</p>
+  <p>{{user.nom}}</p>
+  <p>{{user.prenom}}</p>
+  <p>{{user.email}}</p>
   <Foot/>
 </body>
 </template>
@@ -58,12 +58,11 @@ data(){
 
 },
 beforeMount(){
-    this.$store.commit('GET_USER');
+    this.$store.commit('GET_ONE_USER');
 },
 computed: {
 		
 		...mapState({
-      user1: "user1",
       user: "user"
 		}), },
 methods:{
@@ -136,7 +135,7 @@ methods:{
     .put(ENDPOINT, form)
     .then(res => {
       if(res.data.message ==1){
-        this.$store.commit('GET_USER');
+        this.$store.commit('GET_ONE_USER');
         this.upLoadPicture = 0;
       } else {
         console.log("problème");

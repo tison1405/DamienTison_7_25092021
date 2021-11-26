@@ -7,20 +7,20 @@
         <legend class="titreCoordonnees">Identifiez vous</legend>
         <div class="row">
           <FormulaireUser
-            validation= "validation03"
+            validation= "validationMail"
             name= "Adresse Email"
             type= "email"
             placeholder="Inscriver votre email"
-            validvalidation= "valid03"
-            invalidvalidation="invalid03"
+            validvalidation= "validMail"
+            invalidvalidation="invalidMail"
           />
           <FormulaireUser
-            validation= "validation04"
+            validation= "validationPassword"
             name= "Mot de passe"
             type= "password"
             placeholder="Inscriver votre mot de passe"
-            validvalidation= "valid04"
-            invalidvalidation="invalid04"
+            validvalidation= "validPassword"
+            invalidvalidation="invalidPassword"
           />
         </div>    
       </fieldset>
@@ -55,8 +55,8 @@ export default {
   methods:{
     async userSaisie(event){
       event.preventDefault();
-      var valideEmail = document.getElementById("validation03");
-      var validePassword = document.getElementById("validation04");
+      var valideEmail = document.getElementById("validationMail");
+      var validePassword = document.getElementById("validationPassword");
 
       //validation Email//
         this.formulaire.email = valideEmail.value;
@@ -69,13 +69,13 @@ export default {
 
       //reponse de la BD avec info Utilisateur ou message d'erreur//
       this.dataLogin = data;
-      console.log(data,"data");
+      
       if (this.dataLogin.errMail == true){
         valideEmail.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid03").innerHTML = "veuillez saisir votre adresse mail.";
+        document.getElementById("invalidMail").innerHTML = "veuillez saisir votre adresse mail.";
       } else if (this.dataLogin.errMotdepasse == true){
         validePassword.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid04").innerHTML = "Mot de passe erroné!";
+        document.getElementById("invalidPassword").innerHTML = "Mot de passe erroné!";
       } else {
         //stockage des données dans la data central//
         this.$store.commit('INCREMENT_USER', this.dataLogin);
