@@ -7,12 +7,13 @@ const axios = require("axios");
 
 export default new Vuex.Store({
   state: {
-    userId:"",
-    base:{
-      baseURL: 'http://localhost:3000/api',
-      headers: ""
+    user:{
+      base:{
+        baseURL: 'http://localhost:3000/api',
+        headers: ""
+      },
+      info:""
     },
-    user:"",
     post:[],
     message:"",
     infoPost:"",
@@ -28,9 +29,8 @@ export default new Vuex.Store({
 
        // fonction pour recuperer les infos de l'utilisateur//
     INCREMENT_USER(state, payload){
-      state.user = payload;
-      state.userId= payload.userId;
-      state.base.headers= {
+      state.user.info = payload;
+      state.user.base.headers= {
           'Content-Type' : 'application/json',
           'Authorization': 'Bearer '+payload.token
       }
@@ -42,50 +42,25 @@ export default new Vuex.Store({
 
             //fonction pour recuperer les infos User//
     async GET_ONE_USER(state){
-      console.log(state.base);
-      const ENDPOINT = '/'+state.userId;
-      axios.create(state.base)
+      const ENDPOINT = '/'+state.user.info.userId;
+      axios.create(state.user.base)
       .get(ENDPOINT)
       .then(res => {
-          state.user = res.data.result;
+          state.user.info = res.data;
       });
     },
 
                 //fonction pour recuperer les posts//
     async GET_ALL_POST(state){
-      const TOKEN = state.user.token;
-      const BASEURL = 'http://localhost:3000/api';
       const ENDPOINT = '/';
-
-      axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
-        }
-      })
+      axios.create(state.user.base)
       .get(ENDPOINT)
       .then(result => { 
         state.post= result.data.result;
       });
     },
-    async GET_USER(state){
-      const TOKEN = state.user.token;
-      const BASEURL = 'http://localhost:3000/api';
-      const ENDPOINT = '/user';
-      const form = state.user;
-      axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
-        }
-      })
-      .post(ENDPOINT,form)
-      .then(res => {
-            state.user1= res.data;
-      });
-    },
+
+    
     //envoie à la table posts du dernier commentaire//
     async PUT_LAST_COMMENT(state, payload){
       const TOKEN = state.user.token;

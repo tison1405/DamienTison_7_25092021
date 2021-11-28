@@ -1,5 +1,5 @@
 <template>
-<footer>
+<section class="foot">
       <v-card-title id="centrer">
         <v-btn
           v-for="icon in icons"
@@ -17,12 +17,12 @@
       <v-card-text class="py-2 white--text text-center" id="black">
         {{ new Date().getFullYear() }} — <strong>Commania</strong>
       </v-card-text>
-</footer>
+</section>
 </template>
 
 <script>
   export default {
-    name:"footer",
+    name:"foot",
     data: () => ({
       icons: [
         'mdi-facebook',
@@ -35,7 +35,7 @@
 </script>
 
 <style lang="scss">
-footer{
+.foot{
   position: fixed;
   bottom:0;
   width:100%;

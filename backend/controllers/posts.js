@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
 }
 //recuper tout les posts//
 exports.getAllPost = (req, res, next) => {
-    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, all_post.post AS message, all_post.number_like AS likePost, all_post.id AS idPost, all_post.last_commentaire AS lastCommentaire, all_post.last_commentaire_nom AS lastCommentaireNom, all_post.last_commentaire_prenom AS lastCommentairePrenom, all_post.last_commentaire_photo AS lastCommentairePhoto FROM users INNER JOIN all_post ON users.id = all_post.users_id ORDER BY all_post.Date DESC;", function(err,result){
+    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, all_post.post AS message, all_post.number_like AS likePost, all_post.id AS idPost, all_post.last_commentaire AS lastCommentaire FROM users INNER JOIN all_post ON users.id = all_post.users_id ORDER BY all_post.Date DESC;", function(err,result){
         if (err) {
             res.json({ 
                 message: "aucun post trouver"
@@ -31,7 +31,8 @@ exports.getAllPost = (req, res, next) => {
 }
 // signaler au moderateur un post//
 exports.modifyPost = (req, res, next) =>{
-    con.query("UPDATE all_post SET report = 1 WHERE id=?;",req.body.idPost ,function(err, result){
+    console.log(req.params.id);
+    con.query("UPDATE all_post SET report = 1 WHERE id=?;",req.params.id ,function(err, result){
         if (err){
             res.json({ 
                 err: "probleme avec la base de donnée"

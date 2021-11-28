@@ -3,8 +3,8 @@
     <Head url1=#/profil name1="profil"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
-        <img :src= user.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
-        <h2>{{user.nom}} {{user.prenom}}</h2>
+        <img :src= user.info.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+        <h2>{{user.info.nom}} {{user.info.prenom}}</h2>
       </div>
       <TextArea></TextArea>
     </div>
@@ -18,8 +18,9 @@
         :like="item.likePost"
         :idPost="item.idPost"
         :key="item.idPost"
-        :token="user.token"
-        :idUser="user.userId"
+        :token="user.info.token"
+        :idUser="user.info.userId"
+        :base="user.base"
         :lastCommentaire="item.lastCommentaire"
         :lastCommentaireNom="item.lastCommentaireNom"
         :lastCommentairePrenom="item.lastCommentairePrenom"

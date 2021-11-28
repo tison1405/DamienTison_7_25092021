@@ -8,39 +8,30 @@ exports.createdCommentaire = (req, res, next) => {
                 message: "Commentaire non ajouté "
             })
         } else {
-            var message = result.affectedRows;
-            res.json({
-                message,   
-            })
+            next();
         }
     })
 }
 //ajouter à la table post le dernier commentaire//
-exports.putLastCommentaire = (req, res, next) => {
-    const data = [req.body.commentaire, req.body.nom, req.body.prenom, req.body.photo, req.body.idPost];
-    var sql = "UPDATE all_post SET last_commentaire = ?, last_commentaire_nom = ?, last_commentaire_prenom = ?, last_commentaire_photo = ? WHERE id =?";
-    con.query(sql,data, function (err, result){
-        if (err) {
-            throw err;
-        } else {
-            res.json({
-                message: result.affectedRows
-            })
-        }
-    })
-}
-exports.getPostAllComent = (req, res, next) => {
-    const data = [req.body.idPost];
+
+exports.putLastComent = (req, res, next) => {
+    const data = req.body.idPost;
     console.log(data);
-    var sql = ("SELECT users.nom AS commentaire_nom, users.prenom AS commentaire_prenom, users.photo AS commentaire_photo, commentaire.post_commentaire AS commentaire, all_post.number_like AS likes FROM commentaire INNER JOIN users ON commentaire.user_id = users.id INNER JOIN all_post ON commentaire.post_id = all_post.id WHERE commentaire.post_id = ?");
-    con.query(sql,[data], function (err, result){
+    con.query("SELECT max(id) AS lastId from commentaire WHERE post_id = ?",data, function (err, result){
         if (err) {
             throw err;
         } else {
-            res.json({
-                result 
-            });
-            console.log(result);
+            console.log(result[0].lastId);
+            const data = [result[0].lastId, req.body.idPost];
+            con.query("UPDATE all_post SET last_commentaire =? WHERE id =?",data, function (err, result){
+                if (err){
+                    throw err;
+                } else {
+                    res.json({
+                        message: result.affectedRows
+                    })
+                }
+            })
         }
     })
 }

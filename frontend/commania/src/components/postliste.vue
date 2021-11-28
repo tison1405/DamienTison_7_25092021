@@ -10,7 +10,7 @@ export default {
     },
     computed: {
 		...mapState({
-            user1: "user1",  
+            user: "user",  
         })
     },
     props:{
@@ -55,11 +55,15 @@ export default {
         },
         lastCommentairePhoto:{
             type: String
+        },
+        base:{
+            type: Object
         }
     },
     data(){
     return{
-        erreur:"",
+        messageModerateur:"",
+        messageLikes:"",
         commentaire:0,
         other:0,
         path: mdiSend,
@@ -81,6 +85,7 @@ export default {
             this.$store.commit('INCREMENT_INFOPOST',infoPost);
         
         },
+        // afficher la zone de commentaire//
         voirCommentaire(){
             if (this.commentaire==0){
                 this.commentaire = 1;
@@ -88,75 +93,46 @@ export default {
                 this.commentaire = 0
             }
         },
+
+        //  methode put signaler un post//
         async signaler(){
-            var idPost = this.idPost;
-            const TOKEN = this.token;
-            const BASEURL = 'http://localhost:3000/api';
-            const ENDPOINT = '/';
-            const data= {idPost}
-            axios.create({
-                baseURL: BASEURL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+TOKEN
-                }
-            })
-            .put(ENDPOINT, data)
+            const ENDPOINT = '/moderator/'+this.idPost;
+            axios.create(this.base)
+            .put(ENDPOINT)
             .then(res => {
-                this.erreur= res.data.message
+                this.messageModerateur= res.data.message
             })
         },
+
+        // methode post ajouter un like//
         async ajouterLike(){
-            var idPost = this.idPost;
             var idUser = this.idUser;
-            const TOKEN = this.token;
-            const BASEURL = 'http://localhost:3000/api';
-            const ENDPOINT = '/likes';
-            const data = {idPost, idUser};
-            axios.create({
-                baseURL: BASEURL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+TOKEN
-                }
-            })
+            const ENDPOINT = '/likes/'+this.idPost;
+            const data = {idUser};
+            axios.create(this.base)
             .post(ENDPOINT, data)
             .then(res => {
                 if(res.data.message ==1){
                     this.$store.commit('GET_ALL_POST');
                 } else {
-                    this.erreur = res.data.message
+                    this.messageLikes = res.data.message
                 }
             }) 
         },
         async ajouterCommentaire(){
             var commentaire = document.getElementById(this.idPost).value;
-            console.log(commentaire);
             var idPost = this.idPost;
             var idUser = this.idUser;
-            var nom = this.user1.nom;
-            var prenom  = this.user1.prenom;
-            var photo = this.user1.photo;
-            const data = {commentaire, idPost, idUser, nom, prenom, photo};
-            const TOKEN = this.token;
-            const BASEURL = 'http://localhost:3000/api';
+            const data = {commentaire, idPost, idUser};
             const ENDPOINT = '/commentaires';
-            axios.create({
-                baseURL: BASEURL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+TOKEN
-                }
-            })
+            axios.create(this.base)
             .post(ENDPOINT, data)
             .then(res =>{
                 if (res.data.message == 1){
                     this.messages= 1
                     var textArea= document.getElementById(this.idPost);
                     textArea.value = textArea.defaultValue;
-                    var payload = {idPost, commentaire}
-                    this.$store.commit('PUT_LAST_COMMENT',payload );
-                     this.$store.commit('GET_ALL_POST');
+                    
                 } else {
                     this.messages= res.data.message;
                 }   
@@ -192,7 +168,7 @@ export default {
             </v-btn>
             
         </div>
-        <div class="post1__erreur">{{this.erreur}}</div>
+        <div class="post1__erreur">{{this.messageModerateur}} {{this.messageLikes}}</div>
         <div v-if="this.commentaire==1">
             <div class="post1__commentaire" >
                 <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>

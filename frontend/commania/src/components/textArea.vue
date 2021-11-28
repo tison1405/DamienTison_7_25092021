@@ -15,48 +15,38 @@ export default {
     return {
       input: '',
       search: '',
-      posting:''
+      posting:""
     }
   },
   components: {
     EmojiPicker
 	},
-    methods:{
+  methods:{
+    // methode emoji //
     append(emoji) {
       this.input += emoji
     },
+    // methode post un post//
     async textPost(){
-        var textRited = document.getElementById("textPost");
-        var users_id = this.user.userId
-        var commentaire = textRited.value
-        var TOKEN = this.user.token
-        const data = {users_id, commentaire}
-        const BASEURL = 'http://localhost:3000/api';
-            const ENDPOINT = '/';
-            
-            
-
-        axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
+      var textRited = document.getElementById("textPost");
+      var users_id = this.user.info.userId
+      var commentaire = textRited.value
+      const data = {users_id, commentaire}
+      const ENDPOINT = '/';
+      axios.create(this.user.base)
+      .post(ENDPOINT, data)
+      .then(res => {
+        if(res.data.message ==1){
+          this.$store.commit('GET_ALL_POST');
+          var textArea= document.getElementById("textPost");
+          textArea.value = textArea.defaultValue;
+        } else {
+          this.posting = res.data.message;
         }
-    })
-            .post(ENDPOINT, data)
-            .then(res => {
-              if(res.data.message ==1){
-                this.posting= "post enregistré"
-                this.$store.commit('GET_ALL_POST');
-                var textArea= document.getElementById("textPost");
-                textArea.value = textArea.defaultValue;
-              } else {
-                this.posting = res.data.message;
-              }
-            })
+      })
     }
   },
-   directives: {
+  directives: {
     focus: {
       inserted(el) {
         el.focus()

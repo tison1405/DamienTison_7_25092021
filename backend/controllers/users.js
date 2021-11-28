@@ -90,7 +90,6 @@ exports.login = (req, res, next) => {
 };
 
 exports.userPicture = (req, res, next) => {
-  console.log(req.file);
   const imageUrl= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
   let sql = "UPDATE users SET photo =? WHERE id = ?";
   let data = [imageUrl, req.params.id];
