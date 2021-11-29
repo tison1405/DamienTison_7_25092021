@@ -7,8 +7,8 @@ const myHost = process.env.LOCAL;
 const myUser = process.env.USER;
 const con = mysql.createConnection({host: myHost, user: myUser, database : "groupomania", charset:"utf8mb4"});
 const usersRouter = require ('./routes/users');
-const postRouter = require ('./routes/posts');
-const commentaireRouter = require ('./routes/commentaires');
+const postsRouter = require ('./routes/posts');
+const remarksRouter = require ('./routes/remarks');
 global.con=con;//methode pour ultiliser la const con en global//
 const path = require('path');
 
@@ -25,8 +25,8 @@ const path = require('path');
   app.use('/images', express.static(path.join(__dirname, 'images')));
   
   app.use('/api', usersRouter);
-  app.use('/api', postRouter);
-  app.use('/api', commentaireRouter);
+  app.use('/api', postsRouter);
+  app.use('/api', remarksRouter);
 
 
 

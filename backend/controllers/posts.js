@@ -1,7 +1,7 @@
 //inserer dans la BD un post//
 exports.createPost = (req, res, next) => {
-    const post = [[req.body.users_id, req.body.commentaire,0 ,0]];
-    var sql = "INSERT INTO all_post ( users_id, post, report, number_like) VALUES ?";
+    const post = [[req.body.users_id, req.body.commentaire,0 ,0 ]];
+    var sql = "INSERT INTO posts ( users_id, post, report, number_like) VALUES ?";
     //envoye du post à la table post//
     con.query(sql,[post], function (err, result) {
         //si erreur message//
@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
 }
 //recuper tout les posts//
 exports.getAllPost = (req, res, next) => {
-    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, all_post.post AS message, all_post.number_like AS likePost, all_post.id AS idPost, all_post.last_commentaire AS lastCommentaire FROM users INNER JOIN all_post ON users.id = all_post.users_id ORDER BY all_post.Date DESC;", function(err,result){
+    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost, posts.last_remark AS lastRemark, posts.last_remark_name AS lastRemarkName, posts.last_remark_firstname AS lastRemarkFirstname, posts.last_remark_picture AS lastRemarkPicture FROM users INNER JOIN posts ON users.id = posts.users_id ORDER BY posts.Date DESC;", function(err,result){
         if (err) {
             res.json({ 
                 message: "aucun post trouver"
@@ -29,10 +29,21 @@ exports.getAllPost = (req, res, next) => {
         };
     })
 }
+// recuper un post de la table posts//
+exports.getOnePost = (req, res, next) =>{
+    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost FROM users INNER JOIN posts ON users.id = posts.users_id WHERE posts.id = ?", req.params.id, function (err, result){
+        if (err){
+            throw err;
+        } else {
+            res.json({
+                result
+            })
+        }
+    })
+}
 // signaler au moderateur un post//
 exports.modifyPost = (req, res, next) =>{
-    console.log(req.params.id);
-    con.query("UPDATE all_post SET report = 1 WHERE id=?;",req.params.id ,function(err, result){
+    con.query("UPDATE posts SET report = 1 WHERE id=?;",req.params.id ,function(err, result){
         if (err){
             res.json({ 
                 err: "probleme avec la base de donnée"

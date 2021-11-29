@@ -11,15 +11,20 @@ export default {
     },
     computed: {
 		...mapState({
-			infoPost: "infoPost",
+            user: "user",
+            onePost: "onePost"
 		})
 	},
     data(){
         return{
-            erreur:"",
+            messageModerateur:"",
+            messageLikes:"",
             commentaire:0,
             commentairePost:[]
         }
+    },
+    beforeMount(){
+        this.$store.commit('GET_ONE_POST')
     },
     methods:{
         voirCommentaire(){
@@ -29,45 +34,26 @@ export default {
                 this.commentaire = 0
             }
         },
-        async signaler(){
-            var idPost = this.infoPost.idPost;
-            const TOKEN = this.infoPost.token;
-            const BASEURL = 'http://localhost:3000/api';
-            const ENDPOINT = '/';
-            const data= {idPost}
-            axios.create({
-                baseURL: BASEURL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+TOKEN
-                }
-            })
-            .put(ENDPOINT, data)
+       async signaler(){
+            const ENDPOINT = '/moderator/'+this.onePost.idPost;
+            axios.create(this.user.base)
+            .put(ENDPOINT)
             .then(res => {
-                this.erreur= res.data.message
+                this.messageModerateur= res.data.message
             })
         },
         async ajouterLike(){
-            var idPost = this.infoPost.idPost;
-            var idUser = this.infoPost.idUser;
-            var TOKEN = this.infoPost.token;
-            var BASEURL = 'http://localhost:3000/api';
-            var ENDPOINT = '/likes';
-            var data = {idPost, idUser};
-            var payload = {data,TOKEN,BASEURL}
-            axios.create({
-                baseURL: BASEURL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+TOKEN
-                }
-            })
+            var idUser = this.user.info.userId;
+            console.log(idUser);
+            const ENDPOINT = '/likes/'+this.onePost.idPost;
+            const data = {idUser};
+            axios.create(this.user.base)
             .post(ENDPOINT, data)
             .then(res => {
                 if(res.data.message ==1){
-                    this.$store.commit('GET_ONE_POST', payload);
+                    this.$store.commit('GET_ONE_POST');
                 } else {
-                    this.erreur = res.data.message
+                    this.messageLikes = res.data.message
                 }
             }) 
         },
@@ -81,12 +67,12 @@ export default {
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
             <div class="post1__head">
                 <v-avatar>
-                    <img :src="infoPost.photo" alt="Photo de l'auteur du post">
+                    <img :src="onePost.photo" alt="Photo de l'auteur du post">
                 </v-avatar>
-                <h3 class="post1__head--titre">{{infoPost.nom}} {{infoPost.prenom}}</h3>
+                <h3 class="post1__head--titre">{{onePost.nom}} {{onePost.prenom}}</h3>
             </div>
             <div class="post1__message">
-                <p>{{infoPost.message}}</p>
+                <p>{{onePost.message}}</p>
             </div>
         <div class="post1__option">
             <v-btn text color="primary" @click="voirCommentaire">
@@ -98,10 +84,11 @@ export default {
             </v-btn>
             <v-btn icon  @click="ajouterLike">
                 <v-icon>mdi-thumb-up</v-icon>
+                <span>{{onePost.likePost}}</span>
             </v-btn>
             
         </div>
-        <div class="post1__erreur">{{this.erreur}}</div>
+        <div class="post1__erreur">{{this.messageModerateur}} {{this.messageLikes}}</div>
         <div v-if="this.commentaire==1">
             <div class="post1__commentaire" >
                 <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>

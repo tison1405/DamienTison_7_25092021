@@ -16,15 +16,15 @@ export default new Vuex.Store({
     },
     post:[],
     message:"",
-    infoPost:"",
-    commentairePost:[]
+    onePost:"",
+    idPost:""
   },
   plugins: [createPersistedState()],
-  mutations: {
+  mutations:{
         //fonction pour effacer les infos de l'utilisateur//
     DISCONNECT(state){
-      state.user1 = {};
       state.user = {};
+      state.post = []
     },
 
        // fonction pour recuperer les infos de l'utilisateur//
@@ -36,8 +36,8 @@ export default new Vuex.Store({
       }
     },
      // fonction pour recuperer les infos du post//
-     INCREMENT_INFOPOST(state, payload){
-       state.infoPost = payload;
+     INCREMENT_ONE_POST(state, payload){
+       state.idPost = payload;
      },
 
             //fonction pour recuperer les infos User//
@@ -59,47 +59,13 @@ export default new Vuex.Store({
         state.post= result.data.result;
       });
     },
-
-    
-    //envoie à la table posts du dernier commentaire//
-    async PUT_LAST_COMMENT(state, payload){
-      const TOKEN = state.user.token;
-      const BASEURL = 'http://localhost:3000/api';
-      const ENDPOINT = '/lastCommentaires';
-      var commentaire = payload.commentaire;
-      var nom = state.user1.nom;
-      var prenom = state.user1.prenom;
-      var photo = state.user1.photo;
-      var idPost = payload.idPost
-      const form = {commentaire, nom, prenom, photo, idPost};
-      axios.create({
-        baseURL: BASEURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN
-        }
+    async GET_ONE_POST (state){
+      const ENDPOINT = '/post/'+state.idPost;
+      axios.create(state.user.base)
+      .get(ENDPOINT)
+      .then(result => {
+        state.onePost= result.data.result[0]
       })
-      .post(ENDPOINT,form)
-      .then(res => {
-            state.message= res.data.message;
-      });
-    },
-    //recupère les commentaires et les likes d'un post//
-    async GET_ONE_POST(state, payload){
-      var ENDPOINT = "/onePostAllComents";
-      axios.create({
-        "baseURL": payload.BASEURL,
-        "headers": {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer "+payload.TOKEN
-        }
-      })
-      .post(ENDPOINT,payload.data)
-      .then(res => {
-            state.commentairePost= res.data.result;
-            console.log(state.commentairePost)
-      });
-      
     }
   },
   actions: {  

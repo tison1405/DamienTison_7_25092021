@@ -21,10 +21,10 @@
         :token="user.info.token"
         :idUser="user.info.userId"
         :base="user.base"
-        :lastCommentaire="item.lastCommentaire"
-        :lastCommentaireNom="item.lastCommentaireNom"
-        :lastCommentairePrenom="item.lastCommentairePrenom"
-        :lastCommentairePhoto="item.lastCommentairePhoto"
+        :lastRemark="item.lastRemark"
+        :lastRemarkName="item.lastRemarkName"
+        :lastRemarkFirstname="item.lastRemarkFirstname"
+        :lastRemarkPicture="item.lastRemarkPicture"
       />
     </div>
   <Foot/>

@@ -10,7 +10,7 @@ export default {
     },
     computed: {
 		...mapState({
-            user: "user",  
+            user: "user", 
         })
     },
     props:{
@@ -44,16 +44,16 @@ export default {
         token: {
             type: String
         },
-        lastCommentaire:{
+        lastRemark:{
             type: String
         },
-        lastCommentaireNom:{
+        lastRemarkName:{
             type: String
         },
-        lastCommentairePrenom:{
+        lastRemarkFirstname:{
             type: String
         },
-        lastCommentairePhoto:{
+        lastRemarkPicture:{
             type: String
         },
         base:{
@@ -72,19 +72,11 @@ export default {
     },
     methods:{
         infoPost(){
-            var infoPost = {
-                nom:this.nom,
-                prenom:this.prenom,
-                photo:this.photo,
-                idPost:this.idPost,
-                Like:this.like,
-                message:this.message,
-                token:this.token,
-                idUser:this.idUser
-            }
-            this.$store.commit('INCREMENT_INFOPOST',infoPost);
-        
+            var idPost=this.idPost;
+            console.log(idPost);
+            this.$store.commit('INCREMENT_ONE_POST',idPost);
         },
+        
         // afficher la zone de commentaire//
         voirCommentaire(){
             if (this.commentaire==0){
@@ -120,10 +112,13 @@ export default {
             }) 
         },
         async ajouterCommentaire(){
-            var commentaire = document.getElementById(this.idPost).value;
+            var remark = document.getElementById(this.idPost).value;
             var idPost = this.idPost;
             var idUser = this.idUser;
-            const data = {commentaire, idPost, idUser};
+            var userName = this.user.info.nom;
+            var userFirstname = this.user.info.prenom;
+            var userPicture = this.user.info.photo;
+            const data = {remark, idPost, idUser, userName, userFirstname, userPicture};
             const ENDPOINT = '/commentaires';
             axios.create(this.base)
             .post(ENDPOINT, data)
@@ -132,6 +127,7 @@ export default {
                     this.messages= 1
                     var textArea= document.getElementById(this.idPost);
                     textArea.value = textArea.defaultValue;
+                    this.$store.commit('GET_ALL_POST');
                     
                 } else {
                     this.messages= res.data.message;
@@ -176,19 +172,19 @@ export default {
                     <svg-icon type="mdi" :path="path" ></svg-icon>
                 </v-btn>
             </div>
-            <div v-if="!this.lastCommentaire">
+            <div v-if="!this.lastRemark">
                 <p>pas de commentaire</p>
             </div>
             <div v-else>
                 <p class="commentaireTitre">Dernier commentaire</p>
                 <div class="lastCommentaire">
                     <div class="lastCommentaire__user">
-                        <img class="lastCommentaire__user--photo" :src="lastCommentairePhoto" alt="photo de l'auteur du dernier commentaire">
-                        <span class="lastCommentaire__user--nom">{{lastCommentaireNom}}</span>
-                        <span class="lastCommentaire__user--prenom">{{lastCommentairePrenom}}</span>
+                        <img class="lastCommentaire__user--photo" :src="lastRemarkPicture" alt="photo de l'auteur du dernier commentaire">
+                        <span class="lastCommentaire__user--nom">{{lastRemarkName}}</span>
+                        <span class="lastCommentaire__user--prenom">{{lastRemarkFirstname}}</span>
                     </div>
                     <div class="lastCommentaire__text">
-                        {{lastCommentaire}}
+                        {{lastRemark}}
                     </div>
                 </div>
             </div>
