@@ -1,5 +1,6 @@
 <script>
 const axios = require("axios");
+import RemarkList from '../components/remarkList.vue'
 import { mdiSend } from '@mdi/js';
 import Head from '../components/head.vue'
 import Foot from '../components/foot.vue'
@@ -10,12 +11,14 @@ export default {
     components:{
         Head,
         Foot,
-        SvgIcon
+        SvgIcon,
+        RemarkList
     },
     computed: {
 		...mapState({
             user: "user",
-            onePost: "onePost"
+            onePost: "onePost",
+            allRemarks: "allRemarks"
 		})
 	},
     data(){
@@ -23,11 +26,12 @@ export default {
             messageModerator:"",
             messageLikes:"",
             remark:0,
-            path: mdiSend
+            path: mdiSend,
         }
     },
     beforeMount(){
-        this.$store.commit('GET_ONE_POST')
+        this.$store.commit('GET_ONE_POST');
+        this.$store.commit('GET_ALL_REMARKS')
     },
     methods:{
         seeRemark(){
@@ -60,13 +64,36 @@ export default {
                 }
             }) 
         },
+        async addRemark(){
+            var remark = document.getElementById("remarkPost").value;
+            var idPost = this.onePost.idPost;
+            var idUser = this.user.info.userId;
+            var userName = this.user.info.name;
+            var userFirstname = this.user.info.firstname;
+            var userPicture = this.user.info.picture;
+            const data = {remark, idPost, idUser, userName, userFirstname, userPicture};
+            const ENDPOINT = '/commentaires';
+            axios.create(this.user.base)
+            .post(ENDPOINT, data)
+            .then(res =>{
+                if (res.data.message == 1){
+                    this.messages= 1
+                    var textArea= document.getElementById("remarkPost");
+                    textArea.value = textArea.defaultValue;
+                    this.$store.commit('GET_ALL_REMARKS');
+                    
+                } else {
+                    this.messages= res.data.message;
+                }   
+            })
+        }
     }
 }
 </script>
 
 <template>
 <body>
-    <Head url1=#/profil name1="profil"/>
+    <Head url1=#/profil url2=#/filactu name1="profil" name2="Fil d'actu"/>
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
             <div class="post1__head">
                 <v-avatar>
@@ -94,10 +121,23 @@ export default {
         <div class="post1__erreur">{{this.messageModerator}} {{this.messageLikes}}</div>
         <div v-if="this.remark==1">
             <div class="post1__remark" >
-                <textarea type="text" :id="idPost" class="post1__remark--capture" placeholder="Ecrivez votre commentaire"></textarea>
+                <textarea type="text" id="remarkPost" class="post1__remark--capture" placeholder="Ecrivez votre commentaire"></textarea>
                 <v-btn @click="addRemark" class="post1__remark--btn">
                     <svg-icon type="mdi" :path="path" ></svg-icon>
                 </v-btn>
+            </div>
+            <div v-if="this.allRemarks.length ==0">
+                <p>pas de commentaire</p>
+            </div>
+            <div class="allRemarks" v-else>
+                <RemarkList 
+                    v-for="item in allRemarks"
+                    :name="item.name"
+                    :firstname="item.firstname"
+                    :remark="item.remark"
+                    :picture="item.picture"
+                    :key="item.idRemark"
+                />
             </div>
         </div>
     </v-card>
@@ -158,5 +198,9 @@ export default {
         height: auto;
         padding: 4px;
     }
+}
+.allRemarks{
+    height: 400px;
+    overflow-y: scroll;
 }
 </style>

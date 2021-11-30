@@ -182,7 +182,7 @@ export default {
                         <span class="lastRemark__user--name">{{lastRemarkName}}</span>
                         <span class="lastRemark__user--firstname">{{lastRemarkFirstname}}</span>
                     </div>
-                    <div class="lastCommentaire__text">
+                    <div class="lastRemark__text">
                         {{lastRemark}}
                     </div>
                 </div>

@@ -17,7 +17,8 @@ export default new Vuex.Store({
     post:[],
     message:"",
     onePost:"",
-    idPost:""
+    idPost:"",
+    allRemarks:[]
   },
   plugins: [createPersistedState()],
   mutations:{
@@ -66,6 +67,14 @@ export default new Vuex.Store({
       .get(ENDPOINT)
       .then(result => {
         state.onePost= result.data.result[0]
+      })
+    },
+    async GET_ALL_REMARKS (state){
+      const ENDPOINT = '/commentaires/'+state.idPost;
+      axios.create(state.user.base)
+      .get(ENDPOINT)
+      .then(result => {
+        state.allRemarks= result.data.result
       })
     }
   },

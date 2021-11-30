@@ -9,7 +9,10 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" :href= url1> {{name1}}</a>
+                            <a class="nav-link" aria-current="page" :href= url1> {{name1}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" :href= url2> {{name2}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/" @click="disconnect">Déconnection</a>
@@ -26,7 +29,9 @@ export default {
     name: "heading",
     props: [
         'url1',
-        'name1'
+        'name1',
+        'url2',
+        'name2'
     ],
      methods:{
         disconnect(){
