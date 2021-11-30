@@ -26,3 +26,15 @@ exports.putLastRemark = (req, res, next) => {
         }
     })
 }
+ // recuper toutes les commentaires d'un post//
+exports.getAllRemarks = (req, res, next) => {
+    con.query("SELECT  remarks.post_remark AS remark, users.name AS name, users.firstname AS firstname, users.picture AS picture  FROM `remarks` INNER JOIN users ON remarks.user_id = users.id WHERE remarks.post_id = ?", req.params.id, function (err, result){
+        if (err) {
+            throw err
+        } else {
+            res.json({
+                result
+            })
+        }
+    })
+}

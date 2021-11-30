@@ -22,8 +22,8 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
         //envoi de l'objet user à la BD//
     .then(hash => {
-      const user = [[req.body.nom, req.body.prenom,ciphertextString ,hash ,"http://localhost:8080/img/inconnu.e88a85b6.png" ,0]];
-      var sql ="INSERT INTO users ( nom, prenom, mail, password, photo, modérateur) VALUES ?";
+      const user = [[req.body.name, req.body.firstname,ciphertextString ,hash ,"http://localhost:3000/images/inconnu.png1638272875922.png" ,0]];
+      var sql ="INSERT INTO users ( name, firstname, mail, password, picture, moderator) VALUES ?";
       con.query(sql,[user], function (err, result) {
             //Utilisateut existe déjà//
         if (err) {
@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
     //probleme de saisi du mot de passe//
   } else {
     res.json({
-      message: "otre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"
+      message: "Votre mot de passe doit contenir: MAJ+MIN+CHIFFRE+CARACT SPECIAL+ =>10 CARACT"
     })
   }
 };
@@ -68,9 +68,10 @@ exports.login = (req, res, next) => {
           const mytokenKey = process.env.tokenKey;//variable env//
           res.status(200).json({
             userId: result[0].id, 
-            nom: result[0].nom, 
-            prenom: result[0].prenom, 
-            photo: result[0].photo,
+            name: result[0].name, 
+            firstname: result[0].firstname, 
+            picture: result[0].picture,
+            moderator: result[0].moderator,
                 //creation du token avec l'userId//
             token: jwt.sign( 
               {userId: result[0].id },
@@ -91,13 +92,11 @@ exports.login = (req, res, next) => {
 
 exports.userPicture = (req, res, next) => {
   const imageUrl= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  let sql = "UPDATE users SET photo =? WHERE id = ?";
+  let sql = "UPDATE users SET picture =? WHERE id = ?";
   let data = [imageUrl, req.params.id];
   con.query(sql,data,function(err, result){
     if (err){
-      res.status(401).json({
-        err: "probleme"
-      })
+      throw err;
     } else {
       res.status(200).json({
         message: result.affectedRows
@@ -119,7 +118,11 @@ exports.userInfo = (req, res, next) =>{
       throw err
     } else { 
       res.status(200).json({
-        userId: result[0].id, nom: result[0].nom, prenom: result[0].prenom, photo: result[0].photo, email: bytesString
+        userId: result[0].id, 
+        name: result[0].name, 
+        firstname: result[0].firstname, 
+        picture: result[0].picture, 
+        email: bytesString
       })
     }
   })

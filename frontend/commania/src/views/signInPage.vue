@@ -5,45 +5,45 @@
     <div class="card1__img"></div>
     <form method="POST" >
       <fieldset>
-        <legend class="titreCoordonnees">Inscrivez vous</legend>
+        <legend class="titleContact">Inscrivez vous</legend>
         <div class="row">
           <FormulaireUser
-            validation= "validation01"
+            validation= "validationName"
             name= "Nom de famille"
             pattern= "[^ 1-9]{1,}"
             placeholder="Inscriver votre nom de famille"
-            validvalidation= "valid01"
-            invalidvalidation="invalid01"
+            validvalidation= "validName"
+            invalidvalidation="invalidName"
           />
           <FormulaireUser
-            validation= "validation02"
+            validation= "validationFirstname"
             name= "Prénom"
             pattern= "[^ 1-9]{1,}"
             placeholder="Inscriver votre prénom"
-            validvalidation= "valid02"
-            invalidvalidation="invalid02"
+            validvalidation= "validFirstname"
+            invalidvalidation="invalidFirstname"
           />
           <FormulaireUser
-            validation= "validation03"
+            validation= "validationMail"
             name= "Adresse Email"
             type= "email"
             placeholder="Inscriver votre email"
-            validvalidation= "valid03"
-            invalidvalidation="invalid03"
+            validvalidation= "validMail"
+            invalidvalidation="invalidMail"
           />
           <FormulaireUser
-            validation= "validation04"
+            validation= "validationPassword"
             name= "Mot de passe"
             type= "password"
             pattern= "^(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{10}$"
             placeholder="Inscriver votre mot de passe"
-            validvalidation= "valid04"
-            invalidvalidation="invalid04"
+            validvalidation= "validPassword"
+            invalidvalidation="invalidPassword"
           />
         </div>
       </fieldset>
       <div class="formulaire">
-        <button type="button" id="formulaire" @click="dataSaisie">Valider</button>
+        <button type="button" id="formulaire" @click="dataCapture">Valider</button>
         <p>{{this.data.message}}</p>
       </div>
     </form>
@@ -63,9 +63,9 @@ export default {
   data(){
     return{
       afficherData:"",
-      formulair:{
-        nom:"",
-        prenom:"",
+      form:{
+        name:"",
+        firstname:"",
         email:"",
         password:""
       },
@@ -74,50 +74,50 @@ export default {
     }
   },  
   methods:{
-    async dataSaisie(){
-      var valideNom = document.getElementById("validation01");
-      var validePrenom = document.getElementById("validation02");
-      var valideEmail = document.getElementById("validation03");
-      var validePassword = document.getElementById("validation04"); 
+    async dataCapture(){
+      var validName = document.getElementById("validationName");
+      var validFirstname = document.getElementById("validationFirstname");
+      var validEmail = document.getElementById("validationMail");
+      var validPassword = document.getElementById("validationPassword"); 
           //validation du nom//
-      if (valideNom.validity.patternMismatch === false && valideNom.validity.valueMissing === false){
-        valideNom.setAttribute("class", "form-control is-valid");
-        this.formulair.nom = valideNom.value
+      if (validName.validity.patternMismatch === false && validName.validity.valueMissing === false){
+        validName.setAttribute("class", "form-control is-valid");
+        this.form.name = validName.value
       } else {
-        valideNom.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid01").innerHTML = "Veuillez inscrir un nom sans chiffre!"; 
+        validName.setAttribute("class", "form-control is-invalid");
+        document.getElementById("invalidName").innerHTML = "Veuillez inscrir un nom sans chiffre!"; 
       }
           //validation prenom//
-      if (validePrenom.validity.patternMismatch === false && validePrenom.validity.valueMissing === false){
-        validePrenom.setAttribute("class", "form-control is-valid");
-        this.formulair.prenom = validePrenom.value;
+      if (validFirstname.validity.patternMismatch === false && validFirstname.validity.valueMissing === false){
+        validFirstname.setAttribute("class", "form-control is-valid");
+        this.form.firstname = validFirstname.value;
       } else {
-        validePrenom.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid02").innerHTML = "Veuillez inscrir un prénom sans chiffre!"; 
+        validFirstname.setAttribute("class", "form-control is-invalid");
+        document.getElementById("invalidFirstname").innerHTML = "Veuillez inscrir un prénom sans chiffre!"; 
       }
           //validation Email//
-      if (valideEmail.validity.typeMismatch === false && valideEmail.validity.valueMissing === false){
-        valideEmail.setAttribute("class", "form-control is-valid");
-        this.formulair.email = valideEmail.value;
+      if (validEmail.validity.typeMismatch === false && validEmail.validity.valueMissing === false){
+        validEmail.setAttribute("class", "form-control is-valid");
+        this.form.email = validEmail.value;
       } else {
-        valideEmail.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid03").innerHTML = "Veuillez inscrir une adresse email"; 
+        validEmail.setAttribute("class", "form-control is-invalid");
+        document.getElementById("invalidMail").innerHTML = "Veuillez inscrir une adresse email"; 
       }
           //validation password//
-      if (validePassword.validity.patternMismatch === false &&validePassword .validity.valueMissing === false){
-        validePassword.setAttribute("class", "form-control is-valid");
-        this.formulair.password = validePassword.value;
+      if (validPassword.validity.patternMismatch === false &&validPassword .validity.valueMissing === false){
+        validPassword.setAttribute("class", "form-control is-valid");
+        this.form.password = validPassword.value;
       } else {
-        validePassword.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalid04").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
+        validPassword.setAttribute("class", "form-control is-invalid");
+        document.getElementById("invalidPassword").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
       }
       //envoie des données utilisateur au controllers et à BD//
-      const { data } = await axios.post("http://localhost:3000/api/signup", this.formulair);
+      const { data } = await axios.post("http://localhost:3000/api/signup", this.form);
       //reponse de la BD soit 1 ou message erreur//
       this.data = data;
       // si reponse =1 recup données utilisateur et liens vers filActu//
       if (this.data.message ==1){
-        const { data }= await axios.post("http://localhost:3000/api/login", this.formulair)
+        const { data }= await axios.post("http://localhost:3000/api/login", this.form)
         this.data = data;
         // stockage des données utilisateur dans la data centrale//
         this.$store.commit('INCREMENT_USER', this.data);
@@ -125,7 +125,7 @@ export default {
         document.location.href = "#/filactu"
       } else {
        this.user = false;
-       valideEmail.setAttribute("class", "form-control is-invalid"); 
+       validEmail.setAttribute("class", "form-control is-invalid"); 
       }
     }
   }

@@ -47,6 +47,7 @@ export default new Vuex.Store({
       .get(ENDPOINT)
       .then(res => {
           state.user.info = res.data;
+          console.log(state.user.info.picture);
       });
     },
 

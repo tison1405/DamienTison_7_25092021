@@ -1,13 +1,16 @@
 <script>
 const axios = require("axios");
+import { mdiSend } from '@mdi/js';
 import Head from '../components/head.vue'
 import Foot from '../components/foot.vue'
 import { mapState } from "vuex"
+import SvgIcon from '@jamescoyle/vue-icon';
 export default {
     name: "post",
     components:{
         Head,
         Foot,
+        SvgIcon
     },
     computed: {
 		...mapState({
@@ -17,32 +20,32 @@ export default {
 	},
     data(){
         return{
-            messageModerateur:"",
+            messageModerator:"",
             messageLikes:"",
-            commentaire:0,
-            commentairePost:[]
+            remark:0,
+            path: mdiSend
         }
     },
     beforeMount(){
         this.$store.commit('GET_ONE_POST')
     },
     methods:{
-        voirCommentaire(){
-            if (this.commentaire==0){
-                this.commentaire = 1;
+        seeRemark(){
+            if (this.remark==0){
+                this.remark = 1;
             } else {
-                this.commentaire = 0
+                this.remark = 0
             }
         },
-       async signaler(){
+       async report(){
             const ENDPOINT = '/moderator/'+this.onePost.idPost;
             axios.create(this.user.base)
             .put(ENDPOINT)
             .then(res => {
-                this.messageModerateur= res.data.message
+                this.messageModerator= res.data.message
             })
         },
-        async ajouterLike(){
+        async addLike(){
             var idUser = this.user.info.userId;
             console.log(idUser);
             const ENDPOINT = '/likes/'+this.onePost.idPost;
@@ -67,32 +70,32 @@ export default {
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
             <div class="post1__head">
                 <v-avatar>
-                    <img :src="onePost.photo" alt="Photo de l'auteur du post">
+                    <img :src="onePost.picture" alt="Photo de l'auteur du post">
                 </v-avatar>
-                <h3 class="post1__head--titre">{{onePost.nom}} {{onePost.prenom}}</h3>
+                <h3 class="post1__head--title">{{onePost.name}} {{onePost.firstname}}</h3>
             </div>
             <div class="post1__message">
                 <p>{{onePost.message}}</p>
             </div>
         <div class="post1__option">
-            <v-btn text color="primary" @click="voirCommentaire">
+            <v-btn text color="primary" @click="seeRemark">
                 Commentaire
             </v-btn>
             
-            <v-btn text color="primary" @click="signaler">
+            <v-btn text color="primary" @click="report">
                 Signaler
             </v-btn>
-            <v-btn icon  @click="ajouterLike">
+            <v-btn icon  @click="addLike">
                 <v-icon>mdi-thumb-up</v-icon>
                 <span>{{onePost.likePost}}</span>
             </v-btn>
             
         </div>
-        <div class="post1__erreur">{{this.messageModerateur}} {{this.messageLikes}}</div>
-        <div v-if="this.commentaire==1">
-            <div class="post1__commentaire" >
-                <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
-                <v-btn @click="ajouterCommentaire" class="post1__commentaire--btn">
+        <div class="post1__erreur">{{this.messageModerator}} {{this.messageLikes}}</div>
+        <div v-if="this.remark==1">
+            <div class="post1__remark" >
+                <textarea type="text" :id="idPost" class="post1__remark--capture" placeholder="Ecrivez votre commentaire"></textarea>
+                <v-btn @click="addRemark" class="post1__remark--btn">
                     <svg-icon type="mdi" :path="path" ></svg-icon>
                 </v-btn>
             </div>
@@ -125,7 +128,7 @@ export default {
             height: 50px;
             border-radius: 50px;
         }
-        &--titre{
+        &--title{
             margin-top: auto;
             margin-bottom: auto;
             margin-left: 10px;
@@ -144,8 +147,8 @@ export default {
         display: flex;
         justify-content: space-between;
     }
-    &__commentaire{
-        &--saisie{
+    &__remark{
+        &--capture{
             width: 90%;
         }
         background-color: white;

@@ -2,35 +2,35 @@
 <body>
   <Head url1=#/filactu name1="Fil d'actu"/>
   <div class="userImg">
-    <img :src= user.photo alt="photo utilisateur" id="utiPhoto"/>
+    <img :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
       <form method="post" enctype="multipart/form-data">
         <div id="photo">
           <label for="image_uploads">Parcourir vos fichiers</label>
           <input type="file" id="image_uploads" name="imagUploads" accept=".jpg, .jpeg, .png" multiple @change="updateImageDisplay">
         </div>
-        <div v-if="this.fichierValid === true" id="selectionImage">
-          <img :src= this.image alt="image selectionnée" id="selectionImage__image">
+        <div v-if="this.validFile === true" id="selectionImage">
+          <img :src= this.picture alt="image selectionnée" id="selectionImage__image">
         </div>
         <p v-else>{{this.textContent}}</p>
         <div class="preview"></div>
         <div>
-          <v-btn text color="primary" @click="enregistrerPhoto">
+          <v-btn text color="primary" @click="savePicture">
             Valider
           </v-btn>
-          <v-btn text color="primary" @click="retour">
+          <v-btn text color="primary" @click="back">
             Annuler
           </v-btn>
         </div>
       </form>
     </div>
   </div>
-  <v-btn text color="primary" @click="voirUpLoadPicture" v-if="this.upLoadPicture==0">
+  <v-btn text color="primary" @click="seeUpLoadPicture" v-if="this.upLoadPicture==0">
       Ajoutez ou modifiez votre photo
   </v-btn>
-  <p>{{user.nom}}</p>
-  <p>{{user.prenom}}</p>
-  <p>{{user.email}}</p>
+  <p>{{user.info.name}}</p>
+  <p>{{user.info.firstname}}</p>
+  <p>{{user.info.email}}</p>
   <Foot/>
 </body>
 </template>
@@ -49,9 +49,9 @@ components:{
 },
 data(){
     return{
-        image:"",
+        picture:"",
         textContent:"",
-        fichierValid:"",
+        validFile:"",
         input:"",
         upLoadPicture: 0
     }
@@ -67,11 +67,11 @@ computed: {
 		}), },
 methods:{
   //fonction annule la saisie de userImg//
-  retour(){
+  back(){
     this.upLoadPicture = 0
   },
   //fonction affiche methode updateImageDisplay//
-  voirUpLoadPicture(){
+  seeUpLoadPicture(){
     if (this.upLoadPicture==0){
       this.upLoadPicture = 1
     } else {
@@ -109,29 +109,22 @@ methods:{
     for(let curFile of curFiles) {
       if(validFileType(curFile)) {
         this.textContent = 'File name ' + curFile.name + ', file size ' + returnFileSize(curFile.size) + '.';
-        this.image = window.URL.createObjectURL(curFile);
-        this.fichierValid = true;
+        this.picture = window.URL.createObjectURL(curFile);
+        this.validFile = true;
       } else {
         this.textContent = 'File name ' + curFile.name + ': Not a valid file type. Update your selection.';
       }
     }
   },
   //fonction ajoute à la table users la photo profil//
-  async enregistrerPhoto(){
-    const TOKEN = this.user.token;
-    const BASEURL = 'http://localhost:3000/api';
-    const ENDPOINT = '/userPicture';
+  async savePicture(){
+    const ENDPOINT = '/userPicture/'+this.user.info.userId;
     const files = this.input.files[0] ;
+    console.log(files, this.user.base, this.user.info.userId);
       var form = new FormData();
       form.append('image', files);
-      form.append('id', this.user.userId);
-    axios.create({
-      baseURL: BASEURL,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+TOKEN
-      }
-    })
+      form.append('id', this.user.info.userId);
+    axios.create(this.user.base)
     .put(ENDPOINT, form)
     .then(res => {
       if(res.data.message ==1){

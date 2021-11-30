@@ -3,18 +3,18 @@
     <Head url1=#/profil name1="profil"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
-        <img :src= user.info.photo alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
-        <h2>{{user.info.nom}} {{user.info.prenom}}</h2>
+        <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+        <h2>{{user.info.name}} {{user.info.firstname}}</h2>
       </div>
       <TextArea></TextArea>
     </div>
     <div class="postlist">
       <Postlist 
         v-for="item in post"
-        :nom="item.nom"
-        :prenom="item.prenom"
+        :name="item.name"
+        :firstname="item.firstname"
         :message="item.message"
-        :photo="item.photo"
+        :picture="item.picture"
         :like="item.likePost"
         :idPost="item.idPost"
         :key="item.idPost"

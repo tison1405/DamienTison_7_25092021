@@ -30,8 +30,8 @@ export default {
     async textPost(){
       var textRited = document.getElementById("textPost");
       var users_id = this.user.info.userId
-      var commentaire = textRited.value
-      const data = {users_id, commentaire}
+      var post = textRited.value
+      const data = {users_id, post}
       const ENDPOINT = '/';
       axios.create(this.user.base)
       .post(ENDPOINT, data)
@@ -59,7 +59,7 @@ export default {
 <template>
 <v-card class="mx-auto" id="zoneText">
     <div class="wrapper">
-    <textarea type="text" class="regular-input" id="textPost" v-model="input" placeholder="écrivez votre post ici"></textarea>
+    <textarea type="text" class="regular-input" id="textPost" v-model="input" placeholder="Ecrivez votre post ici"></textarea>
 
     <EmojiPicker @emoji="append" :search="search">
       <div

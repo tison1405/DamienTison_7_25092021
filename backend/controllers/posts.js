@@ -1,6 +1,6 @@
 //inserer dans la BD un post//
 exports.createPost = (req, res, next) => {
-    const post = [[req.body.users_id, req.body.commentaire,0 ,0 ]];
+    const post = [[req.body.users_id, req.body.post,0 ,0 ]];
     var sql = "INSERT INTO posts ( users_id, post, report, number_like) VALUES ?";
     //envoye du post à la table post//
     con.query(sql,[post], function (err, result) {
@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
 }
 //recuper tout les posts//
 exports.getAllPost = (req, res, next) => {
-    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost, posts.last_remark AS lastRemark, posts.last_remark_name AS lastRemarkName, posts.last_remark_firstname AS lastRemarkFirstname, posts.last_remark_picture AS lastRemarkPicture FROM users INNER JOIN posts ON users.id = posts.users_id ORDER BY posts.Date DESC;", function(err,result){
+    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost, posts.last_remark AS lastRemark, posts.last_remark_name AS lastRemarkName, posts.last_remark_firstname AS lastRemarkFirstname, posts.last_remark_picture AS lastRemarkPicture FROM users INNER JOIN posts ON users.id = posts.users_id ORDER BY posts.Date DESC;", function(err,result){
         if (err) {
             res.json({ 
                 message: "aucun post trouver"
@@ -31,7 +31,7 @@ exports.getAllPost = (req, res, next) => {
 }
 // recuper un post de la table posts//
 exports.getOnePost = (req, res, next) =>{
-    con.query("SELECT users.nom AS nom, users.prenom AS prenom, users.photo AS photo, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost FROM users INNER JOIN posts ON users.id = posts.users_id WHERE posts.id = ?", req.params.id, function (err, result){
+    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost FROM users INNER JOIN posts ON users.id = posts.users_id WHERE posts.id = ?", req.params.id, function (err, result){
         if (err){
             throw err;
         } else {

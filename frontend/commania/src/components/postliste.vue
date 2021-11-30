@@ -14,11 +14,11 @@ export default {
         })
     },
     props:{
-        nom: {
+        name: {
             type: String,
             required: true
         },
-        prenom: {
+        firstname: {
             type: String,
             required: true
         },
@@ -26,7 +26,7 @@ export default {
 			type: String,
 			required: true
 		},
-        photo: {
+        picture: {
 			type: String,
 			required: false
 		},
@@ -62,10 +62,9 @@ export default {
     },
     data(){
     return{
-        messageModerateur:"",
+        messageModerator:"",
         messageLikes:"",
-        commentaire:0,
-        other:0,
+        remark:0,
         path: mdiSend,
         messages:"",
     }
@@ -78,26 +77,26 @@ export default {
         },
         
         // afficher la zone de commentaire//
-        voirCommentaire(){
-            if (this.commentaire==0){
-                this.commentaire = 1;
+        seeRemark(){
+            if (this.remark==0){
+                this.remark = 1;
             } else {
-                this.commentaire = 0
+                this.remark = 0
             }
         },
 
         //  methode put signaler un post//
-        async signaler(){
+        async report(){
             const ENDPOINT = '/moderator/'+this.idPost;
             axios.create(this.base)
             .put(ENDPOINT)
             .then(res => {
-                this.messageModerateur= res.data.message
+                this.messageModerator= res.data.message
             })
         },
 
         // methode post ajouter un like//
-        async ajouterLike(){
+        async addLike(){
             var idUser = this.idUser;
             const ENDPOINT = '/likes/'+this.idPost;
             const data = {idUser};
@@ -111,13 +110,13 @@ export default {
                 }
             }) 
         },
-        async ajouterCommentaire(){
+        async addRemark(){
             var remark = document.getElementById(this.idPost).value;
             var idPost = this.idPost;
             var idUser = this.idUser;
-            var userName = this.user.info.nom;
-            var userFirstname = this.user.info.prenom;
-            var userPicture = this.user.info.photo;
+            var userName = this.user.info.name;
+            var userFirstname = this.user.info.firstname;
+            var userPicture = this.user.info.picture;
             const data = {remark, idPost, idUser, userName, userFirstname, userPicture};
             const ENDPOINT = '/commentaires';
             axios.create(this.base)
@@ -142,33 +141,33 @@ export default {
         <a href="#/post" class="post1__link" @click="infoPost">
             <div class="post1__head">
                 <v-avatar>
-                    <img :src="photo" alt="Photo de l'auteur du post">
+                    <img :src="picture" alt="Photo de l'auteur du post">
                 </v-avatar>
-                <h3 class="post1__head--titre">{{nom}} {{prenom}}</h3>
+                <h3 class="post1__head--title">{{name}} {{firstname}}</h3>
             </div>
             <div class="post1__message">
                 <p>{{message}}</p>
             </div>
         </a>
         <div class="post1__option">
-            <v-btn text color="primary" @click="voirCommentaire">
+            <v-btn text color="primary" @click="seeRemark">
                 Commentaire
             </v-btn>
             
-            <v-btn text color="primary" @click="signaler">
+            <v-btn text color="primary" @click="report">
                 Signaler
             </v-btn>
-            <v-btn icon  @click="ajouterLike">
+            <v-btn icon  @click="addLike">
                 <v-icon>mdi-thumb-up</v-icon>
                 <span>{{like}}</span>
             </v-btn>
             
         </div>
-        <div class="post1__erreur">{{this.messageModerateur}} {{this.messageLikes}}</div>
-        <div v-if="this.commentaire==1">
-            <div class="post1__commentaire" >
-                <textarea type="text" :id="idPost" class="post1__commentaire--saisie" placeholder="écrivez votre commentaire"></textarea>
-                <v-btn @click="ajouterCommentaire" class="post1__commentaire--btn">
+        <div class="post1__erreur">{{this.messageModerator}} {{this.messageLikes}}</div>
+        <div v-if="this.remark==1">
+            <div class="post1__remark" >
+                <textarea type="text" :id="idPost" class="post1__remark--capture" placeholder="écrivez votre commentaire"></textarea>
+                <v-btn @click="addRemark" class="post1__remark--btn">
                     <svg-icon type="mdi" :path="path" ></svg-icon>
                 </v-btn>
             </div>
@@ -176,12 +175,12 @@ export default {
                 <p>pas de commentaire</p>
             </div>
             <div v-else>
-                <p class="commentaireTitre">Dernier commentaire</p>
-                <div class="lastCommentaire">
-                    <div class="lastCommentaire__user">
-                        <img class="lastCommentaire__user--photo" :src="lastRemarkPicture" alt="photo de l'auteur du dernier commentaire">
-                        <span class="lastCommentaire__user--nom">{{lastRemarkName}}</span>
-                        <span class="lastCommentaire__user--prenom">{{lastRemarkFirstname}}</span>
+                <p class="remarkTitle">Dernier commentaire</p>
+                <div class="lastRemark">
+                    <div class="lastRemark__user">
+                        <img class="lastRemark__user--picture" :src="lastRemarkPicture" alt="photo de l'auteur du dernier commentaire">
+                        <span class="lastRemark__user--name">{{lastRemarkName}}</span>
+                        <span class="lastRemark__user--firstname">{{lastRemarkFirstname}}</span>
                     </div>
                     <div class="lastCommentaire__text">
                         {{lastRemark}}
@@ -189,10 +188,9 @@ export default {
                 </div>
             </div>
         </div>
-
-    </v-card>
-        
+    </v-card> 
 </template>
+
 <style lang="scss">
 .theme--light.v-btn.v-btn--has-bg {
     background-color:powderblue;
@@ -215,7 +213,7 @@ export default {
             height: 50px;
             border-radius: 50px;
         }
-        &--titre{
+        &--title{
             margin-top: auto;
             margin-bottom: auto;
             margin-left: 10px;
@@ -234,8 +232,8 @@ export default {
         display: flex;
         justify-content: space-between;
     }
-    &__commentaire{
-        &--saisie{
+    &__remark{
+        &--capture{
             width: 90%;
         }
         background-color: white;
@@ -246,10 +244,10 @@ export default {
         padding: 4px;
     }
 }
-.commentaireTitre{
+.remarkTitle{
         text-align: center;
 }
-.lastCommentaire{
+.lastRemark{
     padding: 5px;
     border-radius: 10px;
     &__user{
@@ -259,14 +257,14 @@ export default {
         width: fit-content;
         padding: 3px;
         margin-bottom: 4px;
-        &--photo{
+        &--picture{
             width: 32px;
             border-radius: 20px;
         }
-        &--nom{
+        &--name{
             margin: 5px;
         }
-        &--prenom{
+        &--firstname{
             margin: 5px;
         }
     }
@@ -278,8 +276,4 @@ export default {
         border-radius: 20px;
     }
 }
-    
-
-
-
 </style>

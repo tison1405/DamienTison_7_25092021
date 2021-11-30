@@ -25,7 +25,7 @@
         </div>    
       </fieldset>
       <div class="formulaire">
-        <button type="button" id="formulaire" @click="userSaisie($event)">Valider</button>
+        <button type="button" id="formulaire" @click="userSaisie()">Valider</button>
       </div>
       <p v-if="this.dataLogin.errMail == true">Vous n'êtes pas inscrit. <a href="#/signIn">Inscrivez-vous</a></p>
       <p v-if="this.dataLogin.errMotdepasse == true"> Si vous avez oublié votre mot de passe. Veuillez contacter votre <a href="mailto:webmaster@example.com">administrateur</a></p>
@@ -45,7 +45,7 @@ export default {
 	},
   data(){
     return{
-      formulaire:{
+      form:{
         email:"",
         password:""
       },
@@ -53,28 +53,27 @@ export default {
     }
   },  
   methods:{
-    async userSaisie(event){
-      event.preventDefault();
-      var valideEmail = document.getElementById("validationMail");
-      var validePassword = document.getElementById("validationPassword");
+    async userSaisie(){
+      var validEmail = document.getElementById("validationMail");
+      var validPassword = document.getElementById("validationPassword");
 
       //validation Email//
-        this.formulaire.email = valideEmail.value;
+        this.form.email = validEmail.value;
       
       //validation password//
-        this.formulaire.password = validePassword.value;
+        this.form.password = validPassword.value;
 
       //envoi de l'objet formulaire a la BD pour comparaison//
-      const { data }= await axios.post("http://localhost:3000/api/login", this.formulaire)
+      const { data }= await axios.post("http://localhost:3000/api/login", this.form)
 
       //reponse de la BD avec info Utilisateur ou message d'erreur//
       this.dataLogin = data;
       
       if (this.dataLogin.errMail == true){
-        valideEmail.setAttribute("class", "form-control is-invalid");
+        validEmail.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidMail").innerHTML = "veuillez saisir votre adresse mail.";
       } else if (this.dataLogin.errMotdepasse == true){
-        validePassword.setAttribute("class", "form-control is-invalid");
+        validPassword.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidPassword").innerHTML = "Mot de passe erroné!";
       } else {
         //stockage des données dans la data central//

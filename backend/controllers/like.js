@@ -14,7 +14,7 @@ exports.likePost = (req, res, next) => {
             con.query("UPDATE posts SET number_like = number_like + 1 WHERE id=?",data, function (err,result){
                 if (err) {
                     res.json({ 
-                        err: "probleme pour incrementer le number_like dans la table all_post "
+                        err: "Probleme pour incrementer le number_like dans la table all_post "
                     });
                 } else {
                     res.status(201).json({
