@@ -18,7 +18,8 @@ export default new Vuex.Store({
     message:"",
     onePost:"",
     idPost:"",
-    allRemarks:[]
+    allRemarks:[],
+    postReport:[]
   },
   plugins: [createPersistedState()],
   mutations:{
@@ -48,7 +49,6 @@ export default new Vuex.Store({
       .get(ENDPOINT)
       .then(res => {
           state.user.info = res.data;
-          console.log(state.user.info.picture);
       });
     },
 
@@ -61,6 +61,7 @@ export default new Vuex.Store({
         state.post= result.data.result;
       });
     },
+      //fonction pour recuperer un post//
     async GET_ONE_POST (state){
       const ENDPOINT = '/post/'+state.idPost;
       axios.create(state.user.base)
@@ -69,6 +70,7 @@ export default new Vuex.Store({
         state.onePost= result.data.result[0]
       })
     },
+    // fonction pour recuperer tout les commentaires d'un post//
     async GET_ALL_REMARKS (state){
       const ENDPOINT = '/commentaires/'+state.idPost;
       axios.create(state.user.base)
@@ -76,6 +78,15 @@ export default new Vuex.Store({
       .then(result => {
         state.allRemarks= result.data.result
       })
+    },
+    async GET_ALL_POST_REPORT (state){
+      const ENDPOINT = '/moderator/'+state.user.info.userId;
+      axios.create(state.user.base)
+      .get(ENDPOINT)
+      .then(result => {
+        state.postReport= result.data.result
+      })
+
     }
   },
   actions: {  

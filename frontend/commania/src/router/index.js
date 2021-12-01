@@ -34,6 +34,11 @@ const routes = [
     path:'/post',
     name:'postPage',
     component: () => import('../views/post')
+  },
+  {
+    path:'/moderator',
+    name:'moderator',
+    component: () => import('../views/moderator')
   }
 ]
 

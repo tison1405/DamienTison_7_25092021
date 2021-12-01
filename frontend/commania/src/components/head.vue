@@ -11,6 +11,9 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" :href= url1> {{name1}}</a>
                         </li>
+                        <li class="nav-item" v-if="this.user.info.moderator == 1">
+                            <a class="nav-link" aria-current="page" :href= url3> {{name3}}</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" :href= url2> {{name2}}</a>
                         </li>
@@ -25,14 +28,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
     name: "heading",
     props: [
         'url1',
         'name1',
         'url2',
-        'name2'
+        'name2',
+        'url3',
+        'name3'
     ],
+    computed: {
+		...mapState({
+            user: "user", 
+        })
+    },
      methods:{
         disconnect(){
             this.$store.commit('DISCONNECT');

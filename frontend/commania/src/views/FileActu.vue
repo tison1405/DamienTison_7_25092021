@@ -1,6 +1,6 @@
 <template>
   <body>
-    <Head url1=#/profil name1="profil"/>
+    <Head url1=#/profil url3="#/moderator" name1="profil" name3="moderateur"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
         <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
@@ -25,6 +25,7 @@
         :lastRemarkName="item.lastRemarkName"
         :lastRemarkFirstname="item.lastRemarkFirstname"
         :lastRemarkPicture="item.lastRemarkPicture"
+        :option="1"
       />
     </div>
   <Foot/>

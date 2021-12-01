@@ -121,7 +121,8 @@ exports.userInfo = (req, res, next) =>{
         userId: result[0].id, 
         name: result[0].name, 
         firstname: result[0].firstname, 
-        picture: result[0].picture, 
+        picture: result[0].picture,
+        moderator: result[0].moderator, 
         email: bytesString
       })
     }

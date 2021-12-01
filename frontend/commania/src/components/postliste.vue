@@ -58,6 +58,9 @@ export default {
         },
         base:{
             type: Object
+        },
+        option:{
+            type: Number
         }
     },
     data(){
@@ -149,15 +152,23 @@ export default {
                 <p>{{message}}</p>
             </div>
         </a>
-        <div class="post1__option">
+        <div class="post1__option" >
             <v-btn text color="primary" @click="seeRemark">
                 Commentaire
             </v-btn>
             
-            <v-btn text color="primary" @click="report">
+            <v-btn text color="primary" @click="report" v-if="this.option == 1">
                 Signaler
             </v-btn>
-            <v-btn icon  @click="addLike">
+            <div v-else>
+                <v-btn text color="primary" @click="moderate" >
+                    Modérer
+                </v-btn>
+                <v-btn text color="primary" @click="validate" >
+                    Valider
+                </v-btn>
+            </div>
+            <v-btn icon  @click="addLike" v-if="this.option == 1">
                 <v-icon>mdi-thumb-up</v-icon>
                 <span>{{like}}</span>
             </v-btn>
@@ -165,7 +176,7 @@ export default {
         </div>
         <div class="post1__erreur">{{this.messageModerator}} {{this.messageLikes}}</div>
         <div v-if="this.remark==1">
-            <div class="post1__remark" >
+            <div class="post1__remark" v-if="this.option == 1">
                 <textarea type="text" :id="idPost" class="post1__remark--capture" placeholder="écrivez votre commentaire"></textarea>
                 <v-btn @click="addRemark" class="post1__remark--btn">
                     <svg-icon type="mdi" :path="path" ></svg-icon>
