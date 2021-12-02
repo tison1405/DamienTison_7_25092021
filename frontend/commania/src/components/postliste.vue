@@ -61,6 +61,9 @@ export default {
         },
         option:{
             type: Number
+        },
+        reportNumber:{
+            type: Number
         }
     },
     data(){
@@ -135,12 +138,44 @@ export default {
                     this.messages= res.data.message;
                 }   
             })
+        },
+        async moderate(){
+            const ENDPOINT = '/moderator/'+ this.idPost;
+            axios.create(this.base)
+            .delete(ENDPOINT)
+            .then(res =>{
+                console.log(res.data.message)
+                this.$store.commit('GET_ALL_POST_REPORT');
+            })
+        },
+        async validate(){
+            const ENDPOINT = '/moderator/'+this.idPost;
+            var userId = this.idUser;
+            var reportNumber = this.reportNumber;
+            const data = {userId, reportNumber};
+            axios.create(this.base)
+            .put(ENDPOINT, data)
+            .then(res => {
+                this.messageModerator= res.data.message;
+                this.$store.commit('GET_ALL_POST_REPORT');
+            })
         }    
     },
 }
 </script>
 <template>
-    <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
+    <v-card elevation="10" outlined shaped  color="#f00020" class="post1" v-if="this.reportNumber == 2">
+        <div class="post1__head">
+            <v-avatar>
+                <img :src="picture" alt="Photo de l'auteur du post">
+            </v-avatar>
+            <h3 class="post1__head--title">{{name}} {{firstname}}</h3>
+        </div>
+        <div class="post1__message">
+            <p>{{message}}</p>
+        </div>
+    </v-card> 
+    <v-card elevation="10" outlined shaped  color="#26c6da" class="post1" v-else>
         <a href="#/post" class="post1__link" @click="infoPost">
             <div class="post1__head">
                 <v-avatar>

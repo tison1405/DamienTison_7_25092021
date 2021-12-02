@@ -42,6 +42,7 @@ export default {
                 :lastRemarkName="item.lastRemarkName"
                 :lastRemarkFirstname="item.lastRemarkFirstname"
                 :lastRemarkPicture="item.lastRemarkPicture"
+                :reportNumber="item.report"
             />
         </div>
         <Foot></Foot> 

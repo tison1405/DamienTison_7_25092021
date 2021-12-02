@@ -26,6 +26,7 @@
         :lastRemarkFirstname="item.lastRemarkFirstname"
         :lastRemarkPicture="item.lastRemarkPicture"
         :option="1"
+        :reportNumber="item.report"
       />
     </div>
   <Foot/>
@@ -56,6 +57,7 @@ export default {
   beforeMount(){
     this.$store.commit('GET_ALL_POST');
     this.$store.commit('GET_ONE_USER');
+    this.$store.commit('GET_ALL_POST_REPORT');
   }
 }
 </script>

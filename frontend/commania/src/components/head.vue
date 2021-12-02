@@ -12,7 +12,10 @@
                             <a class="nav-link" aria-current="page" :href= url1> {{name1}}</a>
                         </li>
                         <li class="nav-item" v-if="this.user.info.moderator == 1">
-                            <a class="nav-link" aria-current="page" :href= url3> {{name3}}</a>
+                            <a class="nav-link" aria-current="page" :href= url3> 
+                                {{name3}}
+                                <v-badge dot color="#f00020" v-if="this.postReport[0]"></v-badge>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" :href= url2> {{name2}}</a>
@@ -41,7 +44,8 @@ export default {
     ],
     computed: {
 		...mapState({
-            user: "user", 
+            user: "user",
+            postReport: "postReport" 
         })
     },
      methods:{
