@@ -15,6 +15,9 @@ export default {
         },
         remark:{
             type: String,
+        },
+        userDelete:{
+            type: Number
         }
     },
 
@@ -23,7 +26,8 @@ export default {
 
 <template>
     <div class="Remark">
-         <div class="Remark__user">
+        <div v-if="this.userDelete ==2">Post écrit par un utilisateur désinscrit</div>
+         <div class="Remark__user" v-else>
             <img class="Remark__user--picture" :src="picture" alt="photo de l'auteur du dernier commentaire">
             <span class="Remark__user--name">{{name}}</span>
             <span class="Remark__user--firstname">{{firstname}}</span>

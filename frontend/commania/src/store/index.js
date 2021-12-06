@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
+import get from '../api/get';
 
 Vue.use(Vuex)
-const axios = require("axios");
 
 export default new Vuex.Store({
   state: {
@@ -44,28 +44,25 @@ export default new Vuex.Store({
 
             //fonction pour recuperer les infos User//
     async GET_ONE_USER(state){
-      const ENDPOINT = '/'+state.user.info.userId;
-      axios.create(state.user.base)
-      .get(ENDPOINT)
-      .then(res => {
-          state.user.info = res.data;
-      });
+      const ENDPOINT = "/"+state.user.info.userId;
+      get(ENDPOINT, state)
+      .then(res =>{
+        state.user.info= res.data
+      })
     },
 
                 //fonction pour recuperer les posts//
     async GET_ALL_POST(state){
-      const ENDPOINT = '/';
-      axios.create(state.user.base)
-      .get(ENDPOINT)
-      .then(result => { 
-        state.post= result.data.result;
+      const ENDPOINT = "/"
+      get(ENDPOINT, state)
+      .then(res => { 
+        state.post= res.data.result;
       });
     },
       //fonction pour recuperer un post//
     async GET_ONE_POST (state){
       const ENDPOINT = '/post/'+state.idPost;
-      axios.create(state.user.base)
-      .get(ENDPOINT)
+      get(ENDPOINT, state)
       .then(result => {
         state.onePost= result.data.result[0]
       })
@@ -73,16 +70,15 @@ export default new Vuex.Store({
     // fonction pour recuperer tout les commentaires d'un post//
     async GET_ALL_REMARKS (state){
       const ENDPOINT = '/commentaires/'+state.idPost;
-      axios.create(state.user.base)
-      .get(ENDPOINT)
+      get(ENDPOINT, state)
       .then(result => {
         state.allRemarks= result.data.result
       })
     },
+    // fonction pour recuperer les posts signalés
     async GET_ALL_POST_REPORT (state){
       const ENDPOINT = '/moderator/'+state.user.info.userId;
-      axios.create(state.user.base)
-      .get(ENDPOINT)
+      get(ENDPOINT, state)
       .then(result => {
         state.postReport= result.data.result
       })

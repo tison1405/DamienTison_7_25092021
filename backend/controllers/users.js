@@ -128,4 +128,15 @@ exports.userInfo = (req, res, next) =>{
     }
   })
 }
+exports.deleteUser = (req, res, next) => {
+  con.query("UPDATE users SET name='Utilisateur desactivé', firstname = 'Utilisateur desactivé', password ='Utilisateur desactivé', picture ='Utilisateur desactivé', moderator = 2 WHERE id = ?",req.params.id, function(err,result){
+    if (err){
+      throw err;
+    } else {
+      res.json({
+        message: result.affectedRows
+      })
+    }
+  })
+}
   

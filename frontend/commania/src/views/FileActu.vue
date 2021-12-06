@@ -17,6 +17,7 @@
         :picture="item.picture"
         :like="item.likePost"
         :idPost="item.idPost"
+        :userDelete="item.userDelete" 
         :key="item.idPost"
         :token="user.info.token"
         :idUser="user.info.userId"

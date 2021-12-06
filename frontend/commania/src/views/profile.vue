@@ -31,12 +31,18 @@
   <p>{{user.info.name}}</p>
   <p>{{user.info.firstname}}</p>
   <p>{{user.info.email}}</p>
+  <Modale 
+    :revele="revele"
+    :toggleModale="toggleModale"
+  />
+  <div class="btn btn-success" @click="toggleModale">Supprimer le compte</div>
   <Foot/>
 </body>
 </template>
 
 <script>
-const axios = require("axios");
+import Modale from '../components/modale.vue'
+import put from '../api/put'
 import Foot from '../components/foot.vue'
 import { mapState } from "vuex";
 import FormData from 'form-data';
@@ -45,7 +51,8 @@ export default {
 name : "profile",
 components:{
   Head,
-  Foot
+  Foot,
+  Modale
 },
 data(){
     return{
@@ -53,7 +60,8 @@ data(){
         textContent:"",
         validFile:"",
         input:"",
-        upLoadPicture: 0
+        upLoadPicture: 0,
+        revele: false
     }
 
 },
@@ -61,11 +69,14 @@ beforeMount(){
     this.$store.commit('GET_ONE_USER');
 },
 computed: {
-		
 		...mapState({
       user: "user"
-		}), },
+		}), 
+},
 methods:{
+  toggleModale(){
+    this.revele = !this.revele
+  },
   //fonction annule la saisie de userImg//
   back(){
     this.upLoadPicture = 0
@@ -119,13 +130,11 @@ methods:{
   //fonction ajoute à la table users la photo profil//
   async savePicture(){
     const ENDPOINT = '/userPicture/'+this.user.info.userId;
-    const files = this.input.files[0] ;
-    console.log(files, this.user.base, this.user.info.userId);
-      var form = new FormData();
-      form.append('image', files);
-      form.append('id', this.user.info.userId);
-    axios.create(this.user.base)
-    .put(ENDPOINT, form)
+    const files = this.input.files[0];
+      var data = new FormData();
+      data.append('image', files);
+      data.append('id', this.user.info.userId);
+    put(ENDPOINT, this.user, data)
     .then(res => {
       if(res.data.message ==1){
         this.$store.commit('GET_ONE_USER');
@@ -133,7 +142,6 @@ methods:{
       } else {
         console.log("problème");
       }
-      
     });
   }
 }}

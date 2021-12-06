@@ -21,7 +21,7 @@
                             <a class="nav-link" aria-current="page" :href= url2> {{name2}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/" @click="disconnect">Déconnection</a>
+                            <a class="nav-link" href="/" @click="disconnect">Déconnexion</a>
                         </li>
                     </ul>
                 </div>

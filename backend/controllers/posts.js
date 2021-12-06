@@ -18,7 +18,7 @@ exports.createPost = (req, res, next) => {
 }
 //recuper tout les posts//
 exports.getAllPost = (req, res, next) => {
-    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, posts.post AS message, posts.report AS report, posts.number_like AS likePost, posts.id AS idPost, posts.last_remark AS lastRemark, posts.last_remark_name AS lastRemarkName, posts.last_remark_firstname AS lastRemarkFirstname, posts.last_remark_picture AS lastRemarkPicture FROM users INNER JOIN posts ON users.id = posts.users_id ORDER BY posts.Date DESC;", function(err,result){
+    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, users.moderator AS userDelete, posts.post AS message, posts.report AS report, posts.number_like AS likePost, posts.id AS idPost, posts.last_remark AS lastRemark, posts.last_remark_name AS lastRemarkName, posts.last_remark_firstname AS lastRemarkFirstname, posts.last_remark_picture AS lastRemarkPicture FROM users INNER JOIN posts ON users.id = posts.users_id ORDER BY posts.Date DESC;", function(err,result){
         if (err) {
             res.json({ 
                 message: "aucun post trouver"
@@ -32,7 +32,7 @@ exports.getAllPost = (req, res, next) => {
 }
 // recuper un post de la table posts//
 exports.getOnePost = (req, res, next) =>{
-    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost FROM users INNER JOIN posts ON users.id = posts.users_id WHERE posts.id = ?", req.params.id, function (err, result){
+    con.query("SELECT users.name AS name, users.firstname AS firstname, users.picture AS picture, users.moderator AS userDelete, posts.post AS message, posts.number_like AS likePost, posts.id AS idPost FROM users INNER JOIN posts ON users.id = posts.users_id WHERE posts.id = ?", req.params.id, function (err, result){
         if (err){
             throw err;
         } else {
