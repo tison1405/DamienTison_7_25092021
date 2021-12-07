@@ -46,7 +46,7 @@ export default {
 		Postlist,
     TextArea,
     Head,
-    Foot
+    Foot,
 	},
 	computed: {
 		

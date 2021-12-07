@@ -19,7 +19,8 @@ export default new Vuex.Store({
     onePost:"",
     idPost:"",
     allRemarks:[],
-    postReport:[]
+    postReport:[],
+    postFile:""
   },
   plugins: [createPersistedState()],
   mutations:{
@@ -40,6 +41,10 @@ export default new Vuex.Store({
      // fonction pour recuperer les infos du post//
      INCREMENT_ONE_POST(state, payload){
        state.idPost = payload;
+     },
+     // fonction pour recuperer le fichier upload du post//
+     INCREMENT_POSTFILE(state, payload){
+       state.postFile = payload;
      },
 
             //fonction pour recuperer les infos User//

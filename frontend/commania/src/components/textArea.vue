@@ -1,6 +1,7 @@
 <script>
 import EmojiPicker from 'vue-emoji-picker'
 import { mapState } from "vuex"
+import UploadFile from "../components/uploadFile.vue"
 const axios = require("axios");
 export default {
 	name: 'textArea',
@@ -19,7 +20,8 @@ export default {
     }
   },
   components: {
-    EmojiPicker
+    EmojiPicker,
+    UploadFile
 	},
   methods:{
     // methode emoji //
@@ -94,6 +96,7 @@ export default {
         </div>
       </div>
     </EmojiPicker>
+    <UploadFile/>
     <v-btn elevation="2" outlined @click="textPost">Poster</v-btn>
   </div>
 </v-card>
