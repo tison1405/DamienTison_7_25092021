@@ -131,10 +131,10 @@ methods:{
   async savePicture(){
     const ENDPOINT = '/userPicture/'+this.user.info.userId;
     const files = this.input.files[0];
-      var data = new FormData();
-      data.append('image', files);
-      data.append('id', this.user.info.userId);
-    put(ENDPOINT, this.user, data)
+      var formData = new FormData();
+      formData.append('image', files);
+      formData.append('id', this.user.info.userId);
+    put(ENDPOINT, this.user, formData)
     .then(res => {
       if(res.data.message ==1){
         this.$store.commit('GET_ONE_USER');

@@ -41,7 +41,7 @@ export default {
             for(let curFile of curFiles) {
                 if(check_extension(curFile.name, this.input)) {
                     this.textContent = 'File name ' + curFile.name + '.';
-                    this.file = window.URL.createObjectURL(curFile);
+                    this.file = curFile;
                     this.validFile = true;
                     this.$store.commit('INCREMENT_POSTFILE', this.file);
                 } else {

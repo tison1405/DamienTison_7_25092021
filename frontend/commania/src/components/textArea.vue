@@ -1,15 +1,17 @@
 <script>
+import Post from '../api/post'
 import EmojiPicker from 'vue-emoji-picker'
 import { mapState } from "vuex"
 import UploadFile from "../components/uploadFile.vue"
-const axios = require("axios");
+import FormData from "form-data"
 export default {
 	name: 'textArea',
     computed: {
 		
 		...mapState({
             user: "user",
-            post: "post"  
+            post: "post",
+            postFile: "postFile"  
 		})
 	},
     data() {
@@ -33,10 +35,15 @@ export default {
       var textRited = document.getElementById("textPost");
       var users_id = this.user.info.userId
       var post = textRited.value
-      const data = {users_id, post}
+      var postFile = this.postFile;
+      console.log(postFile);
+      var formData = new FormData();
+      formData.append('file', postFile);
+      formData.append('post', post);
+      formData.append('userId', users_id)
+      console.log(formData);
       const ENDPOINT = '/';
-      axios.create(this.user.base)
-      .post(ENDPOINT, data)
+      Post (ENDPOINT, this.user, formData)
       .then(res => {
         if(res.data.message ==1){
           this.$store.commit('GET_ALL_POST');
