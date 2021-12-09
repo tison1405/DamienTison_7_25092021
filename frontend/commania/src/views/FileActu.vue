@@ -4,7 +4,7 @@
     <div class= "userArea">
       <div class= "userArea__userPhoto">
         <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
-        <h2>{{user.info.name}} {{user.info.firstname}}</h2>
+        <h2 class="userName">{{user.info.name}} {{user.info.firstname}}</h2>
       </div>
       <TextArea></TextArea>
     </div>
@@ -67,21 +67,28 @@ export default {
 
 
 <style lang="scss">
+.userName{
+  align-self: center;
+  font-size: 10px;
+}
 .userArea{
   margin-left: auto;
   margin-right: auto;
   width: 90%;
   display: flex;
+  flex-direction: column;
   margin-top: 5px;
   &__userPhoto{
     align-self: center;
-    background-color: powderblue;
-    margin: 3px;
-    padding: 22px;
     border-radius: 100px;
+    display: flex;
+    position: absolute;
+    top: 2px;
     &--photoUse{
-      width: 100px;
-      border-radius: 10px;
+      width: 59px;
+      border-radius: 40px;
+      height: 54px;
+      margin-right: 5px;
     }
   }
 }

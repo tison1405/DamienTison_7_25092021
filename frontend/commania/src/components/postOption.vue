@@ -40,9 +40,11 @@ export default {
             this.$emit('see-remark')
         },
         //  methode put signaler un post//
-        async report(){
+        async reports(){
+            var idUser = this.idUser
             const ENDPOINT = '/moderator/'+this.idPost;
-            put(ENDPOINT)
+            const data ={idUser};
+            put(ENDPOINT, this.user, data)
             .then(res => {
                 this.messageModerator= res.data.message
                 this.$store.commit('GET_ALL_POST_REPORT');
@@ -58,6 +60,7 @@ export default {
             .then(res => {
                 if(res.data.message ==1){
                     this.$store.commit('GET_ALL_POST');
+                    this.$store.commit('GET_ONE_POST');
                 } else {
                     this.messageLikes = res.data.message
                 }
@@ -90,7 +93,7 @@ export default {
                 Commentaire
             </v-btn>
             
-            <v-btn text color="primary" @click="report" v-if="this.option == 1">
+            <v-btn text color="primary" @click="reports" v-if="this.option == 1">
                 Signaler
             </v-btn>
             <div v-else>

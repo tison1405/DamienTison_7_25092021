@@ -26,6 +26,7 @@ export default {
     UploadFile
 	},
   methods:{
+    
     // methode emoji //
     append(emoji) {
       this.input += emoji
@@ -35,25 +36,40 @@ export default {
       var textRited = document.getElementById("textPost");
       var users_id = this.user.info.userId
       var post = textRited.value
+      var data = {users_id, post}
       var postFile = this.postFile;
-      console.log(postFile);
       var formData = new FormData();
       formData.append('file', postFile);
       formData.append('fileName', postFile.name)
       formData.append('post', post);
       formData.append('userId', users_id)
-      console.log(formData);
-      const ENDPOINT = '/';
-      Post (ENDPOINT, this.user, formData)
-      .then(res => {
-        if(res.data.message ==1){
-          this.$store.commit('GET_ALL_POST');
+      if (!postFile) {
+        const ENDPOINT = '/';
+        Post (ENDPOINT, this.user, data)
+        .then(res => {
           var textArea= document.getElementById("textPost");
           textArea.value = textArea.defaultValue;
-        } else {
-          this.posting = res.data.message;
-        }
-      })
+          if(res.data.message ==1){
+            this.$store.commit('GET_ALL_POST');
+          } else {
+            this.posting = res.data.message;
+          }
+        })
+      } else {
+        const ENDPOINT = '/postfile/';
+        Post (ENDPOINT, this.user, formData)
+        .then(res => {
+          var textArea= document.getElementById("textPost");
+          textArea.value = textArea.defaultValue;
+          if(res.data.message ==1){
+            var file= "";
+            this.$store.commit('INCREMENT_POSTFILE', file);
+            this.$store.commit('GET_ALL_POST');
+          } else {
+            this.posting = res.data.message;
+         }
+        })
+      }
     }
   },
   directives: {
@@ -68,7 +84,7 @@ export default {
 
 <template>
 <v-card class="mx-auto" id="zoneText">
-    <div class="wrapper">
+  <div class="wrapper">
     <textarea type="text" class="regular-input" id="textPost" v-model="input" placeholder="Ecrivez votre post ici"></textarea>
 
     <EmojiPicker @emoji="append" :search="search">
@@ -104,17 +120,23 @@ export default {
         </div>
       </div>
     </EmojiPicker>
-    <UploadFile/>
-    <v-btn elevation="2" outlined @click="textPost">Poster</v-btn>
+    
   </div>
+  <UploadFile/>
+  <v-btn elevation="2" outlined @click="textPost">Poster</v-btn>
 </v-card>
 </template>
 
 <style lang="scss">
+.filename{
+  display: flex;
+}
+#textPost{
+  height: 51px;
+}
 #zoneText{
-  width: 90%;
   background-color: powderblue;
- 
+  width: 100%;
 }
 .wrapper {
   position: relative;

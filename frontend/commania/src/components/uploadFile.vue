@@ -44,7 +44,6 @@ export default {
                     this.textContent = 'File name ' + curFile.name + '.';
                     this.file = curFile;
                     this.validFile = true;
-                    this.$store.commit('INCREMENT_POSTFILE', this.file);
                 } else {
                     this.textContent = 'File name ' + curFile.name + ': Not a valid file type. Update your selection.';
                 }
@@ -56,8 +55,16 @@ export default {
         back(){
             this.upLoadFile = false;
             this.textContent = "";
-            this.file="";
+            
+        },
+        validation(){
             this.$store.commit('INCREMENT_POSTFILE', this.file);
+            this.upLoadFile = false;
+            this.postValid= true;
+        },
+        deleted(){
+            var file= "";
+            this.$store.commit('INCREMENT_POSTFILE', file);
         },
     }
 }
@@ -68,8 +75,7 @@ export default {
     <v-btn text color="primary" @click="seeUpLoadFile">
       Ajoutez un fichier
     </v-btn>
-    <div class="profil__file" v-if="this.upLoadFile==1">
-      <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="profil__file" v-if="this.upLoadFile==1">
         <div id="file">
           <label for="file_uploads">Parcourir vos fichiers</label>
           <input type="file" id="file_uploads" name="fileUploads" accept=".docx, .xlsx, .pptx, .pdf" multiple @change="updateFileDisplay">
@@ -79,12 +85,14 @@ export default {
         </div>
         <div class="preview"></div>
         <div>
-          <v-btn text color="primary" @click="back">
-            Annuler
-          </v-btn>
+            <v-btn text color="primary" @click="validation">
+                Valider
+            </v-btn>
+            <v-btn text color="primary" @click="back">
+                Annuler
+            </v-btn>
         </div>
-      </form>
-    </div>
+    </form>
 </div>
 </template>
 
@@ -92,11 +100,12 @@ export default {
     .profil__file{
         display: flex;
         align-items: center;
+        overflow: hidden;
+        width: 100%;
     }
     #file{
         background-color:cadetblue;
         border-radius: 15px;
-        width: 250px;
     }
     form{
         display: flex;
@@ -111,6 +120,8 @@ export default {
         margin-top: 10px;
         display: flex;
         justify-content: center;
+        width: 100%;
+        word-break: break-word;
         &__File{
             width: 100px;
         }

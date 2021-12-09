@@ -1,6 +1,6 @@
 <template>
 <body>
-  <Head url1=#/filactu name1="Fil d'actu"/>
+  <Head url1=#/filactu url3="#/moderator" name1="Fil d'actu" name3="moderateur"/>
   <div class="userImg">
     <img :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">

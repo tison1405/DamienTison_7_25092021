@@ -1,39 +1,37 @@
 const moderatorId = process.env.moderatorId;
-//inserer dans la BD un post//
+//inserer dans la BDD un post//
 exports.createPost = (req, res, next) => {
-    if (!req.file.filename){
-        const fileUrl= "";
-        const post = [[req.body.userId, req.body.post, fileUrl,0 ,0 ]];
+    const post = [[req.body.users_id, req.body.post,0 ,0 ]];
         //envoye du post à la table post//
-        con.query("INSERT INTO posts ( users_id, post, post_file, report, number_like) VALUES ?",[post], function (err, result) {
+    con.query("INSERT INTO posts ( users_id, post, report, number_like) VALUES ?",[post], function (err, result) {
         //si erreur message//
-            if (err) {
-                throw err;
+        if (err) {
+            throw err;
             //si envoyer message nombre de lignes affectées = 1//
-            } else {
-                res.json({
+        } else {
+            res.json({
                     message:  result.affectedRows,
                     id: result.insertId
-                })
-            }
-        })
-    } else {
-        const fileUrl= `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;;
-        const post = [[req.body.userId, req.body.post, req.body.fileName, fileUrl,0 ,0 ]];
+            })
+        }
+    })
+}
+exports.createPostFile = (req, res, next) => {
+    const fileUrl= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const post = [[req.body.userId, req.body.post, req.body.fileName, fileUrl,0 ,0 ]];
         //envoye du post à la table post//
-        con.query("INSERT INTO posts ( users_id, post, post_filename, post_file, report, number_like) VALUES ?",[post], function (err, result) {
+    con.query("INSERT INTO posts ( users_id, post, post_filename, post_file, report, number_like) VALUES ?",[post], function (err, result) {
         //si erreur message//
-            if (err) {
-                throw err;
+        if (err) {
+            throw err;
             //si envoyer message nombre de lignes affectées = 1//
-            } else {
-                res.json({
-                    message:  result.affectedRows,
-                    id: result.insertId
-                })
-            }
-        })
-    }       
+        } else {
+            res.json({
+                message:  result.affectedRows,
+                id: result.insertId
+            })
+        }
+    })      
 }
 //recuper tout les posts//
 exports.getAllPost = (req, res, next) => {

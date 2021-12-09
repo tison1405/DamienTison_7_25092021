@@ -10,7 +10,8 @@ const multer = require('../middleware/multer-config-files')
 router.get('/', auth, postCtrl.getAllPost);
 router.get('/post/:id', auth, postCtrl.getOnePost);
 router.get('/moderator/:id', auth, postCtrl.getPostModerator);
-router.post('/', auth, multer, postCtrl.createPost);
+router.post('/', auth, postCtrl.createPost);
+router.post('/postfile/', auth, multer, postCtrl.createPostFile);
 router.post('/likes/:id', auth, likeCtrl.likePost);
 router.put('/moderator/:id', auth, postCtrl.modifyPost);
 router.delete('/moderator/:id', auth, remarkCtrl.deleteRemarks, postCtrl.modaratePost)

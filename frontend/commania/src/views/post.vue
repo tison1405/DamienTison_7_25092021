@@ -6,6 +6,7 @@ import Post from '../components/post.vue'
 import PostOption from '../components/postOption.vue'
 import AddRemark from '../components/addRemark.vue'
 import { mapState } from "vuex"
+import Download from '../components/downloadFile.vue'
 export default {
     name: "post",
     components:{
@@ -14,7 +15,8 @@ export default {
         Post,
         PostOption,
         AddRemark,
-        RemarkList
+        RemarkList,
+        Download
     },
     computed: {
 		...mapState({
@@ -51,7 +53,7 @@ export default {
 
 <template>
 <body>
-    <Head url1=#/profil url2=#/filactu name1="profil" name2="Fil d'actu"/>
+    <Head url1=#/profil url2=#/filactu url3="#/moderator" name1="profil" name2="Fil d'actu" name3="moderateur"/>
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
         <Post 
             :firstname="this.onePost.firstname"
@@ -59,6 +61,10 @@ export default {
             :message="this.onePost.message"
             :picture="this.onePost.picture"
             :userDelete="this.onePost.userDelete"
+        />
+        <Download 
+            :filename="this.onePost.filename" 
+            :file="this.onePost.file"
         />
         <PostOption @see-remark="seeRemark"
             :idPost="this.onePost.idPost" 
