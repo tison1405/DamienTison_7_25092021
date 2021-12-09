@@ -4,13 +4,15 @@ import AddRemarks from './addRemark.vue'
 import Post from '../components/post.vue'
 import PostOption from '../components/postOption.vue'
 import RemarkList from '../components/remarkList.vue'
+import Download from '../components/downloadFile.vue'
 export default {
 	name: 'Postlist',
     components:{
         AddRemarks,
         Post,
         PostOption,
-        RemarkList
+        RemarkList,
+        Download
     },
     computed: {
 		...mapState({
@@ -30,6 +32,14 @@ export default {
 			type: String,
 			required: true
 		},
+        filename: {
+            type: String,
+            required: false 
+        },
+        file : {
+            type: String,
+            required: false
+        },
         picture: {
 			type: String,
 			required: false
@@ -117,8 +127,14 @@ export default {
                 :picture="this.picture"
                 :message="this.message"
                 :userDelete="this.userDelete"
+                :filename="this.filename"
+                :file="this.file"
             />
         </a>
+        <Download 
+            :filename="this.filename" 
+            :file="this.file"
+        />
         <PostOption @see-remark="seeRemark"
             :idPost="this.idPost"
             :idUser="this.idUser"

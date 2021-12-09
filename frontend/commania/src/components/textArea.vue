@@ -39,6 +39,7 @@ export default {
       console.log(postFile);
       var formData = new FormData();
       formData.append('file', postFile);
+      formData.append('fileName', postFile.name)
       formData.append('post', post);
       formData.append('userId', users_id)
       console.log(formData);

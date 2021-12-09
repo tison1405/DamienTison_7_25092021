@@ -20,7 +20,7 @@ export default {
 		},
         userDelete:{
             type: Number
-        }
+        },
     }
 }
 </script>

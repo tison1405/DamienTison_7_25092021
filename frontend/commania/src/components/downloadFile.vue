@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-      <h2>Download File in Vue Js using Axios</h2>
-      
-      <button @click="downloadFile()">DownLoad</button>
+
+      <button @click="downloadFile()">{{filename}}</button>
   </div>
 </template>
 
@@ -13,10 +12,18 @@
     
     export default {
         name: "downloadFile",
+        props: {
+            filename: {
+                style: String
+            },
+            file: {
+                style: String
+            }
+        },
       methods: {
           downloadFile() {
               axios({
-                    url: 'http://localhost:3000/images/inconnu.png1638272875922.png', // File URL Goes Here
+                    url: this.file, // File URL Goes Here
                     method: 'GET',
                     responseType: 'blob',
                 }).then((res) => {
@@ -24,7 +31,7 @@
                      
                      var docUrl = document.createElement('a');
                      docUrl.href = FILE;
-                     docUrl.setAttribute('download', 'file.png');
+                     docUrl.setAttribute('download', this.filename);
                      document.body.appendChild(docUrl);
                      docUrl.click();
                      docUrl.remove();

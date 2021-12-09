@@ -14,6 +14,8 @@
         :name="item.name"
         :firstname="item.firstname"
         :message="item.message"
+        :filename="item.filename"
+        :file="item.file"
         :picture="item.picture"
         :like="item.likePost"
         :idPost="item.idPost"

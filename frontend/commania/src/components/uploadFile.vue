@@ -20,7 +20,8 @@ export default {
                 '.doc'  : 1,
                 '.docx' : 1,
                 '.ppt'  : 1,
-                '.pptx' : 1
+                '.pptx' : 1,
+                '.pdf'  : 1
             };
 
             function check_extension(filename,input) {
@@ -71,7 +72,7 @@ export default {
       <form method="post" enctype="multipart/form-data">
         <div id="file">
           <label for="file_uploads">Parcourir vos fichiers</label>
-          <input type="file" id="file_uploads" name="fileUploads" accept=".docx, .xlsx, .pptx" multiple @change="updateFileDisplay">
+          <input type="file" id="file_uploads" name="fileUploads" accept=".docx, .xlsx, .pptx, .pdf" multiple @change="updateFileDisplay">
         </div>
         <div v-if="this.validFile === true" id="selectionFile">
             <p>{{this.textContent}}</p>
