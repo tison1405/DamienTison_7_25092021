@@ -19,7 +19,7 @@
         :picture="item.picture"
         :like="item.likePost"
         :idPost="item.idPost"
-        :userDelete="item.userDelete" 
+        :userDeleted="item.userDeleted" 
         :key="item.idPost"
         :token="user.info.token"
         :idUser="user.info.userId"
@@ -69,7 +69,8 @@ export default {
 <style lang="scss">
 .userName{
   align-self: center;
-  font-size: 10px;
+  width: 100%;
+  text-align: center;
 }
 .userArea{
   margin-left: auto;
@@ -82,13 +83,12 @@ export default {
     align-self: center;
     border-radius: 100px;
     display: flex;
-    position: absolute;
-    top: 2px;
+    width: 100%;
+    margin-bottom: 5px;
     &--photoUse{
-      width: 59px;
+      width: 66px;
       border-radius: 40px;
-      height: 54px;
-      margin-right: 5px;
+      height: 56px;
     }
   }
 }

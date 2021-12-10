@@ -1,9 +1,13 @@
 
 <template>
   <div class="container">
-    <HeadTitle/>
-    <div class="card1__img"></div>
-    <form method="POST" >
+    <div class="logoReseaumania">
+        <h2 class="logoReseaumania__text">Réseau</h2>
+        <img class="logoReseaumania__img" src="../assets/images/kisspng-investment-fund-hedge-fund-funding-mutual-fund-connection-icon-5b4823ed62c280.2976177315314544454045.png" alt="logo du resau social réseaumania">
+        <h2 class="logoReseaumania__text">Mania</h2>
+    </div>
+    <img class="cardLogImg" src="../assets/images/kisspng-computer-icons-responsive-web-design-inscription-5adb26eb460480.3723165115243117872868.png" alt="">
+    <form method="POST"  class="form">
       <fieldset>
         <legend class="titleContact">Inscrivez vous</legend>
         <div class="row">
@@ -43,7 +47,7 @@
         </div>
       </fieldset>
       <div class="formulaire">
-        <button type="button" id="formulaire" @click="dataCapture">Valider</button>
+        <button class="btn btn-success validation" type="button" id="formulaire" @click="dataCapture">Valider</button>
         <p>{{this.data.message}}</p>
       </div>
     </form>
@@ -51,13 +55,11 @@
 </template>
 
 <script>
-import HeadTitle from '../components/headTitle.vue'
 import FormulaireUser from '../components/formulaireUser.vue'
 const axios = require("axios");
 export default {
   name:'signInPage',
   components: {
-    HeadTitle,
     FormulaireUser
 	},
   data(){
@@ -133,15 +135,47 @@ export default {
 </script>
 
 <style lang="scss">
- .card1{
-  &__img{
-    background-image: url("../assets/images/signing.jpg");
-    height:160px;
-    background-repeat:no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    text-align: end;
-  }
+ .logoReseaumania{
+        display: flex;
+        justify-content: center;
+        height: auto;
+        &__text{
+            align-self: center;
+            color:rgb(253, 45, 1);
+            font-size: xx-large;
+        }
+        &__img{
+            max-height: 85%;
+            max-width: 20%;
+        }
+    }
+.titleContact{
+  text-align: center;
+}
+.validation{
+  background-color: powderblue;
+  border-color: powderblue;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 6px 4px 2px 1px rgba(8, 8, 8, 0.2);
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../assets/images/icon.jpg");
+  background-position: center;
+  background-size:contain;
+  height: 100%;
+}
+.cardLogImg{
+  max-width:38%;
+  max-height: 20%;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
 

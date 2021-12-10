@@ -137,6 +137,9 @@ export default {
 #zoneText{
   background-color: powderblue;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .wrapper {
   position: relative;

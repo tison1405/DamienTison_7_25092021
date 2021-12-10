@@ -54,13 +54,14 @@ export default {
 <template>
 <body>
     <Head url1=#/profil url2=#/filactu url3="#/moderator" name1="profil" name2="Fil d'actu" name3="moderateur"/>
+    <div class="alignPost">
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
         <Post 
             :firstname="this.onePost.firstname"
             :name="this.onePost.name"
             :message="this.onePost.message"
             :picture="this.onePost.picture"
-            :userDelete="this.onePost.userDelete"
+            :userDeleted="this.onePost.userDeleted"
         />
         <Download 
             :filename="this.onePost.filename" 
@@ -94,6 +95,7 @@ export default {
             </div>
         </div>
     </v-card>
+    </div>
     <Foot></Foot> 
 </body>
 </template>
@@ -102,11 +104,18 @@ export default {
 .theme--light.v-btn.v-btn--has-bg {
     background-color:powderblue;
 }
+.alignPost{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .post1{
     display: inline-block;
     width: 90%;
     padding: 15px;
     margin: 15px;
+    margin-left: auto;
+    margin-right: auto;
     max-width: 950px;
     &__link{
         text-decoration: none;
@@ -153,7 +162,7 @@ export default {
     }
 }
 .allRemarks{
-    height: 400px;
-    overflow-y: scroll;
+    max-height: 210px;
+    overflow-y: auto;
 }
 </style>

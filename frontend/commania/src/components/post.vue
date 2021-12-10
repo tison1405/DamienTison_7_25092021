@@ -14,11 +14,11 @@ export default {
 			type: String,
 			required: false
 		},
-         message: {
-			type: String,
+        message: {
+            type: String,
 			required: true
 		},
-        userDelete:{
+        userDeleted: {
             type: Number
         },
     }
@@ -27,7 +27,7 @@ export default {
 
 <template>
     <div>
-        <div v-if="this.userDelete == 2">Post écrit par un utilisateur désinscrit</div>
+        <div v-if="this.userDeleted == 2">Post écrit par un utilisateur désinscrit</div>
         <div class="post1__head" v-else>
             <v-avatar>
                 <img :src="picture" alt="Photo de l'auteur du post">

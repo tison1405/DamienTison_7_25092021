@@ -25,17 +25,19 @@
       </form>
     </div>
   </div>
-  <v-btn text color="primary" @click="seeUpLoadPicture" v-if="this.upLoadPicture==0">
-      Ajoutez ou modifiez votre photo
-  </v-btn>
-  <p>{{user.info.name}}</p>
-  <p>{{user.info.firstname}}</p>
-  <p>{{user.info.email}}</p>
-  <Modale 
-    :revele="revele"
-    :toggleModale="toggleModale"
-  />
-  <div class="btn btn-success" @click="toggleModale">Supprimer le compte</div>
+  <div class="userInfo">
+    <v-btn text color="primary" @click="seeUpLoadPicture" v-if="this.upLoadPicture==0">
+        Ajoutez ou modifiez votre photo
+    </v-btn>
+    <p>{{user.info.name}}</p>
+    <p>{{user.info.firstname}}</p>
+    <p>{{user.info.email}}</p>
+    <Modale 
+      :revele="revele"
+      :toggleModale="toggleModale"
+    />
+    <div class="btn btn-success deleted" @click="toggleModale">Supprimer le compte</div>
+  </div>
   <Foot/>
 </body>
 </template>
@@ -148,9 +150,18 @@ methods:{
 </script>
 
 <style lang="scss">
+.userInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 .userImg{
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .profil__photo{
   display: flex;
@@ -181,5 +192,13 @@ form{
 }
 #utiPhoto{
   width: 200px;
+  border-radius: 20px;
+}
+.deleted{
+   background-color: powderblue;
+  border-color: powderblue;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 6px 4px 2px 1px rgba(8, 8, 8, 0.2);
 }
 </style>

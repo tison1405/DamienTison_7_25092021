@@ -15,7 +15,7 @@
       </v-card-title>
 
       <v-card-text class="py-2 white--text text-center" id="black">
-        {{ new Date().getFullYear() }} — <strong>Commania</strong>
+        {{ new Date().getFullYear() }} — <strong>Groupomania</strong>
       </v-card-text>
 </section>
 </template>
@@ -39,6 +39,7 @@
   position: fixed;
   bottom:0;
   width:100%;
+  max-width: 1200px;
 }
 #centrer{
   background-color: powderblue;

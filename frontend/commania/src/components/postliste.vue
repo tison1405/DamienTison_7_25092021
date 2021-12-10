@@ -55,7 +55,7 @@ export default {
         idUser: {
             type: Number,
         },
-        userDelete: {
+        userDeleted: {
             type: Number
         },
         token: {
@@ -117,6 +117,7 @@ export default {
             :name="this.name"
             :picture="this.picture"
             :message="this.message"
+            :userDeleted="this.userDeleted"
         />
     </v-card> 
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1" v-else>
@@ -126,7 +127,7 @@ export default {
                 :name="this.name"
                 :picture="this.picture"
                 :message="this.message"
-                :userDelete="this.userDelete"
+                :userDeleted="this.userDeleted"
                 :filename="this.filename"
                 :file="this.file"
             />

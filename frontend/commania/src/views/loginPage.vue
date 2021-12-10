@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <HeadTitle/>
+    
     <div class="card2__img"></div>
     <form>
       <fieldset>

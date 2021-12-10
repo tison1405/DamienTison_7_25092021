@@ -2,7 +2,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-light" id="bgColor">
             <div class="container-fluid">
-                <h1 class="navbar-brand">Commania</h1>
+                <HeadTitle class="title"/>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,8 +32,12 @@
 
 <script>
 import { mapState } from "vuex"
+import HeadTitle from "../components/headTitle.vue"
 export default {
     name: "heading",
+    components:{
+        HeadTitle
+    },
     props: [
         'url1',
         'name1',
@@ -57,6 +61,11 @@ export default {
 </script>
 
 <style lang="scss">
+.title{
+    width: 50%;
+    align-self: center;
+    height: inherit;
+}
 
 #bgColor {
     --bs-bg-opacity: 1;
