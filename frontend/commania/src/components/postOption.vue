@@ -69,7 +69,14 @@ export default {
         async moderate(){
             const ENDPOINT = '/moderator/'+ this.idPost;
             deleted(ENDPOINT, this.user)
-            this.$store.commit('GET_ALL_POST_REPORT'); 
+            .then(res =>{
+                if (res.data.message == 1) {
+                    this.$store.commit('GET_ALL_POST_REPORT');
+                } else {
+                     this.messageModerator= "Problème avec la demande!"
+                }
+            })
+             
         },
         async validate(){
             const ENDPOINT = '/moderator/'+this.idPost;
@@ -78,8 +85,11 @@ export default {
             const data = {userId, reportNumber};
             put(ENDPOINT, this.user, data)
             .then(res => {
-                this.messageModerator= res.data.message;
-                this.$store.commit('GET_ALL_POST_REPORT');
+                 if(res.data.message ==1){
+                    this.$store.commit('GET_ALL_POST_REPORT');
+                } else {
+                     this.messageModerator= "Problème avec la demande!"
+                }
             })
         }    
     }

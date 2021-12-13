@@ -1,13 +1,18 @@
 <script>
 export default {
     name:"uploadFile",
+    props: {
+        upLoadFile:{
+            type: Boolean
+        }
+    },
     data(){
         return{
             file:"",
             textContent:"",
             validFile:"",
             input:"",
-            upLoadFile: false,
+            postValidated: false,
         }
     },
     methods: {
@@ -49,22 +54,23 @@ export default {
                 }
             }
         },
-        seeUpLoadFile(){
-            this.upLoadFile = !this.upLoadFile
-        },
         back(){
-            this.upLoadFile = false;
             this.textContent = "";
+            this.$emit('up-load-file');
             
         },
         validation(){
             this.$store.commit('INCREMENT_POSTFILE', this.file);
-            this.upLoadFile = false;
-            this.postValid= true;
+            this.postValidated= true;
+            this.$emit('hide-btnPost');
+
         },
         deleted(){
+            this.textContent = "";
             var file= "";
             this.$store.commit('INCREMENT_POSTFILE', file);
+            this.$emit('up-load-file');
+            this.$emit('hide-btnPost');
         },
     }
 }
@@ -72,10 +78,7 @@ export default {
 
 <template>
 <div>
-    <v-btn text color="primary" @click="seeUpLoadFile">
-      Ajoutez un fichier
-    </v-btn>
-    <form method="post" enctype="multipart/form-data" class="profil__file" v-if="this.upLoadFile==1">
+    <form method="post" enctype="multipart/form-data" class="profil__file" v-if="postValidated === false">
         <div id="file">
           <label for="file_uploads">Parcourir vos fichiers</label>
           <input type="file" id="file_uploads" name="fileUploads" accept=".docx, .xlsx, .pptx, .pdf" multiple @change="updateFileDisplay">
@@ -85,7 +88,7 @@ export default {
         </div>
         <div class="preview"></div>
         <div>
-            <v-btn text color="primary" @click="validation">
+            <v-btn text color="primary" @click="validation" v-if="this.validFile === true">
                 Valider
             </v-btn>
             <v-btn text color="primary" @click="back">
@@ -93,6 +96,13 @@ export default {
             </v-btn>
         </div>
     </form>
+    <div v-if="postValidated === true">
+        <p>{{this.textContent}}</p>
+        <v-btn text color="primary" @click="deleted">
+                Annuler
+        </v-btn>
+    </div>
+
 </div>
 </template>
 

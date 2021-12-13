@@ -34,13 +34,11 @@
 </template>
 
 <script>
-import HeadTitle from '../components/headTitle.vue'
 import FormulaireUser from '../components/formulaireUser.vue'
 const axios = require("axios");
 export default {
   name:'loginPage',
   components: {
-    HeadTitle,
     FormulaireUser
 	},
   data(){

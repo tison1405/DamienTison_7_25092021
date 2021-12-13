@@ -66,7 +66,7 @@ exports.modifyPost = (req, res, next) =>{
                 throw err;
             } else {
                 res.json({ 
-                    message: "Le post a été validé !" 
+                    message : result.affectedRows
                 })
             }
         })

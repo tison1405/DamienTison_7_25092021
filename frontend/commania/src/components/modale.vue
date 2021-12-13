@@ -7,6 +7,11 @@ export default {
         "revele",
         "toggleModale"
     ],
+    data(){
+        return{
+           deleted: false,
+        }
+    },
     computed: {
 		...mapState({
             user: "user"
@@ -16,8 +21,15 @@ export default {
         async deleteUser(){
             const ENDPOINT = '/deleteUser/'+this.user.info.userId;
             deleted(ENDPOINT, this.user)
-            this.$store.commit('DISCONNECT');
-            document.location.href = "#/";
+            .then(res =>{
+                if (res.data.message == 1) {
+                    this.deleted = true;
+                    this.$store.commit('DISCONNECT');
+
+                } else {
+                    alert("Problème avec la demande!");
+                }
+            })
         }
     } 
 }
@@ -27,10 +39,15 @@ export default {
     <div class="block-modale" v-if="revele">
 
         <div class="overlay" @click="toggleModale"></div>
-        <div class="modale card">
+        <div class="modale card" v-if="this.deleted === false">
             <div class="btn-modale btn btn-danger" @click="toggleModale">x</div>
             <h2>Vous allez supprimer definitivement votre compte !</h2>
             <div class="btn btn-danger" @click="deleteUser">Valider</div>
+        </div>
+        <div class="modale card" v-else>
+            <h2>Votre compte a bien été supprimé!</h2>
+            <h3>Vous allez être redirigé vers la page d'accueil.</h3>
+            <a href="/">Cliquez ici</a>
         </div>
 
     </div>

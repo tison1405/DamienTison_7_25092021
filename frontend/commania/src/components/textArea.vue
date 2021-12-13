@@ -6,19 +6,20 @@ import UploadFile from "../components/uploadFile.vue"
 import FormData from "form-data"
 export default {
 	name: 'textArea',
-    computed: {
-		
-		...mapState({
-            user: "user",
-            post: "post",
-            postFile: "postFile"  
+  computed: {
+    ...mapState({
+        user: "user",
+        post: "post",
+        postFile: "postFile"  
 		})
 	},
-    data() {
+  data() {
     return {
-      input: '',
+      input: "",
       search: '',
-      posting:""
+      posting:"",
+      hideBtn: false,
+      upLoadFile: false, 
     }
   },
   components: {
@@ -26,10 +27,16 @@ export default {
     UploadFile
 	},
   methods:{
-    
     // methode emoji //
     append(emoji) {
       this.input += emoji
+    },
+    hideBtnPost() {
+      this.hideBtn = !this.hideBtn
+    },
+    seeUpLoadFile(){
+            this.upLoadFile = !this.upLoadFile;
+            this.hideBtn = !this.hideBtn;
     },
     // methode post un post//
     async textPost(){
@@ -51,6 +58,7 @@ export default {
           textArea.value = textArea.defaultValue;
           if(res.data.message ==1){
             this.$store.commit('GET_ALL_POST');
+            this.input="";
           } else {
             this.posting = res.data.message;
           }
@@ -65,6 +73,8 @@ export default {
             var file= "";
             this.$store.commit('INCREMENT_POSTFILE', file);
             this.$store.commit('GET_ALL_POST');
+            this.upLoadFile = false;
+            this.input="";
           } else {
             this.posting = res.data.message;
          }
@@ -85,7 +95,7 @@ export default {
 <template>
 <v-card class="mx-auto" id="zoneText">
   <div class="wrapper">
-    <textarea type="text" class="regular-input" id="textPost" v-model="input" placeholder="Ecrivez votre post ici"></textarea>
+    <textarea type="text" class="regular-input" id="textPost" v-model="input"  placeholder="Ecrivez votre post ici"></textarea>
 
     <EmojiPicker @emoji="append" :search="search">
       <div
@@ -120,10 +130,16 @@ export default {
         </div>
       </div>
     </EmojiPicker>
-    
   </div>
-  <UploadFile/>
-  <v-btn elevation="2" outlined @click="textPost">Poster</v-btn>
+   <v-btn text color="primary" v-if="upLoadFile === false" @click="seeUpLoadFile">
+      Ajoutez un fichier
+  </v-btn>
+  <UploadFile v-else 
+    @hide-btnPost="hideBtnPost"
+    @up-load-file="seeUpLoadFile"
+    :upLoadFile = this.upLoadFile 
+  />
+  <v-btn elevation="2" outlined v-if="this.input && this.hideBtn === false" @click="textPost">Poster</v-btn>
 </v-card>
 </template>
 
