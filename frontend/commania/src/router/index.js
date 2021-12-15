@@ -21,9 +21,9 @@ const routes = [
     component: () => import('../views/signInPage')
   },
   {
-    path:'/filactu',
-    name:'fileactuPage',
-    component: () => import('../views/FileActu')
+    path:'/newsQueue',
+    name:'newsQueuePage',
+    component: () => import('../views/newsQueue')
   },
   {
     path:'/profil',

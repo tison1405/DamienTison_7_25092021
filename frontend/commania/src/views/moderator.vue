@@ -5,7 +5,7 @@ import Foot from '../components/foot.vue'
 import { mapState } from "vuex"
 export default {
     name: "moderator",
-    components:{
+    components: {
         Head,
         Foot,
         Postlist
@@ -16,14 +16,14 @@ export default {
             postReport: "postReport"
 		})
 	},
-    beforeMount(){
-    this.$store.commit('GET_ALL_POST_REPORT');
-  }
+    beforeMount() {
+        this.$store.commit('GET_ALL_POST_REPORT');
+    }
 }
 </script>
 <template>
     <body>
-        <Head url1=#/profil url2=#/filactu name1="profil" name2="Fil d'actu"/>
+        <Head url1=#/profil url2=#/newsQueue name1="profil" name2="Fil d'actu" moderatorPage= "1"/>
         <h1>Page moderateur</h1>
         <div class="reportlist">
             <Postlist 

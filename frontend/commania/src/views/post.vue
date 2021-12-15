@@ -9,7 +9,7 @@ import { mapState } from "vuex"
 import Download from '../components/downloadFile.vue'
 export default {
     name: "post",
-    components:{
+    components: {
         Head,
         Foot,
         Post,
@@ -25,25 +25,25 @@ export default {
             allRemarks: "allRemarks"
 		})
 	},
-    data(){
-        return{
+    data() {
+        return {
             option:1,
             remark:0
         }
     },
-    beforeMount(){
+    beforeMount() {
         this.$store.commit('GET_ONE_POST');
         this.$store.commit('GET_ALL_REMARKS')
     },
-    methods:{
-        seeRemark(){
-            if (this.remark==0){
+    methods: {
+        seeRemark() {
+            if (this.remark==0) {
                 this.remark = 1;
             } else {
                 this.remark = 0
             }
         },
-        getAllRemarks(){
+        getAllRemarks() {
             this.$store.commit('GET_ALL_REMARKS')
         },
     
@@ -53,7 +53,7 @@ export default {
 
 <template>
 <body>
-    <Head url1=#/profil url2=#/filactu url3="#/moderator" name1="profil" name2="Fil d'actu" name3="moderateur"/>
+    <Head url1=#/profil url2=#/newsQueue url3="#/moderator" name1="profil" name2="Fil d'actu" name3="moderateur"/>
     <div class="alignPost">
     <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
         <Post 

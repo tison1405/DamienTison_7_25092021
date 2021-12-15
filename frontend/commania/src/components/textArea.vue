@@ -1,9 +1,10 @@
 <script>
-import Post from '../api/post'
-import EmojiPicker from 'vue-emoji-picker'
-import { mapState } from "vuex"
-import UploadFile from "../components/uploadFile.vue"
-import FormData from "form-data"
+import Post from '../api/post';
+import EmojiPicker from 'vue-emoji-picker';
+import { mapState } from "vuex";
+import UploadFile from "../components/uploadFile.vue";
+import FormData from "form-data";
+
 export default {
 	name: 'textArea',
   computed: {
@@ -16,8 +17,8 @@ export default {
   data() {
     return {
       input: "",
-      search: '',
-      posting:"",
+      search: "",
+      posting: "",
       hideBtn: false,
       upLoadFile: false, 
     }
@@ -26,20 +27,22 @@ export default {
     EmojiPicker,
     UploadFile
 	},
-  methods:{
+  methods: {
     // methode emoji //
     append(emoji) {
       this.input += emoji
     },
+    // chache le bouton post
     hideBtnPost() {
       this.hideBtn = !this.hideBtn
     },
-    seeUpLoadFile(){
+    // toogle sur la methode upload un fichier
+    seeUpLoadFile() {
             this.upLoadFile = !this.upLoadFile;
             this.hideBtn = !this.hideBtn;
     },
-    // methode post un post//
-    async textPost(){
+    // methode post un post
+    async textPost() {
       var textRited = document.getElementById("textPost");
       var users_id = this.user.info.userId
       var post = textRited.value
@@ -50,26 +53,28 @@ export default {
       formData.append('fileName', postFile.name)
       formData.append('post', post);
       formData.append('userId', users_id)
+      //envoi du post à la bdd table posts sans fichier
       if (!postFile) {
         const ENDPOINT = '/';
         Post (ENDPOINT, this.user, data)
         .then(res => {
           var textArea= document.getElementById("textPost");
           textArea.value = textArea.defaultValue;
-          if(res.data.message ==1){
+          if (res.data.message ==1) {
             this.$store.commit('GET_ALL_POST');
             this.input="";
           } else {
             this.posting = res.data.message;
           }
         })
+      //envoi du post à la bdd table posts avec fichier
       } else {
         const ENDPOINT = '/postfile/';
         Post (ENDPOINT, this.user, formData)
         .then(res => {
           var textArea= document.getElementById("textPost");
           textArea.value = textArea.defaultValue;
-          if(res.data.message ==1){
+          if (res.data.message ==1) {
             var file= "";
             this.$store.commit('INCREMENT_POSTFILE', file);
             this.$store.commit('GET_ALL_POST');

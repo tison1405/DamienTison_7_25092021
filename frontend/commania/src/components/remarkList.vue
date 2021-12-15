@@ -1,22 +1,20 @@
 <script>
 export default {
 	name: 'remarkList',
-    components:{
-    },
-    props:{
-        picture:{
+    props: {
+        picture: {
             type: String
         },
-        name:{
+        name: {
             type: String
         },
-        firstname:{
+        firstname: {
             type: String
         },
-        remark:{
+        remark: {
             type: String,
         },
-        userDelete:{
+        userDelete: {
             type: Number
         }
     },

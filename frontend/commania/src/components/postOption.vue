@@ -1,8 +1,8 @@
 <script>
-import put from '../api/put'
-import post from '../api/post'
-import deleted from '../api/delete'
-import { mapState } from "vuex"
+import put from '../api/put';
+import post from '../api/post';
+import deleted from '../api/delete';
+import { mapState } from "vuex";
 export default {
     name: "postOption",
     computed: {
@@ -10,8 +10,8 @@ export default {
             user: "user", 
         })
     },
-    props:{
-        option:{
+    props: {
+        option: {
             type: Number
         },
         idPost: {
@@ -21,7 +21,7 @@ export default {
          idUser: {
             type: Number,
         },
-        reportNumber:{
+        reportNumber: {
             type: Number
         },
         like: {
@@ -36,10 +36,11 @@ export default {
         }
     },
     methods: {
+        // methode pour afficher les commentaires
         seeRemark() {
             this.$emit('see-remark')
         },
-        //  methode put signaler un post//
+        //  methode put signaler un post
         async reports(){
             var idUser = this.idUser
             const ENDPOINT = '/moderator/'+this.idPost;
@@ -51,7 +52,7 @@ export default {
             })
         },
 
-        // methode post ajouter un like//
+        // methode post ajouter un like
         async addLike(){
             var idUser = this.idUser;
             const ENDPOINT = '/likes/'+this.idPost;
@@ -66,6 +67,7 @@ export default {
                 }
             }) 
         },
+        // methode pour moderer un post 
         async moderate(){
             const ENDPOINT = '/moderator/'+ this.idPost;
             deleted(ENDPOINT, this.user)
@@ -78,6 +80,7 @@ export default {
             })
              
         },
+        // methode pour valider un post
         async validate(){
             const ENDPOINT = '/moderator/'+this.idPost;
             var userId = this.idUser;
@@ -102,7 +105,6 @@ export default {
             <v-btn text color="primary" @click="seeRemark">
                 Commentaire
             </v-btn>
-            
             <v-btn text color="primary" @click="reports" v-if="this.option == 1">
                 Signaler
             </v-btn>

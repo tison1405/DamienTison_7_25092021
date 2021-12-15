@@ -2,12 +2,12 @@
 import { mapState } from "vuex";
 import deleted from '../api/delete'
 export default {
-    name: "modale",
-    props:[
+    name: "modaleDeleted",
+    props: [
         "revele",
         "toggleModale"
     ],
-    data(){
+    data() {
         return{
            deleted: false,
         }
@@ -17,7 +17,8 @@ export default {
             user: "user"
         }), 
     },
-    methods:{
+    methods: {
+        // fonction suppression données utilisateur
         async deleteUser(){
             const ENDPOINT = '/deleteUser/'+this.user.info.userId;
             deleted(ENDPOINT, this.user)
@@ -25,7 +26,6 @@ export default {
                 if (res.data.message == 1) {
                     this.deleted = true;
                     this.$store.commit('DISCONNECT');
-
                 } else {
                     alert("Problème avec la demande!");
                 }
@@ -37,7 +37,6 @@ export default {
 
 <template>
     <div class="block-modale" v-if="revele">
-
         <div class="overlay" @click="toggleModale"></div>
         <div class="modale card" v-if="this.deleted === false">
             <div class="btn-modale btn btn-danger" @click="toggleModale">x</div>
@@ -49,10 +48,7 @@ export default {
             <h3>Vous allez être redirigé vers la page d'accueil.</h3>
             <a href="/">Cliquez ici</a>
         </div>
-
     </div>
-
-    
 </template>
 
 <style lang="scss">

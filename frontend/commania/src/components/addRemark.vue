@@ -1,11 +1,11 @@
 <script>
 import { mdiSend } from '@mdi/js';
 import SvgIcon from '@jamescoyle/vue-icon';
-import { mapState } from "vuex"
-import post from '../api/post'
+import { mapState } from "vuex";
+import post from '../api/post';
 export default {
     name: 'remark',
-    components:{
+    components: {
         SvgIcon,
     },
     computed: {
@@ -13,8 +13,8 @@ export default {
             user: "user", 
         })
     },
-    props:{
-        option:{
+    props: {
+        option: {
             type: Number
         },
         idPost: {
@@ -25,14 +25,15 @@ export default {
             type: Number,
         },
     },
-    data(){
-        return{
+    data() {
+        return {
             path: mdiSend,
             messages:""
         }
     },
-    methods:{
-        async addRemark(){
+    methods: {
+        //envoi du commentaire à la BDD table remark
+        async addRemark() {
             var remark = document.getElementById(this.idPost).value;
             var idPost = this.idPost;
             var idUser = this.idUser;
@@ -41,15 +42,19 @@ export default {
             var userPicture = this.user.info.picture;
             const data = {remark, idPost, idUser, userName, userFirstname, userPicture};
             const ENDPOINT = '/commentaires';
+
             post(ENDPOINT, this.user, data)
-            .then(res =>{
-                if (res.data.message == 1){
+            .then(res => {
+                if (res.data.message == 1) {
                     this.messages= 1
+                    // retour à defaultValue sur le champ de saisis
                     var textArea= document.getElementById(this.idPost);
                     textArea.value = textArea.defaultValue;
+                    // renvoi à la fonction getAllRemarcks de views/post.vue
                     this.$emit('get-all');  
                 } else {
                     this.messages= res.data.message;
+                    //message: "Commentaire non ajouté "
                 }   
             })
         }
@@ -60,7 +65,7 @@ export default {
 <template>
     <div class="post2">
         <div class="post2__remark" v-if="this.option == 1">
-            <textarea type="text" :id="idPost" class="post2__remark--capture" placeholder="écrivez votre commentaire"></textarea>
+            <textarea type="text" :id="idPost" class="post2__remark--capture" placeholder="Ecrivez votre commentaire"></textarea>
             <v-btn @click="addRemark" class="post2__remark--btn">
                 <svg-icon type="mdi" :path="path" ></svg-icon>
             </v-btn>

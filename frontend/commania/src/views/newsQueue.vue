@@ -42,8 +42,7 @@ import TextArea from '../components/textArea.vue'
 import Postlist from '../components/postliste.vue'
 import { mapState } from "vuex"
 export default {
-	name: "fileactu",
-   
+	name: "newsQueuePage",
 	components: {
 		Postlist,
     TextArea,
@@ -51,13 +50,12 @@ export default {
     Foot,
 	},
 	computed: {
-		
-		...mapState({
+		...mapState ({
 			post: "post",
       user: "user",
 		})
 	},
-  beforeMount(){
+  beforeMount() {
     this.$store.commit('GET_ALL_POST');
     this.$store.commit('GET_ONE_USER');
     this.$store.commit('GET_ALL_POST_REPORT');

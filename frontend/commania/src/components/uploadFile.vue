@@ -16,7 +16,8 @@ export default {
         }
     },
     methods: {
-        updateFileDisplay(){
+        //methode pour verifier le type de fichier
+        updateFileDisplay() {
             this.input = document.querySelector('input');
             var curFiles = this.input.files;
             var hash = {
@@ -43,7 +44,7 @@ export default {
             }
            
                     
-    // fonction retourne le nom et la taille du fichier et si il est prit en charge//
+        // fonction retourne le nom et la taille du fichier et si il est prit en charge
             for(let curFile of curFiles) {
                 if(check_extension(curFile.name, this.input)) {
                     this.textContent = 'File name ' + curFile.name + '.';
@@ -54,17 +55,20 @@ export default {
                 }
             }
         },
+        // annule et ferme la methode d'ajout d'un fichier
         back(){
             this.textContent = "";
             this.$emit('up-load-file');
             
         },
+        // envoi le fichier au data store
         validation(){
             this.$store.commit('INCREMENT_POSTFILE', this.file);
             this.postValidated= true;
             this.$emit('hide-btnPost');
 
         },
+        // annule ferme et supprime le fichier du data store
         deleted(){
             this.textContent = "";
             var file= "";

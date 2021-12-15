@@ -1,6 +1,6 @@
 <template>
 <body>
-  <Head url1=#/filactu url3="#/moderator" name1="Fil d'actu" name3="moderateur"/>
+  <Head url1=#/newsQueue url3="#/moderator" name1="Fil d'actu" name3="moderateur"/>
   <div class="userImg">
     <img :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
@@ -43,55 +43,55 @@
 </template>
 
 <script>
-import Modale from '../components/modale.vue'
+import Modale from '../components/modaleDeleted.vue'
 import put from '../api/put'
 import Foot from '../components/foot.vue'
 import { mapState } from "vuex";
 import FormData from 'form-data';
 import Head from '../components/head.vue'
 export default {
-name : "profile",
-components:{
-  Head,
-  Foot,
-  Modale
-},
-data(){
-    return{
-        picture:"",
-        textContent:"",
-        validFile:"",
-        input:"",
-        upLoadPicture: 0,
-        revele: false
+  name : "profile",
+  components: {
+    Head,
+    Foot,
+    Modale
+  },
+  data() {
+    return {
+      picture:"",
+      textContent:"",
+      validFile:"",
+      input:"",
+      upLoadPicture: 0,
+      revele: false
     }
-
-},
-beforeMount(){
+  },
+  beforeMount() {
     this.$store.commit('GET_ONE_USER');
-},
-computed: {
+  },
+  computed: {
 		...mapState({
       user: "user"
-		}), 
-},
-methods:{
-  toggleModale(){
-    this.revele = !this.revele
+	  }), 
   },
-  //fonction annule la saisie de userImg//
-  back(){
-    this.upLoadPicture = 0
-  },
-  //fonction affiche methode updateImageDisplay//
-  seeUpLoadPicture(){
-    if (this.upLoadPicture==0){
+  methods: {
+    //appel la modale pour supprimer les données de l'utilisateur
+    toggleModale() {
+      this.revele = !this.revele
+    },
+    //fonction annule la saisie de userImg
+    back() {
+      this.upLoadPicture = 0
+    },
+    //fonction affiche methode updateImageDisplay
+    seeUpLoadPicture(){
+      if (this.upLoadPicture==0) {
       this.upLoadPicture = 1
-    } else {
+      } else {
       this.upLoadPicture=0
-    }
-  },
-  //fonction recupère et affiche le fichier selectionné//
+      }
+    },
+    //fonction recupère et affiche le fichier selectionné
   updateImageDisplay(){
     this.input = document.querySelector('input');
     var curFiles = this.input.files;
@@ -100,7 +100,7 @@ methods:{
       'image/pjpeg',
       'image/png'
     ]
-    //fonction retourne si le type de fichier est pris en charge//
+    //fonction retourne si le type de fichier est pris en charge
     function validFileType(file) {
       for(let fileType of fileTypes) {
         if(file.type === fileType) {
@@ -108,7 +108,7 @@ methods:{
         }  
       }
     }
-    //fonction retourne le type d'unité des octées//
+    //fonction retourne le type d'unité des octées
     function returnFileSize(number) {
       if(number < 1024) {
         return number + ' octets';
@@ -118,9 +118,9 @@ methods:{
         return (number/1048576).toFixed(1) + ' Mo';
       }
     }
-    // fonction retourne le nom et la taille du fichier et si il est prit en charge//
-    for(let curFile of curFiles) {
-      if(validFileType(curFile)) {
+    //fonction retourne le nom et la taille du fichier et si il est prit en charge
+    for (let curFile of curFiles) {
+      if (validFileType(curFile)) {
         this.textContent = 'File name ' + curFile.name + ', file size ' + returnFileSize(curFile.size) + '.';
         this.picture = window.URL.createObjectURL(curFile);
         this.validFile = true;
@@ -129,8 +129,8 @@ methods:{
       }
     }
   },
-  //fonction ajoute à la table users la photo profil//
-  async savePicture(){
+  //fonction ajoute à la table users la photo profil
+  async savePicture() {
     const ENDPOINT = '/userPicture/'+this.user.info.userId;
     const files = this.input.files[0];
       var formData = new FormData();
@@ -138,7 +138,7 @@ methods:{
       formData.append('id', this.user.info.userId);
     put(ENDPOINT, this.user, formData)
     .then(res => {
-      if(res.data.message ==1){
+      if (res.data.message ==1) {
         this.$store.commit('GET_ONE_USER');
         this.upLoadPicture = 0;
       } else {

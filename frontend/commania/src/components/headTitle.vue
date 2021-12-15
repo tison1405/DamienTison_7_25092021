@@ -13,7 +13,6 @@ export default {
 </template>
 
 <style lang="scss">
-
     .logoReseaumania{
         display: flex;
         justify-content: center;

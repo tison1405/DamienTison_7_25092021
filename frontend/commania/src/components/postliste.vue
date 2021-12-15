@@ -61,49 +61,50 @@ export default {
         token: {
             type: String
         },
-        lastRemark:{
+        lastRemark: {
             type: String
         },
-        lastRemarkName:{
+        lastRemarkName: {
             type: String
         },
-        lastRemarkFirstname:{
+        lastRemarkFirstname: {
             type: String
         },
         lastRemarkPicture:{
             type: String
         },
-        base:{
+        base: {
             type: Object
         },
-        option:{
+        option: {
             type: Number
         },
-        reportNumber:{
+        reportNumber: {
             type: Number
         }
     },
-    data(){
-        return{
+    data() {
+        return {
             remark:0,
             messages:"",
         }
     },
-    methods:{
-        infoPost(){
+    methods: {
+        // envoi l'id du poste au data store quand on click dessus
+        infoPost() {
             var idPost=this.idPost;
-            console.log(idPost);
             this.$store.commit('INCREMENT_ONE_POST',idPost);
         },
         
-        // afficher la zone de commentaire//
-        seeRemark(){
+        // afficher la zone de commentaire
+        seeRemark() {
             if (this.remark==0){
                 this.remark = 1;
             } else {
                 this.remark = 0
             }
         },
+        // recupère tous les posts du data store
         getAllPost(){
             this.$store.commit('GET_ALL_POST')
         }

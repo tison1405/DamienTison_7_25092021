@@ -11,7 +11,7 @@
       <fieldset>
         <legend class="titleContact">Inscrivez vous</legend>
         <div class="row">
-          <FormulaireUser
+          <FormUser
             validation= "validationName"
             name= "Nom de famille"
             pattern= "[^ 1-9]{1,}"
@@ -19,7 +19,7 @@
             validvalidation= "validName"
             invalidvalidation="invalidName"
           />
-          <FormulaireUser
+          <FormUser
             validation= "validationFirstname"
             name= "Prénom"
             pattern= "[^ 1-9]{1,}"
@@ -27,7 +27,7 @@
             validvalidation= "validFirstname"
             invalidvalidation="invalidFirstname"
           />
-          <FormulaireUser
+          <FormUser
             validation= "validationMail"
             name= "Adresse Email"
             type= "email"
@@ -35,7 +35,7 @@
             validvalidation= "validMail"
             invalidvalidation="invalidMail"
           />
-          <FormulaireUser
+          <FormUser
             validation= "validationPassword"
             name= "Mot de passe"
             type= "password"
@@ -55,12 +55,12 @@
 </template>
 
 <script>
-import FormulaireUser from '../components/formulaireUser.vue'
+import FormUser from '../components/formUser.vue'
 const axios = require("axios");
 export default {
   name:'signInPage',
   components: {
-    FormulaireUser
+    FormUser
 	},
   data(){
     return{
@@ -124,7 +124,7 @@ export default {
         // stockage des données utilisateur dans la data centrale//
         this.$store.commit('INCREMENT_USER', this.data);
         //liens vers la page filactu//
-        document.location.href = "#/filactu"
+        document.location.href = "#/newsQueue"
       } else {
        this.user = false;
        validEmail.setAttribute("class", "form-control is-invalid"); 

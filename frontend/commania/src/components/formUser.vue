@@ -1,6 +1,6 @@
 <script>
 export default {
-    name:"FormulaireUser",
+    name:"FormUser",
     props:["validation","name","pattern","type","placeholder","validvalidation","invalidvalidation"]   
 }
 </script>

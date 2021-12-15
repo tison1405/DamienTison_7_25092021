@@ -1,7 +1,7 @@
 <script>
 export default {
     name:"post",
-    props:{
+    props: {
         name: {
             type: String,
             required: true
@@ -41,7 +41,7 @@ export default {
 </template>
 
 <style lang="scss">
-    .post1{
+.post1{
     &__head{
         display: flex;
         flex-direction: row;

@@ -78,14 +78,14 @@
   .cardLog{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     height: 100%;
     &__img{
-      max-width: 30%;
+      width: 90px;
       align-self: center;
     }
     &__img2{
-      max-width: 13%;
+      width: 90px;
       align-self: center;
     }
     &__log{
