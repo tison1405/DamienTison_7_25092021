@@ -63,7 +63,7 @@ export default {
         },
         // envoi le fichier au data store
         validation(){
-            this.$store.commit('INCREMENT_POSTFILE', this.file);
+            this.$store.commit('DATA_POSTFILE', this.file);
             this.postValidated= true;
             this.$emit('hide-btnPost');
 
@@ -72,7 +72,7 @@ export default {
         deleted(){
             this.textContent = "";
             var file= "";
-            this.$store.commit('INCREMENT_POSTFILE', file);
+            this.$store.commit('DATA_POSTFILE', file);
             this.$emit('up-load-file');
             this.$emit('hide-btnPost');
         },

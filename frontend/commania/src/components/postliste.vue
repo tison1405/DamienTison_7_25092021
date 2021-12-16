@@ -93,7 +93,7 @@ export default {
         // envoi l'id du poste au data store quand on click dessus
         infoPost() {
             var idPost=this.idPost;
-            this.$store.commit('INCREMENT_ONE_POST',idPost);
+            this.$store.commit('DATA_ONE_POST',idPost);
         },
         
         // afficher la zone de commentaire

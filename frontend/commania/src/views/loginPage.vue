@@ -79,7 +79,7 @@ export default {
         document.getElementById("invalidPassword").innerHTML = "Mot de passe erroné!";
       } else {
         //stockage des données dans la data central
-        this.$store.commit('INCREMENT_USER', this.dataLogin);
+        this.$store.commit('DATA_USER', this.dataLogin);
         //lien vers la page filActu
         document.location.href = "#/newsQueue";
       }

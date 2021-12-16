@@ -76,7 +76,7 @@ export default {
           textArea.value = textArea.defaultValue;
           if (res.data.message ==1) {
             var file= "";
-            this.$store.commit('INCREMENT_POSTFILE', file);
+            this.$store.commit('DATA_POSTFILE', file);
             this.$store.commit('GET_ALL_POST');
             this.upLoadFile = false;
             this.input="";

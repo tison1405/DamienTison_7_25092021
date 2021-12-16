@@ -62,10 +62,10 @@ export default {
   components: {
     FormUser
 	},
-  data(){
-    return{
+  data() {
+    return {
       afficherData:"",
-      form:{
+      form: {
         name:"",
         firstname:"",
         email:"",
@@ -75,13 +75,13 @@ export default {
       user:{}
     }
   },  
-  methods:{
-    async dataCapture(){
+  methods: {
+    async dataCapture() {
       var validName = document.getElementById("validationName");
       var validFirstname = document.getElementById("validationFirstname");
       var validEmail = document.getElementById("validationMail");
       var validPassword = document.getElementById("validationPassword"); 
-          //validation du nom//
+      //validation du nom
       if (validName.validity.patternMismatch === false && validName.validity.valueMissing === false){
         validName.setAttribute("class", "form-control is-valid");
         this.form.name = validName.value
@@ -89,7 +89,7 @@ export default {
         validName.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidName").innerHTML = "Veuillez inscrir un nom sans chiffre!"; 
       }
-          //validation prenom//
+      //validation prenom
       if (validFirstname.validity.patternMismatch === false && validFirstname.validity.valueMissing === false){
         validFirstname.setAttribute("class", "form-control is-valid");
         this.form.firstname = validFirstname.value;
@@ -97,7 +97,7 @@ export default {
         validFirstname.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidFirstname").innerHTML = "Veuillez inscrir un prénom sans chiffre!"; 
       }
-          //validation Email//
+      //validation Email
       if (validEmail.validity.typeMismatch === false && validEmail.validity.valueMissing === false){
         validEmail.setAttribute("class", "form-control is-valid");
         this.form.email = validEmail.value;
@@ -105,7 +105,7 @@ export default {
         validEmail.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidMail").innerHTML = "Veuillez inscrir une adresse email"; 
       }
-          //validation password//
+      //validation password
       if (validPassword.validity.patternMismatch === false &&validPassword .validity.valueMissing === false){
         validPassword.setAttribute("class", "form-control is-valid");
         this.form.password = validPassword.value;
@@ -113,21 +113,21 @@ export default {
         validPassword.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidPassword").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
       }
-      //envoie des données utilisateur au controllers et à BD//
+      //envoie des données utilisateur  à la bdd table users
       const { data } = await axios.post("http://localhost:3000/api/signup", this.form);
       //reponse de la BD soit 1 ou message erreur//
       this.data = data;
-      // si reponse =1 recup données utilisateur et liens vers filActu//
+      // si reponse = 1 recup données utilisateur et liens vers filActu
       if (this.data.message ==1){
         const { data }= await axios.post("http://localhost:3000/api/login", this.form)
         this.data = data;
-        // stockage des données utilisateur dans la data centrale//
-        this.$store.commit('INCREMENT_USER', this.data);
-        //liens vers la page filactu//
+      // stockage des données utilisateur dans le data store
+        this.$store.commit('DATA_USER', this.data);
+      //liens vers la page filactu
         document.location.href = "#/newsQueue"
       } else {
-       this.user = false;
-       validEmail.setAttribute("class", "form-control is-invalid"); 
+        this.user = false;
+        validEmail.setAttribute("class", "form-control is-invalid"); 
       }
     }
   }

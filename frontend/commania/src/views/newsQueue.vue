@@ -56,9 +56,7 @@ export default {
 		})
 	},
   beforeMount() {
-    this.$store.commit('GET_ALL_POST');
-    this.$store.commit('GET_ONE_USER');
-    this.$store.commit('GET_ALL_POST_REPORT');
+    this.$store.dispatch('getData');
   }
 }
 </script>
