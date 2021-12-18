@@ -27,12 +27,12 @@ export default {
 
 <template>
     <div>
-        <div v-if="this.userDeleted == 2">Post écrit par un utilisateur désinscrit</div>
+        <div class="userDeleted" v-if="this.userDeleted == 2">Post écrit par un utilisateur désinscrit</div>
         <div class="post1__head" v-else>
             <v-avatar>
                 <img :src="picture" alt="Photo de l'auteur du post">
             </v-avatar>
-            <h3 class="post1__head--title">{{name}} {{firstname}}</h3>
+            <h2 class="post1__head--title">{{name}} {{firstname}}</h2>
         </div>
         <div class="post1__message">
             <p>{{message}}</p>
@@ -41,6 +41,9 @@ export default {
 </template>
 
 <style lang="scss">
+.userDeleted{
+    color:#0F4071
+}
 .post1{
     &__head{
         display: flex;

@@ -40,8 +40,8 @@ exports.getAllRemarks = (req, res) => {
     })
 }
 //supprime les commentaires d'un post 
-exports.deleteRemarks = (req, res, next) =>{
-    con.query("DELETE FROM `remarks` WHERE post_id = ?", req.params.id, function(err, result){
+exports.deleteRemarks = (req, res, next) => {
+    con.query("DELETE FROM `remarks` WHERE post_id = ?", req.params.id, function(err, result) {
         if (err) {
             throw err;
         } else {

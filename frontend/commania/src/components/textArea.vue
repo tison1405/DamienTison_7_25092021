@@ -100,6 +100,7 @@ export default {
 <template>
 <v-card class="mx-auto" id="zoneText">
   <div class="wrapper">
+    <label for="textPost">Ecrire un post</label>
     <textarea type="text" class="regular-input" id="textPost" v-model="input"  placeholder="Ecrivez votre post ici"></textarea>
 
     <EmojiPicker @emoji="append" :search="search">
@@ -136,7 +137,7 @@ export default {
       </div>
     </EmojiPicker>
   </div>
-   <v-btn text color="primary" v-if="upLoadFile === false" @click="seeUpLoadFile">
+   <v-btn text color=#0F4071 v-if="upLoadFile === false" @click="seeUpLoadFile">
       Ajoutez un fichier
   </v-btn>
   <UploadFile v-else 

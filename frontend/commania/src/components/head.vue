@@ -62,12 +62,15 @@ export default {
      methods:{
         disconnect(){
             this.$store.commit('DISCONNECT');
-        }
+        },
     }
 }
 </script>
 
 <style lang="scss">
+.headTitle{
+    text-decoration: none;
+}
 .flex{
     display: flex;
 }

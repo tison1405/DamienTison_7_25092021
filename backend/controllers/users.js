@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
       req.body.password.match( /[A-Z]/g) && //password doit contenir une majuscule
       req.body.password.match(/[a-z]/g) && //password doit contenir une minuscule
       req.body.password.match( /[^a-zA-Z\d]/g) &&//password doit contenir un caractère special
-      req.body.password.length >= 10) {//password doit contenir 10 caractères
+      req.body.password.length >= 10) {//password doit contenir 10 caractères ou plus
     //encodage Email
     const ciphertext = CryptoJs.AES.encrypt(req.body.email, key, {iv: iv});
     const ciphertextString = ciphertext.toString();

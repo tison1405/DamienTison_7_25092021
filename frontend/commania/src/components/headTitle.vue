@@ -1,11 +1,16 @@
 <script>
 export default {
-    name: "HeadTitle",   
+    name: "HeadTitle",
+    methods: {
+        menuLink(){
+            document.location.href = '#/newsQueue'
+        }
+    }   
 }
 </script>
 
 <template>
-    <div class="logoReseaumania">
+    <div class="logoReseaumania" @click="menuLink">
         <h2 class="logoReseaumania__text">Réseau</h2>
         <img class="logoReseaumania__img" src="../assets/images/kisspng-investment-fund-hedge-fund-funding-mutual-fund-connection-icon-5b4823ed62c280.2976177315314544454045.png" alt="logo du resau social réseaumania">
         <h2 class="logoReseaumania__text">Mania</h2>
@@ -18,7 +23,7 @@ export default {
         justify-content: center;
         &__text{
             align-self: center;
-            color:rgb(253, 45, 1);
+            color:#7E1601;
             font-size: larger;
         }
         &__img{

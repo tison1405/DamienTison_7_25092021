@@ -23,8 +23,8 @@ export default {
 </script>
 <template>
     <body>
-        <Head url1=#/profil url2=#/newsQueue name1="profil" name2="Fil d'actu" moderatorPage= "1"/>
-        <h1>Page moderateur</h1>
+        <Head url1=#/profil url2=#/newsQueue name1="Profil" name2="Fil d'actu" moderatorPage= "1"/>
+        <h1 class="moderatorTitle">Page moderateur</h1>
         <div class="reportlist">
             <Postlist 
                 v-for="item in postReport"
@@ -53,6 +53,9 @@ export default {
 </template>
 
 <style lang="scss">
+.moderatorTitle{
+    text-align: center;
+}
 .reportlist{
   margin-top: 10px;
   display: flex;

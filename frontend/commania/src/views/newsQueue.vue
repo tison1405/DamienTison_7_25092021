@@ -1,10 +1,12 @@
 <template>
   <body>
-    <Head url1=#/profil url3="#/moderator" name1="profil" name3="moderateur"/>
+    <Head url1=#/profil url3="#/moderator" name1="Profil" name3="Moderateur"/>
     <div class= "userArea">
       <div class= "userArea__userPhoto">
-        <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
-        <h2 class="userName">{{user.info.name}} {{user.info.firstname}}</h2>
+        <a href="#/profil">
+          <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+        </a>
+        <h1 class="userName">{{this.user.info.name.charAt(0).toUpperCase() + this.user.info.name.substring(1).toLowerCase()}} {{user.info.firstname}}</h1>
       </div>
       <TextArea></TextArea>
     </div>
@@ -49,6 +51,11 @@ export default {
     Head,
     Foot,
 	},
+  data(){
+    return{
+      userName: "",
+    }
+  },  
 	computed: {
 		...mapState ({
 			post: "post",
@@ -57,7 +64,7 @@ export default {
 	},
   beforeMount() {
     this.$store.dispatch('getData');
-  }
+  },
 }
 </script>
 
@@ -98,11 +105,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 450px;
+  height: 365px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 }
 </style>
 

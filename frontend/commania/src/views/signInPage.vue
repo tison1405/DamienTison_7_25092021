@@ -1,15 +1,14 @@
 
 <template>
   <div class="container">
-    <div class="logoReseaumania">
-        <h2 class="logoReseaumania__text">Réseau</h2>
+    <a href="/" class="logoReseaumania">
+      <h2 class="logoReseaumania__text">Réseau</h2>
         <img class="logoReseaumania__img" src="../assets/images/kisspng-investment-fund-hedge-fund-funding-mutual-fund-connection-icon-5b4823ed62c280.2976177315314544454045.png" alt="logo du resau social réseaumania">
-        <h2 class="logoReseaumania__text">Mania</h2>
-    </div>
+      <h2 class="logoReseaumania__text">Mania</h2>
+    </a>
     <img class="cardLogImg" src="../assets/images/kisspng-computer-icons-responsive-web-design-inscription-5adb26eb460480.3723165115243117872868.png" alt="">
     <form method="POST"  class="form">
-      <fieldset>
-        <legend class="titleContact">Inscrivez vous</legend>
+        <h1 class="titleContact">Inscrivez vous</h1>
         <div class="row">
           <FormUser
             validation= "validationName"
@@ -39,14 +38,13 @@
             validation= "validationPassword"
             name= "Mot de passe"
             type= "password"
-            pattern= "^(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{10}$"
+            pattern= "^(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{10,}$"
             placeholder="Inscriver votre mot de passe"
             validvalidation= "validPassword"
             invalidvalidation="invalidPassword"
           />
         </div>
-      </fieldset>
-      <div class="formulaire">
+      <div class="formBtn">
         <button class="btn btn-success validation" type="button" id="formulaire" @click="dataCapture">Valider</button>
         <p>{{this.data.message}}</p>
       </div>
@@ -136,6 +134,7 @@ export default {
 
 <style lang="scss">
  .logoReseaumania{
+        text-decoration: none;
         display: flex;
         justify-content: center;
         height: auto;
@@ -173,6 +172,11 @@ export default {
   max-height: 20%;
 }
 .form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formBtn{
   display: flex;
   flex-direction: column;
   align-items: center;

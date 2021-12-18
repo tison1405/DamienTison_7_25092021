@@ -1,6 +1,6 @@
 <template>
 <body>
-  <Head url1=#/newsQueue url3="#/moderator" name1="Fil d'actu" name3="moderateur"/>
+  <Head url1=#/newsQueue url3="#/moderator" name1="Fil d'actu" name3="Moderateur"/>
   <div class="userImg">
     <img :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
@@ -27,7 +27,7 @@
   </div>
   <div class="userInfo">
     <v-btn text color="primary" @click="seeUpLoadPicture" v-if="this.upLoadPicture==0">
-        Ajoutez ou modifiez votre photo
+       <h1 class="uploadPicture">Ajoutez ou modifiez votre photo.</h1>
     </v-btn>
     <p>{{user.info.name}}</p>
     <p>{{user.info.firstname}}</p>
@@ -36,7 +36,7 @@
       :revele="revele"
       :toggleModale="toggleModale"
     />
-    <div class="btn btn-success deleted" @click="toggleModale">Supprimer le compte</div>
+    <div class="btn btn-success deleted textColor" @click="toggleModale">Supprimer le compte</div>
   </div>
   <Foot/>
 </body>
@@ -72,7 +72,7 @@ export default {
   computed: {
 		...mapState({
       user: "user"
-	  }), 
+    }), 
   },
   methods: {
     //appel la modale pour supprimer les données de l'utilisateur
@@ -150,6 +150,12 @@ export default {
 </script>
 
 <style lang="scss">
+.uploadPicture{
+  font-size: 20px;
+}
+.textColor{
+  color:#1C1C1C;
+}
 .userInfo{
   display: flex;
   flex-direction: column;

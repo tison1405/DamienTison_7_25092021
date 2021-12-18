@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-      <button @click="downloadFile()">{{filename}}</button>
+    <button @click="downloadFile()">
+         <p class="download">{{filename}}</p> 
+    </button>
   </div>
 </template>
 
@@ -40,3 +42,10 @@
       }
     }
 </script>
+
+<style lang="scss">
+.download{
+    width: 287px;
+    overflow: hidden;
+}
+</style>

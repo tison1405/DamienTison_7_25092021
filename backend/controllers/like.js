@@ -4,7 +4,7 @@ exports.likePost = (req, res) => {
     let code= `${req.body.idUser}${req.params.id}`;
     let data = [[req.body.idUser, req.params.id, code]];
     // enregistrement du like sur la table like_post
-    con.query("INSERT INTO like_post  (user_like, id_post, id) VALUES ?;",[data], function(err, result){
+    con.query("INSERT INTO like_post  (user_like, id_post, id) VALUES ?;",[data], function(err, _result){
         if (err) {
             res.json({
                 message: "Vous avez déjà liké"

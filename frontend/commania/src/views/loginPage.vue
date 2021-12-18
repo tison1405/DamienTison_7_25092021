@@ -1,14 +1,13 @@
 <template>
   <div class="container log">
-    <div class="logoReseaumania">
+    <a href="/" class="logoReseaumania">
         <h2 class="logoReseaumania__text">Réseau</h2>
         <img class="logoReseaumania__img" src="../assets/images/kisspng-investment-fund-hedge-fund-funding-mutual-fund-connection-icon-5b4823ed62c280.2976177315314544454045.png" alt="logo du resau social réseaumania">
         <h2 class="logoReseaumania__text">Mania</h2>
-    </div>
+    </a>
     <img src="../assets/images/kisspng-computer-icons-login-login-button-5ac0390c9296d8.4421116015225469566004.png" alt="" class="cardLoging">
     <form class="formLogin">
-      <fieldset>
-        <legend class="formTitle">Identifiez vous</legend>
+        <h1 class="formTitle">Identifiez vous</h1>
         <div class="row">
           <FormUser
             validation= "validationMail"
@@ -27,8 +26,7 @@
             invalidvalidation="invalidPassword"
           />
         </div>    
-      </fieldset>
-      <div class="formulaire">
+      <div class="formBtn">
         <button class="btn btn-success validation" type="button" id="formulaire" @click="dataCapture">Valider</button>
         <p v-if="this.dataLogin.errMail == true">Vous n'êtes pas inscrit. <a href="#/signIn">Inscrivez-vous</a></p>
         <p v-if="this.dataLogin.errMotdepasse == true"> Si vous avez oublié votre mot de passe. Veuillez contacter votre <a href="mailto:webmaster@example.com">administrateur</a></p>
@@ -73,7 +71,7 @@ export default {
       
       if (this.dataLogin.errMail == true) {
         validEmail.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalidMail").innerHTML = "veuillez saisir votre adresse mail.";
+        document.getElementById("invalidMail").innerHTML = "Cette adresse mail n'est pas enregistrée !";
       } else if (this.dataLogin.errMotdepasse == true) {
         validPassword.setAttribute("class", "form-control is-invalid");
         document.getElementById("invalidPassword").innerHTML = "Mot de passe erroné!";
@@ -89,6 +87,18 @@ export default {
 </script>
 
 <style lang="scss">
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../assets/images/icon.jpg");
+  background-position: center;
+  background-size:contain;
+  height: 100%;
+}
+.logoReseaumania{
+  text-decoration: none;
+}
 .formTitle {
   text-align: center;
 }
@@ -116,6 +126,11 @@ export default {
   border-radius: 10px;
   margin-top: 50px;
   box-shadow: 6px 4px 2px 1px rgba(8, 8, 8, 0.2);
+}
+.formBtn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
 

@@ -53,48 +53,49 @@ export default {
 
 <template>
 <body>
-    <Head url1=#/profil url2=#/newsQueue url3="#/moderator" name1="profil" name2="Fil d'actu" name3="moderateur"/>
+    <Head url1=#/profil url2=#/newsQueue url3="#/moderator" name1="Profil" name2="Fil d'actu" name3="Moderateur"/>
     <div class="alignPost">
-    <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
-        <Post 
-            :firstname="this.onePost.firstname"
-            :name="this.onePost.name"
-            :message="this.onePost.message"
-            :picture="this.onePost.picture"
-            :userDeleted="this.onePost.userDeleted"
-        />
-        <Download 
-            :filename="this.onePost.filename" 
-            :file="this.onePost.file"
-        />
-        <PostOption @see-remark="seeRemark"
-            :idPost="this.onePost.idPost" 
-            :idUser="this.user.info.userId" 
-            :like="this.onePost.likePost" 
-            :option="this.option"
-        />
-        <div v-if="this.remark==1">
-            <AddRemark @get-all='getAllRemarks'
+        <h1>Post</h1>
+        <v-card elevation="10" outlined shaped  color="#26c6da" class="post1">
+            <Post 
+                :firstname="this.onePost.firstname"
+                :name="this.onePost.name"
+                :message="this.onePost.message"
+                :picture="this.onePost.picture"
+                :userDeleted="this.onePost.userDeleted"
+            />
+            <Download 
+                :filename="this.onePost.filename" 
+                :file="this.onePost.file"
+            />
+            <PostOption @see-remark="seeRemark"
                 :idPost="this.onePost.idPost" 
                 :idUser="this.user.info.userId" 
+                :like="this.onePost.likePost" 
                 :option="this.option"
-            />
-            <div v-if="this.allRemarks.length ==0">
-                <p>pas de commentaire</p>
-            </div>
-            <div class="allRemarks" v-else>
-                <RemarkList 
-                    v-for="item in allRemarks"
-                    :name="item.name"
-                    :firstname="item.firstname"
-                    :remark="item.remark"
-                    :picture="item.picture"
-                    :userDelete="item.userDelete"
-                    :key="item.idRemark"
+             />
+            <div>
+                <AddRemark @get-all='getAllRemarks'
+                    :idPost="this.onePost.idPost" 
+                    :idUser="this.user.info.userId" 
+                    :option="this.option"
                 />
+                <div v-if="this.allRemarks.length ==0">
+                    <p>pas de commentaire</p>
+                </div>
+                <div class="allRemarks" v-else>
+                    <RemarkList 
+                        v-for="item in allRemarks"
+                        :name="item.name"
+                        :firstname="item.firstname"
+                        :remark="item.remark"
+                        :picture="item.picture"
+                        :userDelete="item.userDelete"
+                        :key="item.idRemark"
+                    />
+                </div>
             </div>
-        </div>
-    </v-card>
+        </v-card>
     </div>
     <Foot></Foot> 
 </body>
@@ -107,7 +108,8 @@ export default {
 .alignPost{
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .post1{
     display: inline-block;

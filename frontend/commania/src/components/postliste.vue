@@ -112,7 +112,7 @@ export default {
 }
 </script>
 <template>
-    <v-card elevation="10" outlined shaped  color="#f00020" class="post1" v-if="this.reportNumber == 2">
+    <v-card elevation="10" outlined shaped  color="#FFCCD3" class="post1" v-if="this.reportNumber == 2">
         <Post 
             :firstname="this.firstname"
             :name="this.name"

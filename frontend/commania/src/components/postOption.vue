@@ -102,17 +102,17 @@ export default {
 <template>
     <div>
         <div class="post1__option" >
-            <v-btn text color="primary" @click="seeRemark">
+            <v-btn text color="#0F4071" @click="seeRemark">
                 Commentaire
             </v-btn>
-            <v-btn text color="primary" @click="reports" v-if="this.option == 1">
+            <v-btn text color="#0F4071" @click="reports" v-if="this.option == 1">
                 Signaler
             </v-btn>
             <div v-else>
-                <v-btn text color="primary" @click="moderate" >
+                <v-btn text color="#0F4071" @click="moderate" >
                     Modérer
                 </v-btn>
-                <v-btn text color="primary" @click="validate" >
+                <v-btn text color="#0F4071" @click="validate" >
                     Valider
                 </v-btn>
             </div>
