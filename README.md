@@ -1,5 +1,5 @@
 # DamienTison_7_25092021
-### Groupomania
+# Groupomania
 # prerequis pour installer l'app:
  ## Node.js
  
@@ -18,6 +18,16 @@
  https://dev.mysql.com/downloads/mysql/#downloads
  
  # lancement du serveur frontend
+ 
+ ## installer le terminal
+ ```
+ yarn install
+ ````
+ ## lancer le terminal
+ ```
+ yarn serve
+ ```
+ 
  
  
  
