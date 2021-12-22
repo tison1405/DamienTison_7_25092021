@@ -17,6 +17,8 @@
  
  https://dev.mysql.com/downloads/mysql/#downloads
  
+ importer le fichier 
+ 
  # lancement du serveur frontend
  ## dossier frontend
  ```
