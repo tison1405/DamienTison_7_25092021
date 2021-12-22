@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
     //encodage Password
     bcrypt.hash(req.body.password, 10)//hashage du mot de passe//
     .then(hash => {
-      const user = [[req.body.name, req.body.firstname,ciphertextString ,hash ,"http://localhost:3000/userPictureSample/inconnu.png1638272875922.png" ,0]];
+      const user = [[req.body.name, req.body.firstname,ciphertextString ,hash ,null ,0]];
       var sql ="INSERT INTO users ( name, firstname, mail, password, picture, moderator) VALUES ?";
       con.query(sql,[user], function (err, result) {
         //Utilisateur existe déjà

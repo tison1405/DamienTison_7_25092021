@@ -26,9 +26,10 @@ export default {
     <div class="Remark">
         <div v-if="this.userDelete ==2">Post écrit par un utilisateur désinscrit</div>
          <div class="Remark__user" v-else>
-            <img class="Remark__user--picture" :src="picture" alt="photo de l'auteur du dernier commentaire">
-            <span class="Remark__user--name">{{name}}</span>
-            <span class="Remark__user--firstname">{{firstname}}</span>
+            <img v-if="!this.picture" src="../assets/images/inconnu.png"  alt="photo utilisateur" class="Remark__user--picture"/>
+            <img v-else class="Remark__user--picture" :src="picture" alt="photo de l'auteur du dernier commentaire">
+            <span class="Remark__user--name">{{name.charAt(0).toUpperCase() + name.substring(1).toLowerCase()}}</span>
+            <span class="Remark__user--firstname">{{firstname.charAt(0).toUpperCase() + firstname.substring(1).toLowerCase()}}</span>
         </div>
         <div class="Remark__text">
             {{remark}}

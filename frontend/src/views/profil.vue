@@ -2,7 +2,8 @@
 <body>
   <Head url1=#/newsQueue url3="#/moderator" name1="Fil d'actu" name3="Moderateur"/>
   <div class="userImg">
-    <img :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
+    <img v-if="!this.user.info.picture" src="../assets/images/inconnu.png"  alt="photo utilisateur" id="utiPhoto"/>
+    <img v-else :src= user.info.picture alt="photo utilisateur" id="utiPhoto"/>
     <div class="profil__photo" v-if="this.upLoadPicture==1">
       <form method="post" enctype="multipart/form-data">
         <div id="photo">

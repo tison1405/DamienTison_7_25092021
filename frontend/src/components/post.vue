@@ -30,9 +30,10 @@ export default {
         <div class="userDeleted" v-if="this.userDeleted == 2">Post écrit par un utilisateur désinscrit</div>
         <div class="post1__head" v-else>
             <v-avatar>
-                <img :src="picture" alt="Photo de l'auteur du post">
+                <img v-if="!this.picture" src="../assets/images/inconnu.png" alt="photo utilisateur pas personnalisée">
+                <img v-else :src="picture" alt="Photo de l'auteur du post">
             </v-avatar>
-            <h2 class="post1__head--title">{{name}} {{firstname}}</h2>
+            <h2 class="post1__head--title">{{name.charAt(0).toUpperCase() + name.substring(1).toLowerCase()}} {{firstname.charAt(0).toUpperCase() + firstname.substring(1).toLowerCase()}}</h2>
         </div>
         <div class="post1__message">
             <p>{{message}}</p>

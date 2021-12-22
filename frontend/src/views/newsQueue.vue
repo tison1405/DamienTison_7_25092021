@@ -4,9 +4,10 @@
     <div class= "userArea">
       <div class= "userArea__userPhoto">
         <a href="#/profil">
-          <img :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+          <img v-if="!this.user.info.picture" src="../assets/images/inconnu.png"  alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
+          <img v-else :src= user.info.picture alt="photo utilisateur" class="userArea__userPhoto--photoUse"/>
         </a>
-        <h1 class="userName">{{this.user.info.name.charAt(0).toUpperCase() + this.user.info.name.substring(1).toLowerCase()}} {{user.info.firstname}}</h1>
+        <h1 class="userName">{{this.user.info.name.toUpperCase()}} {{user.info.firstname.charAt(0).toUpperCase() + user.info.firstname.substring(1).toLowerCase()}}</h1>
       </div>
       <TextArea></TextArea>
     </div>
