@@ -13,3 +13,9 @@ prerequis pour installer l'app:
  ```
  npm install --global yarn
  ```
+ ## mySql
+ 
+ https://dev.mysql.com/downloads/mysql/#downloads
+ 
+ ## Vue.js
+ 
