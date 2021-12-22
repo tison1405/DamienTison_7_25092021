@@ -23,11 +23,11 @@
  cd frontend
  ```
  
- ## installer le terminal
+ ## installer les dépendances
  ```
  yarn install
  ````
- ## lancer le terminal
+ ## lancer le serveur
  ```
  yarn serve
  ```
@@ -36,7 +36,18 @@
  ```
  cd backend
  ```
- 
+ ## installer angular
+ ```
+ npm install @angular/cli
+ ```
+ ## installer les dépendances
+ ```
+ npm install
+ ```
+ ## lancer le serveur
+ ```
+ node server
+ ```
  
  
  
