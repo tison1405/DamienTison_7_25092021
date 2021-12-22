@@ -1,6 +1,6 @@
 # DamienTison_7_25092021
 # Reseaumania
-# prerequis pour installer l'app:
+# Prerequis pour installer l'app:
  ## Node.js
  
  https://nodejs.org/en/download/
@@ -26,7 +26,9 @@
  ```
  UPDATE users SET moderator = 1 WHERE id = 
  ```
- noter le numero de l'id de l'user concerné dans le fichier .env
+ Noter le numero de l'id de l'user concerné dans le fichier .env
+ 
+ Relancer le serveur backend
  
  ## Variable d'environement
  ### Completer le fichier 
@@ -34,34 +36,34 @@
  ### Le renommer 
  .env
  
- # lancement du serveur frontend
- ## dossier frontend
+ # Lancement du serveur frontend
+ ## Dossier frontend
  ```
  cd frontend
  ```
  
- ## installer les dépendances
+ ## Installer les dépendances
  ```
  yarn install
  ````
- ## lancer le serveur
+ ## Lancer le serveur
  ```
  yarn serve
  ```
- # lancement du serveur backend
- ## dossier backend
+ # Lancement du serveur backend
+ ## Dossier backend
  ```
  cd backend
  ```
- ## installer angular
+ ## Installer angular
  ```
  npm install @angular/cli
  ```
- ## installer les dépendances
+ ## Installer les dépendances
  ```
  npm install
  ```
- ## lancer le serveur
+ ## Lancer le serveur
  ```
  node server
  ```
