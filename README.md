@@ -19,7 +19,7 @@
  
  ### Importer la BDD dans mySql
  
- https://github.com/tison1405/DamienTison_7_25092021/blob/main/Bd%20MySql/groupomania%20(5).sql
+ https://github.com/tison1405/DamienTison_7_25092021/blob/main/Bd%20MySql/groupomania%20(6).sql
  
  ### Parametrer le mediateur une foi l'application installée et le compte du mediateur créé
  Definir le mediateur dans la table users en passant la colonne mediator à 1 sur la ligne du user concerneé.
