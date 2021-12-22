@@ -18,6 +18,10 @@
  https://dev.mysql.com/downloads/mysql/#downloads
  
  # lancement du serveur frontend
+ ## dossier frontend
+ ```
+ cd frontend
+ ```
  
  ## installer le terminal
  ```
