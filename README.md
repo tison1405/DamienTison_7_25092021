@@ -2,7 +2,14 @@
 Groupomania
 prerequis pour installer l'app:
  ## Node.js
- '''
+ ```
  https://nodejs.org/en/download/
- '''
- 
+ ```
+ ## npm
+ ```
+ npm install -g npm
+ ```
+ ## Yarn
+ ```
+ npm install --global yarn
+ ```
