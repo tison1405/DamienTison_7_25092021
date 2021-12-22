@@ -31,6 +31,13 @@
  ```
  yarn serve
  ```
+ # lancement du serveur backend
+ ## dossier backend
+ ```
+ cd backend
+ ```
+ 
+ 
  
  
  
