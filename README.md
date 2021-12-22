@@ -17,11 +17,15 @@
  
  https://dev.mysql.com/downloads/mysql/#downloads
  
- ### importer la BDD dans mySql
+ ### Importer la BDD dans mySql
  
  https://github.com/tison1405/DamienTison_7_25092021/blob/main/Bd%20MySql/groupomania%20(5).sql
  
  ## Variable d'environement
+ ### Completer le fichier 
+ .env.sample
+ ### Le renommer 
+ .env
  
  # lancement du serveur frontend
  ## dossier frontend
