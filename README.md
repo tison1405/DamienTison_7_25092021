@@ -21,6 +21,13 @@
  
  https://github.com/tison1405/DamienTison_7_25092021/blob/main/Bd%20MySql/groupomania%20(5).sql
  
+ ### Parametrer le mediateur une foi l'application installée et le compte du mediateur créé
+ Definir le mediateur dans la table users en passant la colonne mediator à 1 sur la ligne du user concerneé.
+ ```
+ UPDATE users SET moderator = 1 WHERE id = 
+ ```
+ noter le numero de l'id de l'user concerné dans le fichier .env
+ 
  ## Variable d'environement
  ### Completer le fichier 
  .env.sample
