@@ -41,7 +41,7 @@
 import Foot from '../components/foot.vue'
 import Head from '../components/head.vue'
 import TextArea from '../components/textArea.vue'
-import Postlist from '../components/postliste.vue'
+import Postlist from '../components/postList.vue'
 import { mapState } from "vuex"
 export default {
 	name: "newsQueuePage",
@@ -105,12 +105,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 365px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
+  height: 54vh;
 }
+ @media screen and (min-width: 1100px){
+   .postlist{
+    height: 365px;
+    margin-bottom: 50px;
+    }
+ }
 </style>
 

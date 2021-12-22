@@ -2,7 +2,7 @@
 import { mapState } from "vuex";
 import deleted from '../api/delete'
 export default {
-    name: "modaleDeleted",
+    name: "popinDeleted",
     props: [
         "revele",
         "toggleModale"

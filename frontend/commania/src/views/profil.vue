@@ -32,7 +32,7 @@
     <p>{{user.info.name}}</p>
     <p>{{user.info.firstname}}</p>
     <p>{{user.info.email}}</p>
-    <Modale 
+    <Popin 
       :revele="revele"
       :toggleModale="toggleModale"
     />
@@ -43,18 +43,18 @@
 </template>
 
 <script>
-import Modale from '../components/modaleDeleted.vue'
+import Popin from '../components/popinDeleted.vue'
 import put from '../api/put'
 import Foot from '../components/foot.vue'
 import { mapState } from "vuex";
 import FormData from 'form-data';
 import Head from '../components/head.vue'
 export default {
-  name : "profile",
+  name : "profil",
   components: {
     Head,
     Foot,
-    Modale
+    Popin
   },
   data() {
     return {

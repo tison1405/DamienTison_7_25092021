@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <button @click="downloadFile()">
+    <button @click="downloadFile()" v-if="this.filename">
          <p class="download">{{filename}}</p> 
     </button>
   </div>

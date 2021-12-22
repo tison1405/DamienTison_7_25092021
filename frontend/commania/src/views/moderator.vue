@@ -1,5 +1,5 @@
 <script>
-import Postlist from '../components/postliste.vue'
+import Postlist from '../components/postList.vue'
 import Head from '../components/head.vue'
 import Foot from '../components/foot.vue'
 import { mapState } from "vuex"

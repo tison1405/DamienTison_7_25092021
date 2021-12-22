@@ -116,7 +116,7 @@ export default {
                     Valider
                 </v-btn>
             </div>
-            <v-btn icon  @click="addLike" v-if="this.option == 1">
+            <v-btn icon  @click="addLike" v-if="this.option == 1" aria-hidden="false">
                 <v-icon>mdi-thumb-up</v-icon>
                 <span>{{like}}</span>
             </v-btn>  

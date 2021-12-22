@@ -189,7 +189,7 @@ export default {
 
 .emoji-invoker {
   position: absolute;
-  top: 1.5rem;
+  top: 2.5rem;
   right: 0.5rem;
   width: 1.5rem;
   height: 1.5rem;

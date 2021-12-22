@@ -1,13 +1,13 @@
 <script>
 import { mapState } from "vuex"
 import AddRemarks from './addRemark.vue'
-import Post from '../components/post.vue'
-import PostOption from '../components/postOption.vue'
-import RemarkList from '../components/remarkList.vue'
-import Download from '../components/downloadFile.vue'
+import Post from './post.vue'
+import PostOption from './postOption.vue'
+import RemarkList from './remarkList.vue'
+import Download from './downloadFile.vue'
 export default {
-	name: 'Postlist',
-    components:{
+	name: 'postList',
+    components: {
         AddRemarks,
         Post,
         PostOption,
