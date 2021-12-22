@@ -1,6 +1,6 @@
 # DamienTison_7_25092021
-Groupomania
-prerequis pour installer l'app:
+### Groupomania
+# prerequis pour installer l'app:
  ## Node.js
  
  https://nodejs.org/en/download/
@@ -17,5 +17,9 @@ prerequis pour installer l'app:
  
  https://dev.mysql.com/downloads/mysql/#downloads
  
- ## Vue.js
+ # lancement du serveur frontend
+ 
+ 
+ 
+ 
  
