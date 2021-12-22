@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const mysql = require('mysql');
-const myHost = process.env.LOCAL;
+const myHost = process.env.HOST;
 const myUser = process.env.USER;
 const con = mysql.createConnection({host: myHost, user: myUser, database : "groupomania", charset:"utf8mb4"});
 const usersRouter = require ('./routes/users');
