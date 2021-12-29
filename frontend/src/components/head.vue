@@ -9,18 +9,18 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item flex">
-                            <a class="nav-link" aria-current="page" :href= url1>
+                            <a class="nav-link"  :href= url1>
                                 {{name1}}
                             </a>
                         </li>
                         <li class="nav-item flex" v-if="this.user.info.moderator == 1">
-                            <a class="nav-link aline" aria-current="page" :href= url3> 
+                            <a class="nav-link aline"  :href= url3> 
                                 {{name3}}
                             </a>
                             <v-badge dot color="#f00020" v-if="this.postReport[0] && !this.moderatorPage"></v-badge>
                         </li>
                         <li class="nav-item flex">
-                            <a class="nav-link" aria-current="page" :href= url2>
+                            <a class="nav-link"  :href= url2>
                                 {{name2}}
                             </a>
                         </li>

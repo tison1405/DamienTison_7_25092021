@@ -8,7 +8,7 @@
         dark
         icon
       >
-        <v-icon size="24px">
+        <v-icon size="24px" aria-hidden="false">
           {{ icon }}
         </v-icon>
       </v-btn>

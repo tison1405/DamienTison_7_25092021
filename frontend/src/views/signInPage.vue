@@ -13,7 +13,7 @@
           <FormUser
             validation= "validationName"
             name= "Nom de famille"
-            pattern= "[^ 1-9]{1,}"
+            pattern= "[a-zA-Z]{1,}"
             placeholder="Inscriver votre nom de famille"
             validvalidation= "validName"
             invalidvalidation="invalidName"
@@ -21,7 +21,7 @@
           <FormUser
             validation= "validationFirstname"
             name= "Prénom"
-            pattern= "[^ 1-9]{1,}"
+            pattern= "[a-zA-Z]{1,}"
             placeholder="Inscriver votre prénom"
             validvalidation= "validFirstname"
             invalidvalidation="invalidFirstname"
@@ -46,7 +46,6 @@
         </div>
       <div class="formBtn">
         <button class="btn btn-success validation" type="button" id="formulaire" @click="dataCapture">Valider</button>
-        <p>{{this.data.message}}</p>
       </div>
     </form>
   </div>
@@ -85,7 +84,7 @@ export default {
         this.form.name = validName.value
       } else {
         validName.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalidName").innerHTML = "Veuillez inscrir un nom sans chiffre!"; 
+        document.getElementById("invalidName").innerHTML = "Veuillez saisir uniquement des lettres"; 
       }
       //validation prenom
       if (validFirstname.validity.patternMismatch === false && validFirstname.validity.valueMissing === false){
@@ -93,7 +92,7 @@ export default {
         this.form.firstname = validFirstname.value;
       } else {
         validFirstname.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalidFirstname").innerHTML = "Veuillez inscrir un prénom sans chiffre!"; 
+        document.getElementById("invalidFirstname").innerHTML = "Veuillez saisir uniquement des lettres"; 
       }
       //validation Email
       if (validEmail.validity.typeMismatch === false && validEmail.validity.valueMissing === false){
@@ -101,20 +100,22 @@ export default {
         this.form.email = validEmail.value;
       } else {
         validEmail.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalidMail").innerHTML = "Veuillez inscrir une adresse email"; 
+        document.getElementById("invalidMail").innerHTML = "Veuillez saisir une adresse email"; 
       }
       //validation password
-      if (validPassword.validity.patternMismatch === false &&validPassword .validity.valueMissing === false){
+      if (validPassword.validity.patternMismatch === false && validPassword.validity.valueMissing === false){
         validPassword.setAttribute("class", "form-control is-valid");
         this.form.password = validPassword.value;
       } else {
         validPassword.setAttribute("class", "form-control is-invalid");
-        document.getElementById("invalidPassword").innerHTML = "Veuillez inscrir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
+        document.getElementById("invalidPassword").innerHTML = "Veuillez saisir un mot de passe avec un chiffre une lettre un caractère special et de 10 caractères!"; 
       }
       //envoie des données utilisateur  à la bdd table users
+      if (this.form.firstname && this.form.name && this.form.email && this.form.password){
       const { data } = await axios.post("http://localhost:3000/api/signup", this.form);
       //reponse de la BD soit 1 ou message erreur//
       this.data = data;
+      }
       // si reponse = 1 recup données utilisateur et liens vers filActu
       if (this.data.message ==1){
         const { data }= await axios.post("http://localhost:3000/api/login", this.form)
@@ -123,9 +124,11 @@ export default {
         this.$store.commit('DATA_USER', this.data);
       //liens vers la page filactu
         document.location.href = "#/newsQueue"
+      } else if (this.data.message == 2) {
+        validEmail.setAttribute("class", "form-control is-invalid");
+        document.getElementById("invalidMail").innerHTML = "Cette adresse mail est déjà utilisé !"; 
       } else {
-        this.user = false;
-        validEmail.setAttribute("class", "form-control is-invalid"); 
+        this.user = false; 
       }
     }
   }

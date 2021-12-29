@@ -6,6 +6,12 @@ export default {
         text(){
             var validEmail = document.getElementById("validationMail");
             var validPassword = document.getElementById("validationPassword");
+            var validName = document.getElementById("validationName");
+            var validFirstname = document.getElementById("validationFirstname");
+            validFirstname.setAttribute("class", "form-control");
+            document.getElementById("invalidFirstname").innerHTML="";
+            validName.setAttribute("class", "form-control");
+            document.getElementById("invalidName").innerHTML="";
             validEmail.setAttribute("class", "form-control");
             document.getElementById("invalidMail").innerHTML = "";
             validPassword.setAttribute("class", "form-control");

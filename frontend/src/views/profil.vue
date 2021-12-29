@@ -152,7 +152,7 @@ export default {
 
 <style lang="scss">
 .uploadPicture{
-  font-size: 20px;
+  font-size: unset;
 }
 .textColor{
   color:#1C1C1C;

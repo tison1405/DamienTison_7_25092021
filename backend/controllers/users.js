@@ -27,7 +27,7 @@ exports.signup = (req, res) => {
         //Utilisateur existe déjà
         if (err) {
           res.json({ 
-            message: "l'utilisateur existe déjà"
+            message: 2
           })
         //Utlisateur créé avec réponse = 1
         } else {

@@ -102,22 +102,22 @@ export default {
 <template>
     <div>
         <div class="post1__option" >
-            <v-btn text color="#0F4071" @click="seeRemark">
+            <v-btn text color="#0F4071" @click="seeRemark" aria-hidden="false">
                 Commentaire
             </v-btn>
-            <v-btn text color="#0F4071" @click="reports" v-if="this.option == 1">
+            <v-btn text color="#0F4071" @click="reports" v-if="this.option == 1" aria-hidden="false">
                 Signaler
             </v-btn>
             <div v-else>
-                <v-btn text color="#0F4071" @click="moderate" >
+                <v-btn text color="#0F4071" @click="moderate" aria-hidden="false">
                     Modérer
                 </v-btn>
-                <v-btn text color="#0F4071" @click="validate" >
+                <v-btn text color="#0F4071" @click="validate" aria-hidden="false">
                     Valider
                 </v-btn>
             </div>
             <v-btn icon  @click="addLike" v-if="this.option == 1" aria-hidden="false">
-                <v-icon>mdi-thumb-up</v-icon>
+                <v-icon aria-hidden="false">mdi-thumb-up</v-icon>
                 <span>{{like}}</span>
             </v-btn>  
         </div>
