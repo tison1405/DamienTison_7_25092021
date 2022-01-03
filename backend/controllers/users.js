@@ -130,14 +130,24 @@ exports.userInfo = (req, res) => {
 }
 //remplace les infos utilisateur par utilisateur desactive
 exports.deleteUser = (req, res) => {
-  con.query("UPDATE users SET name='Utilisateur desactivé', firstname = 'Utilisateur desactivé', password ='Utilisateur desactivé', picture ='Utilisateur desactivé', moderator = 2 WHERE id = ?",req.params.id, function(err, result){
-    if (err){
-      throw err;
-    } else {
-      res.json({
-        message: result.affectedRows
-      })
-    }
-  })
+  const token = req.headers.authorization.split(' ')[1];
+    const mytokenKey = process.env.tokenKey;
+    const decodedToken = jwt.verify(token, mytokenKey);
+    const userId = decodedToken.userId;
+    if (userId == req.params.id){
+      con.query("UPDATE users SET name='Utilisateur desactivé', firstname = 'Utilisateur desactivé', password ='Utilisateur desactivé', picture ='Utilisateur desactivé', moderator = 2 WHERE id = ?",req.params.id, function(err, result){
+        if (err){
+          throw err;
+        } else {
+          res.json({
+           message: result.affectedRows
+        })
+      }
+    })
+  } else {
+    res.json({
+      message: "Action impossible !"
+    })
+  }
 }
   

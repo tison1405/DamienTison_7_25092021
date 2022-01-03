@@ -93,19 +93,25 @@ exports.getPostModerator = (req, res) => {
         })
     } else {
         res.json({
-            message: "Vous n'avez pas les droits pour acceder à cette page"
+            message: "Vous n'avez pas les droits pour cette action."
         })
     }
 }
 //modère un post
 exports.modaratePost = (req, res) => {
-    con.query("UPDATE posts SET post = 'Votre post a été moderé' , report= 2 WHERE id = ?", req.params.id, function (err, result){
-        if (err) {
-            throw err;
-        } else {
-            res.json({
-                message : result.affectedRows
-            })
-        }
-    })
+    if (moderatorId === req.params.id){
+        con.query("UPDATE posts SET post = 'Votre post a été moderé' , report= 2 WHERE id = ?", req.params.id, function (err, result){
+            if (err) {
+                throw err;
+            } else {
+                res.json({
+                     message : result.affectedRows
+                })
+            }
+        })
+    } else {
+        res.json({
+            message: "Vous n'avez pas les droits pour acceder à cette page"
+        })
+    }
 } 
