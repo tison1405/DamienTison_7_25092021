@@ -112,13 +112,13 @@ export default {
       }
       //envoie des données utilisateur  à la bdd table users
       if (this.form.firstname && this.form.name && this.form.email && this.form.password){
-      const { data } = await axios.post("http://localhost:3000/api/signup", this.form);
+      const { data } = await axios.post("http://192.168.1.155:3000/api/signup", this.form);
       //reponse de la BD soit 1 ou message erreur//
       this.data = data;
       }
       // si reponse = 1 recup données utilisateur et liens vers filActu
       if (this.data.message ==1){
-        const { data }= await axios.post("http://localhost:3000/api/login", this.form)
+        const { data }= await axios.post("http://192.168.1.155:3000/api/login", this.form)
         this.data = data;
       // stockage des données utilisateur dans le data store
         this.$store.commit('DATA_USER', this.data);

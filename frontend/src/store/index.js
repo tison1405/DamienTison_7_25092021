@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     user:{
       base:{
-        baseURL: 'http://localhost:3000/api',
+        baseURL: 'http://192.168.1.155:3000/api',
         headers: ""
       },
       info:""
