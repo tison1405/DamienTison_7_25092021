@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const dotenv = require("dotenv");
@@ -20,6 +21,7 @@ const path = require('path');
   });
 
   app.use(express.json());//remplace body parser//
+
 
   
   app.use('/images', express.static(path.join(__dirname, 'images')));

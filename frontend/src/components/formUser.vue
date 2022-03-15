@@ -8,13 +8,13 @@ export default {
             var validPassword = document.getElementById("validationPassword");
             var validName = document.getElementById("validationName");
             var validFirstname = document.getElementById("validationFirstname");
-            validFirstname.setAttribute("class", "form-control");
+            validFirstname.setAttribut("class", "form-control");
             document.getElementById("invalidFirstname").innerHTML="";
-            validName.setAttribute("class", "form-control");
+            validName.setAttribut("class", "form-control");
             document.getElementById("invalidName").innerHTML="";
-            validEmail.setAttribute("class", "form-control");
+            validEmail.setAttribut("class", "form-control");
             document.getElementById("invalidMail").innerHTML = "";
-            validPassword.setAttribute("class", "form-control");
+            validPassword.setAttribut("class", "form-control");
             document.getElementById("invalidPassword").innerHTML = "";
         }
     }   

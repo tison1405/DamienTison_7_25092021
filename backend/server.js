@@ -1,5 +1,12 @@
-const http = require('http');
+const https = require('https');
 const app = require ('./app');
+const fs = require("fs");
+const path = require("path");
+
+const certfile = fs.readFileSync(path.join(__dirname, "cert", "cert.pem"));
+const keyfile = fs.readFileSync(path.join(__dirname, "cert", "key.pem"));
+
+const secureserver = https.createServer({ cert: certfile, key: keyfile, passphrase: "come0801" }, app);
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -35,13 +42,12 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app);
 
-server.on('error', errorHandler);
-server.on('listening', () => {
-  const address = server.address();
+secureserver.on('error', errorHandler);
+secureserver.on('listening', () => {
+  const address = secureserver.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+secureserver.listen(port);
