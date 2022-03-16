@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@heroku/buildpack-registry": "^1.0.1",
     "bcrypt": "^5.0.1",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
