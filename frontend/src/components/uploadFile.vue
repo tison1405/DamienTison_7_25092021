@@ -7,7 +7,13 @@ export default {
         }
     },
     data(){
-        
+        return{
+            file:"",
+            textContent:"",
+            validFile:"",
+            input:"",
+            postValidated: false,
+        }
     },
     methods: {
         //methode pour verifier le type de fichier
