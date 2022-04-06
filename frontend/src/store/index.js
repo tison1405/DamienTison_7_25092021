@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     user:{
       base:{
-        baseURL: 'https://192.168.1.155:3000/api',
+        baseURL: 'https://dry-spire-55847.herokuapp.com/api',
         headers: ""
       },
       info:""
@@ -58,7 +58,7 @@ export default new Vuex.Store({
 
     //fonction pour recuperer les posts
     async GET_ALL_POST(state){
-      const ENDPOINT = "/"
+      const ENDPOINT = "/post"
       get(ENDPOINT, state)
       .then(res => { 
         state.post= res.data.result;
@@ -66,7 +66,7 @@ export default new Vuex.Store({
     },
     //fonction pour recuperer un post
     async GET_ONE_POST (state){
-      const ENDPOINT = '/post/'+state.idPost;
+      const ENDPOINT = '/post/post/'+state.idPost;
       get(ENDPOINT, state)
       .then(result => {
         state.onePost= result.data.result[0]
