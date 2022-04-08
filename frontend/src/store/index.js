@@ -82,7 +82,7 @@ export default new Vuex.Store({
     },
     //fonction pour recuperer les posts signalés
     async GET_ALL_POST_REPORT (state){
-      const ENDPOINT = '/moderator/'+state.user.info.userId;
+      const ENDPOINT = '/post/moderator/'+state.user.info.userId;
       get(ENDPOINT, state)
       .then(result => {
         state.postReport= result.data.result
